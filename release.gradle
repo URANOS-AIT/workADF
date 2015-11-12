@@ -1,0 +1,48 @@
+import java.text.SimpleDateFormat
+
+task makeWorkspace(type: Zip,  dependsOn: ['clean', 'build']) {
+    Calendar calendar = Calendar.getInstance()
+    SimpleDateFormat sdf = new SimpleDateFormat('yyyyMMdd')
+    String date = sdf.format(calendar.getTime())
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    destinationDir = new File(projectDir, 'release')
+    String buildName = 'adf-workspace-' + date
+    archiveName = buildName + '.zip'
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    into(buildName) {
+        into('workspace') {
+            //gradle
+            from 'gradlew'
+            from 'gradlew.bat'
+            into('gradle') {
+                from 'gradle'
+            }
+            //build
+            from 'basefile'
+            //library
+            into('library') {
+                from 'library'
+                into('rescue/util') {
+                    from 'modules/core/build/libs/adf-core.jar'
+                    from 'modules/util/build/libs/adf-util.jar'
+                    //sources
+                    into('sources') {
+                        from 'modules/core/build/libs/adf-core-sources.jar'
+                        from 'modules/util/build/libs/adf-util-sources.jar'
+                    }
+                }
+            }
+            //src
+            into('src') {
+                into('java') {
+                    from 'modules/sample/src/main/java'
+                }
+            }
+            //config
+            into('config') {
+                from 'modules/sample/config/adf.cfg'
+            }
+        }
+        from 'LICENSE'
+    }
+}

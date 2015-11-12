@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement />
+  <nodes>
+    <node x="396.9999999999999" y="372.0">adf.agent.action.ActionClear</node>
+    <node x="409.0" y="616.0">adf.team</node>
+    <node x="831.9999999999999" y="425.0">adf.agent.action.ActionRescue</node>
+    <node x="757.9999999999999" y="144.0">adf.agent.action.ActionMove</node>
+    <node x="1396.0" y="197.0">adf.agent.action.ActionUnload</node>
+    <node x="217.0" y="616.0">adf.launcher</node>
+    <node x="1181.0" y="0.0">adf.agent.action.Action</node>
+    <node x="0.0" y="414.0">adf.agent.action.ActionExtinguish</node>
+    <node x="578.0" y="616.0">adf.util</node>
+    <node x="1177.0" y="197.0">adf.agent.action.ActionRest</node>
+    <node x="470.9999999999999" y="197.0">adf.agent.action.ActionTarget</node>
+    <node x="0.0" y="616.0">adf.Main</node>
+    <node x="1700.0" y="175.5">adf.agent.action.ActionLoad</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="adf.agent.action.ActionRescue" target="adf.agent.action.ActionTarget">
+      <point x="1.1368683772161603E-13" y="-46.5" />
+      <point x="1012.5" y="347.0" />
+      <point x="693.4999999999999" y="347.0" />
+      <point x="89.0" y="36.0" />
+    </edge>
+    <edge source="adf.agent.action.ActionExtinguish" target="adf.agent.action.ActionTarget">
+      <point x="0.0" y="-57.5" />
+      <point x="188.5" y="347.0" />
+      <point x="515.4999999999999" y="347.0" />
+      <point x="-89.0" y="36.0" />
+    </edge>
+    <edge source="adf.agent.action.ActionUnload" target="adf.agent.action.Action">
+      <point x="0.0" y="-36.0" />
+      <point x="1538.0" y="124.0" />
+      <point x="1314.6999999999998" y="124.0" />
+      <point x="38.200000000000045" y="47.0" />
+    </edge>
+    <edge source="adf.agent.action.ActionLoad" target="adf.agent.action.Action">
+      <point x="0.0" y="-57.5" />
+      <point x="1802.0" y="114.0" />
+      <point x="1352.9" y="114.0" />
+      <point x="76.40000000000009" y="47.0" />
+    </edge>
+    <edge source="adf.agent.action.ActionClear" target="adf.agent.action.ActionTarget">
+      <point x="0.0" y="-99.5" />
+      <point x="0.0" y="36.0" />
+    </edge>
+    <edge source="adf.agent.action.ActionTarget" target="adf.agent.action.Action">
+      <point x="0.0" y="-36.0" />
+      <point x="604.4999999999999" y="114.0" />
+      <point x="1200.1" y="114.0" />
+      <point x="-76.40000000000009" y="47.0" />
+    </edge>
+    <edge source="adf.agent.action.ActionRest" target="adf.agent.action.Action">
+      <point x="0.0" y="-36.0" />
+      <point x="0.0" y="47.0" />
+    </edge>
+    <edge source="adf.agent.action.ActionMove" target="adf.agent.action.Action">
+      <point x="1.1368683772161603E-13" y="-89.0" />
+      <point x="957.5" y="124.0" />
+      <point x="1238.2999999999997" y="124.0" />
+      <point x="-38.200000000000045" y="47.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.8024948024948025" x="952.0" y="333.0" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Fields</Category>
+    <Category>Constructors</Category>
+    <Category>Properties</Category>
+    <Category>Methods</Category>
+    <Category>Inner Classes</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
