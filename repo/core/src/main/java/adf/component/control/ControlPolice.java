@@ -1,4 +1,4 @@
-package adf.control;
+package adf.component.control;
 
 public abstract class ControlPolice extends Control
 {

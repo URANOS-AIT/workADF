@@ -3,13 +3,9 @@ package adf.agent.platoon;
 import adf.agent.Agent;
 import adf.agent.info.AgentInfo;
 import adf.agent.platoon.action.Action;
-import adf.tactics.Tactics;
+import adf.component.tactics.Tactics;
 import comlib.manager.MessageManager;
-import rescuecore2.messages.Command;
 import rescuecore2.standard.entities.StandardEntity;
-import rescuecore2.worldmodel.ChangeSet;
-
-import java.util.Collection;
 
 public abstract class Platoon<E extends StandardEntity> extends Agent<E>
 {
@@ -39,12 +35,12 @@ public abstract class Platoon<E extends StandardEntity> extends Agent<E>
 				rootTactics.preparate(agentInfo, worldInfo, scenarioInfo);
 				break;
 			case PRECOMPUTATION_PHASE:
-				rootTactics.precompute(agentInfo, worldInfo, scenarioInfo, dataStorage);
-				dataStorage.setReady(true);
-				dataStorage.write();
+				rootTactics.precompute(agentInfo, worldInfo, scenarioInfo, precomputeInfo);
+				precomputeInfo.setReady(true);
+				precomputeInfo.write();
 				break;
 			case PRECOMPUTED:
-				rootTactics.resume(agentInfo, worldInfo, scenarioInfo, dataStorage);
+				rootTactics.resume(agentInfo, worldInfo, scenarioInfo, precomputeInfo);
 				break;
 			default:
 		}

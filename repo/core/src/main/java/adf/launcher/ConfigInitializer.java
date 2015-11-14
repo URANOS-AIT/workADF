@@ -8,64 +8,46 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ConfigInitializer
-{
+public class ConfigInitializer {
 
-	public static Config
-	getConfig(File configPath, String[] args)
-	{
-		Config commandLine = analysis(args);
-		//File configDir = new File(System.getProperty("user.dir"), "config");
-		if (!configPath.exists())
-		{
-			if (!configPath.mkdir())
-			{
-				return commandLine;
-			}
-		}
-		try
-		{
-			Config config = new Config(configPath);
-			config.merge(commandLine);
-			return config;
-		}
-		catch (ConfigException e)
-		{
-			e.printStackTrace();
-		}
-		return commandLine;
-	}
-
-	public static Config analysis(String[] args)
-	{
-		Config config = new Config();
+    public static final File DEFAULT_PATH = new File(System.getProperty("user.dir"), "config");
+    
+    public static Config getConfig(String... args) {
+        Config commandLine = analysis(args);
+        try {
+            Config config = new Config(DEFAULT_PATH);
+            config.merge(commandLine);
+            return config;
+        }
+        catch (ConfigException e) {
+            e.printStackTrace();
+        }
+        return commandLine;
+    }
+    
+    public static Config analysis(String... args) {
+        Config config = new Config();
+        //set load target
+        config.setValue(ConfigKey.KEY_LOADER_CLASS, args[0]);
+        //set option
 		Map<String, Option> options = initOption();
-
-		config.setValue(ConfigKey.KEY_LOADER_CLASS, args[0]);
-		//config.setValue(ConfigKey.KEY_FIRE_BRIGADE_NAME, args[1]);
-		//config.setValue(ConfigKey.KEY_POLICE_FORCE_NAME, args[2]);
-		//config.setValue(ConfigKey.KEY_AMBULANCE_CENTRE_NAME, args[3]);
-		//config.setValue(ConfigKey.KEY_FIRE_STATION_NAME, args[4]);
-		//config.setValue(ConfigKey.KEY_POLICE_OFFICE_NAME, args[5]);
-
 		for (int i = 1; i < args.length; i++) {
 			String[] strArray = args[i].split(":");
 			Option option = options.get(strArray[0]);
-			if (option != null)
-			{
+			if (option != null) {
 				option.setValue(config, strArray);
 			}
 		}
+		//options = null;
 		return config;
-	}
-
-	private static Map<String, Option> initOption()
-	{
+    }
+    
+    private static Map<String, Option> initOption() {
 		Map<String, Option> options = new HashMap<>();
 		registerOption(options, new OptionServer());
 		registerOption(options, new OptionHost());
-		registerOption(options, new OptionTeam());
 		registerOption(options, new OptionPrecompute());
+		registerOption(options, new OptionTeam());
 		registerOption(options, new OptionAmbulanceTeam());
 		registerOption(options, new OptionFireBrigade());
 		registerOption(options, new OptionPoliceForce());
@@ -75,8 +57,7 @@ public class ConfigInitializer
 		return options;
 	}
 
-	private static void registerOption(Map<String, Option> options, Option option)
-	{
+	private static void registerOption(Map<String, Option> options, Option option) {
 		options.put(option.getKey(), option);
 	}
 }

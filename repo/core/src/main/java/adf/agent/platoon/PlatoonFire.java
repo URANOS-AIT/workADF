@@ -1,17 +1,10 @@
 package adf.agent.platoon;
 
-import adf.agent.info.AgentInfo;
-import adf.tactics.Tactics;
-import adf.tactics.TacticsFire;
-import adf.util.datastorage.DataStorage;
-import comlib.manager.MessageManager;
-import rescuecore2.messages.Command;
+import adf.component.tactics.TacticsFire;
 import rescuecore2.standard.entities.FireBrigade;
-import rescuecore2.standard.entities.PoliceForce;
 import rescuecore2.standard.entities.StandardEntityURN;
-import rescuecore2.worldmodel.ChangeSet;
 
-import java.util.*;
+import java.util.EnumSet;
 
 public class PlatoonFire extends Platoon<FireBrigade>
 {

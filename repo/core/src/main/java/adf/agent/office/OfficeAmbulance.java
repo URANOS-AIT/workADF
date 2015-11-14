@@ -1,16 +1,9 @@
 package adf.agent.office;
 
-import adf.agent.info.AgentInfo;
-import adf.control.Control;
-import adf.control.ControlAmbulance;
-import adf.util.datastorage.DataStorage;
-import comlib.manager.MessageManager;
-import rescuecore2.messages.Command;
+import adf.component.control.ControlAmbulance;
 import rescuecore2.standard.entities.Building;
 import rescuecore2.standard.entities.StandardEntityURN;
-import rescuecore2.worldmodel.ChangeSet;
 
-import java.util.Collection;
 import java.util.EnumSet;
 
 public class OfficeAmbulance extends Office<Building>

@@ -1,9 +1,9 @@
-package adf.control;
+package adf.component.control;
 
 import adf.agent.info.AgentInfo;
+import adf.agent.info.PrecomputeInfo;
 import adf.agent.info.ScenarioInfo;
 import adf.agent.info.WorldInfo;
-import adf.util.datastorage.DataStorage;
 
 public abstract class Control
 {
@@ -20,7 +20,7 @@ public abstract class Control
 	}
 
 	abstract public void initialize(AgentInfo agentInfo, WorldInfo worldInfo, ScenarioInfo scenarioInfo);
-	abstract public void resume(AgentInfo agentInfo, WorldInfo worldInfo, ScenarioInfo scenarioInfo, DataStorage dataStorage);
+	abstract public void resume(AgentInfo agentInfo, WorldInfo worldInfo, ScenarioInfo scenarioInfo, PrecomputeInfo precomputeInfo);
 	abstract public void preparate(AgentInfo agentInfo, WorldInfo worldInfo, ScenarioInfo scenarioInfo);
 	abstract public void think(AgentInfo agentInfo, WorldInfo worldInfo, ScenarioInfo scenarioInfo);
 

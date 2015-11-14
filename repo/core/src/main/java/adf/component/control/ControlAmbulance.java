@@ -1,4 +1,4 @@
-package adf.control;
+package adf.component.control;
 
 public abstract class ControlAmbulance extends Control
 {

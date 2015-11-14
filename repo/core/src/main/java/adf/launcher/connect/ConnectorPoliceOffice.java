@@ -1,7 +1,7 @@
 package adf.launcher.connect;
 
 import adf.agent.office.OfficePolice;
-import adf.control.ControlPolice;
+import adf.component.control.ControlPolice;
 import adf.launcher.AbstractLoader;
 import adf.launcher.ConfigKey;
 import rescuecore2.components.ComponentConnectionException;
@@ -22,27 +22,13 @@ public class ConnectorPoliceOffice implements Connector
 		{
 			return;
 		}
-
-		/*
-		String classStr = config.getValue(ConfigKey.KEY_POLICE_OFFICE_NAME);
-		if (classStr == null)
-		{
-			System.out.println("[ERROR] Cannot Load PoliceOffice Tactics !!");
+		if (loader.getControlPolice() == null) {
+			System.out.println("[ERROR ] Cannot Load PoliceOffice Control !!");
 			return;
 		}
-		System.out.println("[START] Connect PoliceOffice (teamName:" + classStr + ")");
-		System.out.println("[INFO ] Load PoliceOffice (teamName:" + classStr + ")");
-		*/
 
-		try
-		{
-			if (loader.getControlPolice() == null)
-			{
-				System.out.println("[ERROR ] Cannot Load PoliceOffice Control !!");
-				return;
-			}
-			for (int i = 0; i != count; ++i)
-			{
+		try {
+			for (int i = 0; i != count; ++i) {
 				ControlPolice controlPolice = loader.getControlPolice();
 				boolean isPrecompute = config.getBooleanValue(ConfigKey.KEY_PRECOMPUTE, false);
 				launcher.connect(new OfficePolice(controlPolice, isPrecompute));

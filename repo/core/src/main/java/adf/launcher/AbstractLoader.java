@@ -1,11 +1,11 @@
 package adf.launcher;
 
-import adf.control.ControlAmbulance;
-import adf.control.ControlFire;
-import adf.control.ControlPolice;
-import adf.tactics.TacticsAmbulance;
-import adf.tactics.TacticsFire;
-import adf.tactics.TacticsPolice;
+import adf.component.control.ControlAmbulance;
+import adf.component.control.ControlFire;
+import adf.component.control.ControlPolice;
+import adf.component.tactics.TacticsAmbulance;
+import adf.component.tactics.TacticsFire;
+import adf.component.tactics.TacticsPolice;
 
 abstract public class AbstractLoader
 {

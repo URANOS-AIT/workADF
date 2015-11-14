@@ -1,4 +1,4 @@
-package adf.tactics;
+package adf.component.tactics;
 
 public abstract class TacticsFire extends Tactics
 {

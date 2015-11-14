@@ -2,14 +2,9 @@ package adf.agent.office;
 
 import adf.agent.Agent;
 import adf.agent.info.AgentInfo;
-import adf.control.Control;
-import adf.util.datastorage.DataStorage;
+import adf.component.control.Control;
 import comlib.manager.MessageManager;
-import rescuecore2.messages.Command;
 import rescuecore2.standard.entities.StandardEntity;
-import rescuecore2.worldmodel.ChangeSet;
-
-import java.util.Collection;
 
 public abstract class Office<E extends StandardEntity> extends Agent<E>
 {
@@ -39,7 +34,7 @@ public abstract class Office<E extends StandardEntity> extends Agent<E>
 				rootControl.preparate(agentInfo, worldInfo, scenarioInfo);
 				break;
 			case PRECOMPUTED:
-				rootControl.resume(agentInfo, worldInfo, scenarioInfo, dataStorage);
+				rootControl.resume(agentInfo, worldInfo, scenarioInfo, precomputeInfo);
 				break;
 			default:
 		}

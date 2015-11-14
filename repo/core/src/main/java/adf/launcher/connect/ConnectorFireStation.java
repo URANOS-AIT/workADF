@@ -1,7 +1,7 @@
 package adf.launcher.connect;
 
 import adf.agent.office.OfficeFire;
-import adf.control.ControlFire;
+import adf.component.control.ControlFire;
 import adf.launcher.AbstractLoader;
 import adf.launcher.ConfigKey;
 import rescuecore2.components.ComponentConnectionException;
@@ -18,31 +18,18 @@ public class ConnectorFireStation implements Connector
 		int count = config.getIntValue(ConfigKey.KEY_FIRE_STATION_COUNT, 0);
 		int connected = 0;
 
-		if (count == 0)
-		{
+		if (count == 0) {
 			return;
 		}
-
-		/*
-		String classStr = config.getValue(ConfigKey.KEY_FIRE_STATION_NAME);
-		if (classStr == null)
+		
+		if (loader.getControlFire() == null)
 		{
-			System.out.println("[ERROR] Cannot Load FireStation Tactics !!");
+		    System.out.println("[ERROR ] Cannot Load FireStation Control !!");
 			return;
 		}
-		System.out.println("[START] Connect FireStation (teamName:" + classStr + ")");
-		System.out.println("[INFO ] Load FireStation (teamName:" + classStr + ")");
-		*/
-
-		try
-		{
-			if (loader.getControlFire() == null)
-			{
-				System.out.println("[ERROR ] Cannot Load FireStation Control !!");
-				return;
-			}
-			for (int i = 0; i != count; ++i)
-			{
+		
+		try {
+			for (int i = 0; i != count; ++i) {
 				ControlFire controlFire = loader.getControlFire();
 				boolean isPrecompute = config.getBooleanValue(ConfigKey.KEY_PRECOMPUTE, false);
 				launcher.connect(new OfficeFire(controlFire, isPrecompute));

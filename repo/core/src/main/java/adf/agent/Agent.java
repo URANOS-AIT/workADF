@@ -1,10 +1,9 @@
 package adf.agent;
 
 import adf.agent.info.AgentInfo;
+import adf.agent.info.PrecomputeInfo;
 import adf.agent.info.ScenarioInfo;
 import adf.agent.info.WorldInfo;
-import adf.util.datastorage.DataStorage;
-import comlib.manager.MessageManager;
 import rescuecore2.components.AbstractAgent;
 import rescuecore2.messages.Command;
 import rescuecore2.messages.Message;
@@ -26,7 +25,7 @@ public abstract class Agent<E extends StandardEntity> extends AbstractAgent<Stan
 	public AgentInfo agentInfo;
 	public WorldInfo worldInfo;
 	public ScenarioInfo scenarioInfo;
-	protected DataStorage dataStorage;
+	protected PrecomputeInfo precomputeInfo;
 	protected  boolean isPrecompute;
 	int ignoreTime;
 
@@ -35,14 +34,14 @@ public abstract class Agent<E extends StandardEntity> extends AbstractAgent<Stan
 
 		if (isPrecompute)
 		{
-			DataStorage.removeData(dataStorageName);
+			PrecomputeInfo.removeData(dataStorageName);
 			this.mode = ScenarioInfo.Mode.PRECOMPUTATION_PHASE;
 		}
 
-		dataStorage = new DataStorage(dataStorageName);
+		precomputeInfo = new PrecomputeInfo(dataStorageName);
 
 		if (!isPrecompute) {
-			if (dataStorage.isReady()) {
+			if (precomputeInfo.isReady()) {
 				this.mode = ScenarioInfo.Mode.PRECOMPUTED;
 			}
 			else {
