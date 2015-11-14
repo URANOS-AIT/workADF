@@ -30,8 +30,7 @@ public abstract class Agent<E extends StandardEntity> extends AbstractAgent<Stan
 	protected  boolean isPrecompute;
 	int ignoreTime;
 
-	public Agent(boolean isPrecompute, String dataStorageName)
-	{
+	public Agent(boolean isPrecompute, String dataStorageName) {
 		this.isPrecompute = isPrecompute;
 
 		if (isPrecompute)
@@ -42,14 +41,11 @@ public abstract class Agent<E extends StandardEntity> extends AbstractAgent<Stan
 
 		dataStorage = new DataStorage(dataStorageName);
 
-		if (!isPrecompute)
-		{
-			if (dataStorage.isReady())
-			{
+		if (!isPrecompute) {
+			if (dataStorage.isReady()) {
 				this.mode = ScenarioInfo.Mode.PRECOMPUTED;
 			}
-			else
-			{
+			else {
 				this.mode = ScenarioInfo.Mode.NON_PRECOMPUTE;
 			}
 		}
