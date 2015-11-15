@@ -6,12 +6,11 @@ import adf.component.control.Control;
 import comlib.manager.MessageManager;
 import rescuecore2.standard.entities.StandardEntity;
 
-public abstract class Office<E extends StandardEntity> extends Agent<E>
-{
+public abstract class Office<E extends StandardEntity> extends Agent<E> {
+
 	Control rootControl;
 
-	public Office(Control control, boolean isPrecompute, String datastorageName)
-	{
+	public Office(Control control, boolean isPrecompute, String datastorageName) {
 		super(isPrecompute, datastorageName);
 		this.rootControl = control;
 	}

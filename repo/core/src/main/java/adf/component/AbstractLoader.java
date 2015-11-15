@@ -1,4 +1,4 @@
-package adf.launcher;
+package adf.component;
 
 import adf.component.control.ControlAmbulance;
 import adf.component.control.ControlFire;

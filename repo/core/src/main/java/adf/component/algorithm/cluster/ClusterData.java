@@ -1,4 +1,4 @@
-package adf.algorithm.cluster;
+package adf.component.algorithm.cluster;
 
 import rescuecore2.standard.entities.StandardEntity;
 import rescuecore2.standard.entities.StandardWorldModel;

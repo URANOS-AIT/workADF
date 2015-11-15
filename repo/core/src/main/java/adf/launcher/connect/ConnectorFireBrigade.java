@@ -2,7 +2,7 @@ package adf.launcher.connect;
 
 import adf.agent.platoon.PlatoonFire;
 import adf.component.tactics.TacticsFire;
-import adf.launcher.AbstractLoader;
+import adf.component.AbstractLoader;
 import adf.launcher.ConfigKey;
 import rescuecore2.components.ComponentConnectionException;
 import rescuecore2.components.ComponentLauncher;

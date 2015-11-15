@@ -2,7 +2,7 @@ package adf.launcher.connect;
 
 import adf.agent.office.OfficeFire;
 import adf.component.control.ControlFire;
-import adf.launcher.AbstractLoader;
+import adf.component.AbstractLoader;
 import adf.launcher.ConfigKey;
 import rescuecore2.components.ComponentConnectionException;
 import rescuecore2.components.ComponentLauncher;

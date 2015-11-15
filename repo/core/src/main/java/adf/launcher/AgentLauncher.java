@@ -1,7 +1,7 @@
 package adf.launcher;
 
+import adf.component.AbstractLoader;
 import adf.launcher.connect.*;
-import com.google.common.collect.Lists;
 import rescuecore2.Constants;
 import rescuecore2.components.ComponentLauncher;
 import rescuecore2.components.TCPComponentLauncher;
@@ -12,9 +12,10 @@ import rescuecore2.standard.entities.StandardPropertyFactory;
 import rescuecore2.standard.messages.StandardMessageFactory;
 
 import java.net.URLClassLoader;
+import java.util.ArrayList;
 import java.util.List;
 
-public class AgentConnector {
+public class AgentLauncher {
     
     private Config config;
     
@@ -22,7 +23,7 @@ public class AgentConnector {
 
     private List<Connector> connectors;
 
-	public AgentConnector(String... args) throws ClassNotFoundException, ClassCastException, InstantiationException, IllegalAccessException {
+	public AgentLauncher(String... args) throws ClassNotFoundException, ClassCastException, InstantiationException, IllegalAccessException {
 	    this.init(args);
 	}
 	
@@ -42,22 +43,20 @@ public class AgentConnector {
 	private void initConnector() throws ClassNotFoundException, ClassCastException, InstantiationException, IllegalAccessException {
 		URLClassLoader classLoader = (URLClassLoader)this.getClass().getClassLoader();
 		Class c = classLoader.loadClass(this.config.getValue(ConfigKey.KEY_LOADER_CLASS));
-		Object classObj = c.newInstance();
-		this.loader = (AbstractLoader)classObj;
+		this.loader = (AbstractLoader)c.newInstance();
 		// set connectors
-		this.connectors = Lists.newArrayList(
-                        new ConnectorAmbulanceTeam(),
-                        new ConnectorFireBrigade(),
-                        new ConnectorPoliceForce(),
-                        new ConnectorAmbulanceCentre(),
-                        new ConnectorFireStation(),
-                        new ConnectorPoliceOffice()
-		);
+		this.connectors = new ArrayList<>();
+		this.registerConnector(new ConnectorAmbulanceTeam());
+		this.registerConnector(new ConnectorFireBrigade());
+		this.registerConnector(new ConnectorPoliceForce());
+		this.registerConnector(new ConnectorAmbulanceCentre());
+		this.registerConnector(new ConnectorFireStation());
+		this.registerConnector(new ConnectorPoliceOffice());
 		//this.config.getArrayValue("test").forEach(System.out::println);
 	}
-	
-	public void setConnector(Connector connector) {
-	    this.connectors.add(connector);
+
+	public void registerConnector(Connector connector) {
+		this.connectors.add(connector);
 	}
 
 	public void start() {

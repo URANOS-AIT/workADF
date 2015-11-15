@@ -1,11 +1,11 @@
 package adf;
 
-import adf.launcher.AgentConnector;
+import adf.launcher.AgentLauncher;
 
 public class Main {
     public static void main(String... args) {
         try {
-            AgentConnector connector = new AgentConnector(args);
+            AgentLauncher connector = new AgentLauncher(args);
             connector.start();
         }
         catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
