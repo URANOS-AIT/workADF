@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public final class PrecomputeInfo
+public final class PrecomputeData
 {
 
 	public static final String DEFAULT_FILE_NAME = "precompute_datas.bin";
@@ -19,18 +19,18 @@ public final class PrecomputeInfo
 
 	private PrecomputeDatas datas;
 
-	public PrecomputeInfo()
+	public PrecomputeData()
 	{
 		this(DEFAULT_FILE_NAME);
 	}
 
-	public PrecomputeInfo(String name)
+	public PrecomputeData(String name)
 	{
 		this.fileName = name;
 		this.init();
 	}
 
-	private PrecomputeInfo(String name, PrecomputeDatas precomputeDatas)
+	private PrecomputeData(String name, PrecomputeDatas precomputeDatas)
 	{
 		this.fileName = name;
 		this.datas = precomputeDatas;

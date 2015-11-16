@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public final class PrecomputeDatas
+public final class PreDatas
 {
 	public Map<String, Integer> intValues;
 	public Map<String, Double> doubleValues;
@@ -19,7 +19,7 @@ public final class PrecomputeDatas
 
 	public boolean isReady;
 
-	public PrecomputeDatas()
+	public PreDatas()
 	{
 		this.intValues = new HashMap<>();
 		this.doubleValues = new HashMap<>();
