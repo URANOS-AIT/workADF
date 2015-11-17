@@ -1,7 +1,6 @@
-package adf.agent.platoon.action.fire;
+package adf.component.action.action.fire;
 
-import adf.agent.platoon.Platoon;
-import adf.agent.platoon.action.Action;
+import adf.component.action.action.Action;
 import rescuecore2.messages.Message;
 import rescuecore2.standard.entities.Building;
 import rescuecore2.standard.messages.AKExtinguish;

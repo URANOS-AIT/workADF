@@ -1,10 +1,7 @@
-package adf.agent.platoon.extaction;
+package adf.component.action.extaction;
 
-import adf.agent.platoon.action.Action;
+import adf.component.action.action.Action;
 
-/**
- * Created by takamin on 10/14/15.
- */
 abstract public class ExtAction
 {
 	protected Action result;

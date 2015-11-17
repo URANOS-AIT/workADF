@@ -1,6 +1,6 @@
-package adf.agent.platoon.action.ambulance;
+package adf.component.action.action.ambulance;
 
-import adf.agent.platoon.action.Action;
+import adf.component.action.action.Action;
 import rescuecore2.messages.Message;
 import rescuecore2.standard.messages.AKUnload;
 import rescuecore2.worldmodel.EntityID;

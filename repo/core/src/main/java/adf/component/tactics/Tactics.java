@@ -4,7 +4,7 @@ import adf.agent.info.AgentInfo;
 import adf.agent.info.PrecomputeData;
 import adf.agent.info.ScenarioInfo;
 import adf.agent.info.WorldInfo;
-import adf.agent.platoon.action.Action;
+import adf.component.action.action.Action;
 
 public abstract class Tactics
 {

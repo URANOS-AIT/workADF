@@ -1,9 +1,7 @@
-package adf.agent.platoon.action.police;
+package adf.component.action.action.police;
 
-import adf.agent.Agent;
 import adf.agent.platoon.Platoon;
-import adf.agent.platoon.PlatoonPolice;
-import adf.agent.platoon.action.Action;
+import adf.component.action.action.Action;
 import rescuecore2.messages.Message;
 import rescuecore2.misc.geometry.Vector2D;
 import rescuecore2.standard.entities.Blockade;

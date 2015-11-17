@@ -2,7 +2,7 @@ package adf.agent.platoon;
 
 import adf.agent.Agent;
 import adf.agent.info.AgentInfo;
-import adf.agent.platoon.action.Action;
+import adf.component.action.action.Action;
 import adf.component.tactics.Tactics;
 import comlib.manager.MessageManager;
 import rescuecore2.standard.entities.StandardEntity;

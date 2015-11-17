@@ -1,6 +1,5 @@
-package adf.agent.platoon.action;
+package adf.component.action.action;
 
-import adf.agent.platoon.Platoon;
 import rescuecore2.messages.Message;
 import rescuecore2.worldmodel.EntityID;
 
