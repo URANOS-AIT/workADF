@@ -32,18 +32,18 @@ public final class PreDatas
 		this.isReady = false;
 	}
 
-	public PrecomputeDatas copy()
+	public PreDatas copy()
 	{
-		PrecomputeDatas precomputeDatas = new PrecomputeDatas();
-		precomputeDatas.intValues = new HashMap<>(this.intValues);
-		precomputeDatas.doubleValues = new HashMap<>(this.doubleValues);
-		precomputeDatas.stringValues = new HashMap<>(this.stringValues);
-		precomputeDatas.idValues = new HashMap<>(this.idValues);
-		precomputeDatas.intLists = new HashMap<>(this.intLists);
-		precomputeDatas.doubleLists = new HashMap<>(this.doubleLists);
-		precomputeDatas.stringLists = new HashMap<>(this.stringLists);
-		precomputeDatas.idLists = new HashMap<>(this.idLists);
-		precomputeDatas.isReady = this.isReady;
-		return precomputeDatas;
+		PreDatas preDatas = new PreDatas();
+		preDatas.intValues = new HashMap<>(this.intValues);
+		preDatas.doubleValues = new HashMap<>(this.doubleValues);
+		preDatas.stringValues = new HashMap<>(this.stringValues);
+		preDatas.idValues = new HashMap<>(this.idValues);
+		preDatas.intLists = new HashMap<>(this.intLists);
+		preDatas.doubleLists = new HashMap<>(this.doubleLists);
+		preDatas.stringLists = new HashMap<>(this.stringLists);
+		preDatas.idLists = new HashMap<>(this.idLists);
+		preDatas.isReady = this.isReady;
+		return preDatas;
 	}
 }

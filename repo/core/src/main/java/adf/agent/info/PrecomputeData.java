@@ -12,12 +12,12 @@ import java.util.stream.Collectors;
 public final class PrecomputeData
 {
 
-	public static final String DEFAULT_FILE_NAME = "precompute_datas.bin";
+	public static final String DEFAULT_FILE_NAME = "data.bin";
 	public static final File PRECOMP_DATA_DIR = new File("precomp_data");
 
 	private String fileName;
 
-	private PrecomputeDatas datas;
+	private PreDatas datas;
 
 	public PrecomputeData()
 	{
@@ -30,7 +30,7 @@ public final class PrecomputeData
 		this.init();
 	}
 
-	private PrecomputeData(String name, PrecomputeDatas precomputeDatas)
+	private PrecomputeData(String name, PreDatas precomputeDatas)
 	{
 		this.fileName = name;
 		this.datas = precomputeDatas;
@@ -55,9 +55,9 @@ public final class PrecomputeData
 		removeData(DEFAULT_FILE_NAME);
 	}
 
-	public PrecomputeInfo copy()
+	public PrecomputeData copy()
 	{
-		return new PrecomputeInfo(this.fileName, this.datas.copy());
+		return new PrecomputeData(this.fileName, this.datas.copy());
 	}
 
 	private void init()
@@ -65,11 +65,11 @@ public final class PrecomputeData
 		this.datas = this.read(this.fileName);
 		if (this.datas == null)
 		{
-			this.datas = new PrecomputeDatas();
+			this.datas = new PreDatas();
 		}
 	}
 
-	private PrecomputeDatas read(String name)
+	private PreDatas read(String name)
 	{
 		try
 		{
@@ -97,7 +97,7 @@ public final class PrecomputeData
 			}
 			binary = bout.toByteArray();
 			ObjectMapper om = new ObjectMapper(new MessagePackFactory());
-			PrecomputeDatas ds = om.readValue(binary, PrecomputeDatas.class);
+			PreDatas ds = om.readValue(binary, PreDatas.class);
 			bis.close();
 			fis.close();
 			return ds;

@@ -33,7 +33,7 @@ public abstract class Office<E extends StandardEntity> extends Agent<E> {
 				rootControl.preparate(agentInfo, worldInfo, scenarioInfo);
 				break;
 			case PRECOMPUTED:
-				rootControl.resume(agentInfo, worldInfo, scenarioInfo, precomputeInfo);
+				rootControl.resume(agentInfo, worldInfo, scenarioInfo, precomputeData);
 				break;
 			default:
 		}

@@ -36,6 +36,10 @@ public class ScenarioInfo
 		return mode;
 	}
 
+	public Config getConfig() {
+		return this.config;
+	}
+
 	/*
 	public void test()
 	{
