@@ -12,7 +12,7 @@ import java.util.List;
 
 public abstract class PathPlanner {
 
-    public ScenarioInfo scenarionInfo;
+    /*public ScenarioInfo scenarionInfo;
     public AgentInfo agentInfo;
     public WorldInfo worldInfo;
 
@@ -20,14 +20,17 @@ public abstract class PathPlanner {
         this.worldInfo = wi;
         this.agentInfo = ai;
         this.scenarionInfo = si;
-    }
+    }*/
+
+    public abstract void clear();
 
     public abstract List<EntityID> getResult();
 
     public abstract void setFrom(EntityID id);
 
+    public abstract void setDist(Collection<EntityID> target);
+
     public void setDist(EntityID... target) {
         this.setDist(Arrays.asList(target));
     }
-    public abstract void setDist(Collection<EntityID> target);
 }

@@ -13,7 +13,7 @@ public class ClusterData {
     private EntityID centerAreaID;
     private List<EntityID> areaIDList = new ArrayList<>();
     private List<EntityID> agentIDList = new ArrayList<>();
-    private List<EntityID> fireBregadeIDList = new ArrayList<>();
+    private List<EntityID> fireBrigadeIDList = new ArrayList<>();
     private List<EntityID> policeForceIDList = new ArrayList<>();
     private List<EntityID> ambulanceTeamIDList = new ArrayList<>();
 
@@ -37,7 +37,7 @@ public class ClusterData {
             switch (agent.getStandardURN())
             {
                 case FIRE_BRIGADE:
-                    fireBregadeIDList.add(agent.getID());
+                    fireBrigadeIDList.add(agent.getID());
                     break;
                 case POLICE_FORCE:
                     policeForceIDList.add(agent.getID());
@@ -64,7 +64,7 @@ public class ClusterData {
 
     public List<EntityID> getFireBrigadeIDList()
     {
-        return fireBregadeIDList;
+        return fireBrigadeIDList;
     }
 
     public List<EntityID> getPoliceForceIDList()
