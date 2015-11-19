@@ -17,6 +17,8 @@ public abstract class Clustering{
 
     protected int clusterSize;
 
+    protected Collection<EntityID> entityIDs;
+
     public Clustering(WorldInfo wi, AgentInfo ai, ScenarioInfo si, Collection<EntityID> ids) {
         this(wi, ai, si, -1, ids);
     }
@@ -26,6 +28,7 @@ public abstract class Clustering{
         this.agentInfo = ai;
         this.scenarioInfo = si;
         this.clusterSize = size;
+        this.entityIDs = ids;
     }
 
     public Clustering calc() {
