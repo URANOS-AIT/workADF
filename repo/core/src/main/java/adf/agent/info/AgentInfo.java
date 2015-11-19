@@ -22,7 +22,7 @@ public class AgentInfo
 	public Config config;
 	public MessageManager messageManager;
 	public int time;
-	private ChangeSet changed;
+	//private ChangeSet changed;
 
 	public AgentInfo(Agent agent, StandardWorldModel world, Config config, MessageManager messageManager)
 	{
@@ -77,7 +77,9 @@ public class AgentInfo
 		return (Area)this.world.getEntity(this.getPosition());
 	}
 
+	/*
 	public void setChanged(ChangeSet changed) {
 		this.changed = changed;
 	}
+	*/
 }

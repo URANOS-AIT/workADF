@@ -99,7 +99,7 @@ public abstract class Agent<E extends StandardEntity> extends AbstractAgent<Stan
 		//else
 		//{
 			this.agentInfo.setHeard(heard);
-		    this.agentInfo.setChanged(changed);
+		    //this.agentInfo.setChanged(changed);
 			this.worldInfo.setChanged(changed);
 		//}
 
