@@ -14,7 +14,6 @@ abstract public class ExtAction {
 		return this;
 	}
 
-	//public abstract Action getAction();
 	public Action getAction() {
 		return result;
 	}
