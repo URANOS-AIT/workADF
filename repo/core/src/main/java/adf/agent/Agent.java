@@ -52,13 +52,11 @@ public abstract class Agent<E extends StandardEntity> extends AbstractAgent<Stan
 	}
 
 	@Override
-	public final String[] getRequestedEntityURNs()
-	{
+	public final String[] getRequestedEntityURNs() {
 		EnumSet<StandardEntityURN> set = getRequestedEntityURNsEnum();
 		String[] result = new String[set.size()];
 		int i = 0;
-		for (StandardEntityURN next : set)
-		{
+		for (StandardEntityURN next : set) {
 			result[i++] = next.toString();
 		}
 		return result;
@@ -105,8 +103,7 @@ public abstract class Agent<E extends StandardEntity> extends AbstractAgent<Stan
 
 		think();
 
-		if (time > this.ignoreTime)
-		{
+		if (time > this.ignoreTime) {
 			this.send(this.agentInfo.createSendMessage());
 		}
 	}

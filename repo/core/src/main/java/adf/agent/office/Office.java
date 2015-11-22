@@ -16,8 +16,7 @@ public abstract class Office<E extends StandardEntity> extends Agent<E> {
 	}
 
 	@Override
-	protected void postConnect()
-	{
+	protected void postConnect() {
 		super.postConnect();
 		//model.indexClass(StandardEntityURN.ROAD);
 		//distance = config.getIntValue(DISTANCE_KEY);

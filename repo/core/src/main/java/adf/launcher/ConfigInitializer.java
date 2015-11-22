@@ -38,7 +38,6 @@ public class ConfigInitializer {
 				option.setValue(config, strArray);
 			}
 		}
-		//options = null;
 		return config;
     }
     

@@ -6,7 +6,7 @@ public final class ConfigKey {
     //
     public static final String KEY_PRECOMPUTE = "adf.launcher.precompute";
 
-    // Agent
+    // Platoon
     public static final String KEY_AMBULANCE_TEAM_COUNT = "adf.team.platoon.ambulance.count";
     public static final String KEY_FIRE_BRIGADE_COUNT = "adf.team.platoon.fire.count";
     public static final String KEY_POLICE_FORCE_COUNT = "adf.team.platoon.police.count";

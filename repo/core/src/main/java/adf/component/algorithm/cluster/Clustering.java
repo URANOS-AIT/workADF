@@ -19,16 +19,16 @@ public abstract class Clustering{
 
     protected Collection<EntityID> entityIDs;
 
-    public Clustering(WorldInfo wi, AgentInfo ai, ScenarioInfo si, Collection<EntityID> ids) {
-        this(wi, ai, si, -1, ids);
+    public Clustering(WorldInfo wi, AgentInfo ai, ScenarioInfo si, Collection<EntityID> elements) {
+        this(wi, ai, si, elements, -1);
     }
 
-    public Clustering(WorldInfo wi, AgentInfo ai, ScenarioInfo si, int size, Collection<EntityID> ids) {
+    public Clustering(WorldInfo wi, AgentInfo ai, ScenarioInfo si, Collection<EntityID> elements, int size) {
         this.worldInfo = wi;
         this.agentInfo = ai;
         this.scenarioInfo = si;
         this.clusterSize = size;
-        this.entityIDs = ids;
+        this.entityIDs = elements;
     }
 
     public Clustering calc() {

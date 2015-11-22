@@ -12,15 +12,15 @@ import java.util.List;
 
 public abstract class PathPlanner {
 
-    /*public ScenarioInfo scenarionInfo;
+    public ScenarioInfo scenarioInfo;
     public AgentInfo agentInfo;
     public WorldInfo worldInfo;
 
     public PathPlanner(WorldInfo wi, AgentInfo ai, ScenarioInfo si) {
         this.worldInfo = wi;
         this.agentInfo = ai;
-        this.scenarionInfo = si;
-    }*/
+        this.scenarioInfo = si;
+    }
 
     public abstract void clear();
 

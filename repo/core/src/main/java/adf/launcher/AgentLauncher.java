@@ -41,18 +41,20 @@ public class AgentLauncher {
 	}
 
 	private void initConnector() throws ClassNotFoundException, ClassCastException, InstantiationException, IllegalAccessException {
+		//load AbstractLoader
 		URLClassLoader classLoader = (URLClassLoader)this.getClass().getClassLoader();
 		Class c = classLoader.loadClass(this.config.getValue(ConfigKey.KEY_LOADER_CLASS));
 		this.loader = (AbstractLoader)c.newInstance();
 		// set connectors
 		this.connectors = new ArrayList<>();
+		//platoon
 		this.registerConnector(new ConnectorAmbulanceTeam());
 		this.registerConnector(new ConnectorFireBrigade());
 		this.registerConnector(new ConnectorPoliceForce());
+		//office
 		this.registerConnector(new ConnectorAmbulanceCentre());
 		this.registerConnector(new ConnectorFireStation());
 		this.registerConnector(new ConnectorPoliceOffice());
-		//this.config.getArrayValue("test").forEach(System.out::println);
 	}
 
 	public void registerConnector(Connector connector) {
