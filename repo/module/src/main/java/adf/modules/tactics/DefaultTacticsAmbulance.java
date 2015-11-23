@@ -72,8 +72,6 @@ public class DefaultTacticsAmbulance extends TacticsAmbulance {
                 refugeIDs.add(next.getID());
             }
         }
-        //pathplanner
-        //neighbours = search.getGraph();
         this.init(worldInfo);
         unexploredBuildings = new HashSet<>(buildingIDs);
         this.pathPlanner = new SamplePathPlanner(worldInfo, agentInfo, scenarioInfo);
