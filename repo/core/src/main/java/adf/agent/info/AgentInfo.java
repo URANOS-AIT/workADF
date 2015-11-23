@@ -1,11 +1,8 @@
 package adf.agent.info;
 
 import adf.agent.Agent;
-import comlib.manager.MessageManager;
-import comlib.message.CommunicationMessage;
 import rescuecore2.config.Config;
 import rescuecore2.messages.Command;
-import rescuecore2.messages.Message;
 import rescuecore2.standard.entities.Area;
 import rescuecore2.standard.entities.Human;
 import rescuecore2.standard.entities.StandardWorldModel;

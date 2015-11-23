@@ -1,9 +1,9 @@
 package adf.agent.office;
 
 import adf.agent.Agent;
+import adf.agent.communication.MessageManager;
 import adf.agent.info.AgentInfo;
 import adf.component.control.Control;
-import comlib.manager.MessageManager;
 import rescuecore2.standard.entities.StandardEntity;
 
 public abstract class Office<E extends StandardEntity> extends Agent<E> {
@@ -21,7 +21,7 @@ public abstract class Office<E extends StandardEntity> extends Agent<E> {
 		//model.indexClass(StandardEntityURN.ROAD);
 		//distance = config.getIntValue(DISTANCE_KEY);
 
-		MessageManager messageManager = new MessageManager(config, this.getID());
+		MessageManager messageManager = new MessageManager();
 		this.agentInfo = new AgentInfo(this, model, config);
 
 		rootControl.initialize(agentInfo, worldInfo, scenarioInfo);

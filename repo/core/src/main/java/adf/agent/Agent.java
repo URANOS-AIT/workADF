@@ -1,9 +1,13 @@
 package adf.agent;
 
+import adf.agent.communication.MessageManager;
+import adf.agent.communication.standard.StandardCommunicationModule;
+import adf.agent.communication.standard.bundle.StandardMessageBundle;
 import adf.agent.info.AgentInfo;
 import adf.agent.info.PrecomputeData;
 import adf.agent.info.ScenarioInfo;
 import adf.agent.info.WorldInfo;
+import adf.component.communication.CommunicationModule;
 import rescuecore2.components.AbstractAgent;
 import rescuecore2.messages.Command;
 import rescuecore2.messages.Message;
@@ -37,7 +41,7 @@ public abstract class Agent<E extends StandardEntity> extends AbstractAgent<Stan
 
 		if (isPrecompute)
 		{
-			DataStorage.removeData(dataStorageName);
+			this.precomputeData.removeData(dataStorageName);
 			this.mode = ScenarioInfo.Mode.PRECOMPUTATION_PHASE;
 		}
 
