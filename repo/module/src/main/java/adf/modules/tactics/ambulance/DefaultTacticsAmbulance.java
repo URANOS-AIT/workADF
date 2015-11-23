@@ -1,4 +1,4 @@
-package adf.modules.tactics;
+package adf.modules.tactics.ambulance;
 
 
 import adf.agent.action.Action;
@@ -130,7 +130,7 @@ public class DefaultTacticsAmbulance extends TacticsAmbulance {
         // Am I transporting a civilian to a refuge?
         if (someoneOnBoard(worldInfo, agentInfo)) {
             // Am I at a refuge?
-            if (worldInfo.world.getEntity(agentInfo.getPosition()) instanceof Refuge) {
+            if (worldInfo.getEntity(agentInfo.getPosition()) instanceof Refuge) {
                 // Unload!
                 return new ActionUnload();
             }

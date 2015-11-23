@@ -114,4 +114,36 @@ public class WorldInfo {
 	public static StandardWorldModel createStandardWorldModel(WorldModel<? extends Entity> existing) {
 		return StandardWorldModel.createStandardWorldModel(existing);
 	}
+
+    public StandardEntity getEntity(EntityID id) {
+        return this.world.getEntity(id);
+    }
+
+    public Collection<StandardEntity> getAllEntities() {
+        return this.world.getAllEntities();
+    }
+
+    public void addEntity(Entity e) {
+        this.world.addEntity(e);
+    }
+
+    public void addEntities(Collection<? extends Entity> e) {
+        this.world.addEntities(e);
+    }
+
+    public void removeEntity(StandardEntity e) {
+        this.world.removeEntity(e.getID());
+    }
+
+    public void removeEntity(EntityID id) {
+        this.world.removeEntity(id);
+    }
+
+    public void removeAllEntities() {
+        this.world.removeAllEntities();
+    }
+
+    public Iterator<StandardEntity> iterator() {
+        return this.world.iterator();
+    }
 }
