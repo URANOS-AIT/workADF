@@ -1,6 +1,8 @@
 package adf.agent.communication.standard.bundle;
 
 
+import adf.component.communication.util.BitOutputStream;
+import adf.component.communication.util.BitStreamReader;
 
 public class MessageDummy extends StandardMessage
 {

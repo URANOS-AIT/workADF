@@ -1,6 +1,6 @@
 package adf.agent.communication;
 
-import adf.communication.standard.bundle.StandardMessageBundle;
+import adf.agent.communication.standard.bundle.StandardMessageBundle;
 import adf.component.communication.CommunicationMessage;
 import adf.component.communication.MessageBundle;
 

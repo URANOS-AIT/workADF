@@ -1,11 +1,11 @@
 package adf.agent.communication.standard;
 
 import adf.agent.Agent;
-import adf.communication.CommunicationMessage;
-import adf.communication.CommunicationModule;
-import adf.communication.MessageManager;
-import adf.communication.util.BitOutputStream;
-import adf.communication.util.BitStreamReader;
+import adf.agent.communication.MessageManager;
+import adf.component.communication.CommunicationMessage;
+import adf.component.communication.CommunicationModule;
+import adf.component.communication.util.BitOutputStream;
+import adf.component.communication.util.BitStreamReader;
 import rescuecore2.messages.Command;
 import rescuecore2.messages.Message;
 import rescuecore2.standard.messages.AKSay;
@@ -16,7 +16,7 @@ import java.util.Collection;
 
 public class StandardCommunicationModule extends CommunicationModule
 {
-    final private char ESCAPE_CHAR = 0xFE;
+    final private int ESCAPE_CHAR = 0xFE;
     final private int SIZE_ID = 5;
     final private int SIZE_TTL = 3;
 

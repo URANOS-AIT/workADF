@@ -1,7 +1,7 @@
 package adf.agent.communication.standard.bundle;
 
-import adf.communication.CommunicationMessage;
-import adf.communication.MessageBundle;
+import adf.component.communication.CommunicationMessage;
+import adf.component.communication.MessageBundle;
 
 import java.util.ArrayList;
 import java.util.List;
