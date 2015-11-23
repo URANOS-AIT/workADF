@@ -1,4 +1,4 @@
-package adf.component.action.action;
+package adf.agent.action;
 
 import rescuecore2.messages.Message;
 import rescuecore2.worldmodel.EntityID;

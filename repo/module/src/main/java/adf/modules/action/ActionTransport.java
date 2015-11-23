@@ -1,11 +1,10 @@
 package adf.modules.action;
 
 import adf.agent.info.AgentInfo;
-import adf.agent.info.WorldInfo;
-import adf.component.action.action.ambulance.ActionLoad;
-import adf.component.action.action.ambulance.ActionRescue;
-import adf.component.action.action.common.ActionMove;
-import adf.component.action.action.common.ActionRest;
+import adf.agent.action.ambulance.ActionLoad;
+import adf.agent.action.ambulance.ActionRescue;
+import adf.agent.action.common.ActionMove;
+import adf.agent.action.common.ActionRest;
 import adf.component.action.extaction.ExtAction;
 import adf.component.algorithm.path.PathPlanner;
 import rescuecore2.standard.entities.Civilian;

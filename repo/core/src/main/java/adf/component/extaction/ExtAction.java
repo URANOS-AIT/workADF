@@ -1,6 +1,6 @@
-package adf.component.action.extaction;
+package adf.component.extaction;
 
-import adf.component.action.action.Action;
+import adf.agent.action.Action;
 
 abstract public class ExtAction {
 	protected Action result;

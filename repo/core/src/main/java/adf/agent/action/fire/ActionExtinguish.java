@@ -1,6 +1,6 @@
-package adf.component.action.action.fire;
+package adf.agent.action.fire;
 
-import adf.component.action.action.Action;
+import adf.agent.action.Action;
 import rescuecore2.messages.Message;
 import rescuecore2.standard.entities.Building;
 import rescuecore2.standard.messages.AKExtinguish;

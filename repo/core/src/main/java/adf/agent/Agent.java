@@ -26,37 +26,45 @@ public abstract class Agent<E extends StandardEntity> extends AbstractAgent<Stan
 	public WorldInfo worldInfo;
 	public ScenarioInfo scenarioInfo;
 	protected PrecomputeData precomputeData;
-
+	protected MessageManager messageManager;
+	protected CommunicationModule communicationModule;
 	protected  boolean isPrecompute;
 	int ignoreTime;
 
-	public Agent(boolean isPrecompute, String dataStorageName) {
+	public Agent(boolean isPrecompute, String dataStorageName)
+	{
 		this.isPrecompute = isPrecompute;
 
 		if (isPrecompute)
 		{
-			PrecomputeData.removeData(dataStorageName);
+			DataStorage.removeData(dataStorageName);
 			this.mode = ScenarioInfo.Mode.PRECOMPUTATION_PHASE;
 		}
 
 		precomputeData = new PrecomputeData(dataStorageName);
+		messageManager = new MessageManager();
 
-		if (!isPrecompute) {
-			if (precomputeData.isReady()) {
+		if (!isPrecompute)
+		{
+			if (precomputeData.isReady())
+			{
 				this.mode = ScenarioInfo.Mode.PRECOMPUTED;
 			}
-			else {
+			else
+			{
 				this.mode = ScenarioInfo.Mode.NON_PRECOMPUTE;
 			}
 		}
 	}
 
 	@Override
-	public final String[] getRequestedEntityURNs() {
+	public final String[] getRequestedEntityURNs()
+	{
 		EnumSet<StandardEntityURN> set = getRequestedEntityURNsEnum();
 		String[] result = new String[set.size()];
 		int i = 0;
-		for (StandardEntityURN next : set) {
+		for (StandardEntityURN next : set)
+		{
 			result[i++] = next.toString();
 		}
 		return result;
@@ -83,6 +91,10 @@ public abstract class Agent<E extends StandardEntity> extends AbstractAgent<Stan
 
 		this.worldInfo = new WorldInfo(model);
 		this.scenarioInfo = new ScenarioInfo(config, mode);
+
+		this.communicationModule = null;
+
+		System.out.println("Connected - " + this);
 	}
 
 	@Override
@@ -90,21 +102,38 @@ public abstract class Agent<E extends StandardEntity> extends AbstractAgent<Stan
 	{
 		this.agentInfo.setTime(time);
 
+		if ( 1 == time )
+		{
+			if (this.communicationModule != null)
+			{
+				System.out.println("This agent's CommunicationModule is modified - " + this);
+			}
+			else
+			{
+				this.communicationModule = new StandardCommunicationModule();
+			}
+			messageManager.registerMessageBundle(new StandardMessageBundle());
+		}
+
 		if (time <= this.ignoreTime)
 		{
 			send(new AKSubscribe(getID(), time, 1));
 		}
-		//else
-		//{
-			this.agentInfo.setHeard(heard);
-		    //this.agentInfo.setChanged(changed);
-			this.worldInfo.setChanged(changed);
-		//}
+
+		this.agentInfo.setHeard(heard);
+		this.agentInfo.setChanged(changed);
+
+		if (time > this.ignoreTime)
+		{
+			this.messageManager.refresh();
+			this.communicationModule.receive(this, messageManager);
+		}
 
 		think();
 
-		if (time > this.ignoreTime) {
-			this.send(this.agentInfo.createSendMessage());
+		if (time > this.ignoreTime)
+		{
+			this.communicationModule.send(this, messageManager);
 		}
 	}
 
@@ -125,7 +154,8 @@ public abstract class Agent<E extends StandardEntity> extends AbstractAgent<Stan
 		return me().getLocation(model).second();
 	}
 
-	public void send(Message[] msgs) {
+	public void send(Message[] msgs)
+	{
 		for(Message msg : msgs) super.send(msg);
 	}
 

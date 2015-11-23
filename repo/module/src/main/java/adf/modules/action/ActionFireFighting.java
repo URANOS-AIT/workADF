@@ -2,9 +2,9 @@ package adf.modules.action;
 
 import adf.agent.info.AgentInfo;
 import adf.agent.info.WorldInfo;
-import adf.component.action.action.common.ActionMove;
-import adf.component.action.action.common.ActionRest;
-import adf.component.action.action.fire.ActionExtinguish;
+import adf.agent.action.common.ActionMove;
+import adf.agent.action.common.ActionRest;
+import adf.agent.action.fire.ActionExtinguish;
 import adf.component.action.extaction.ExtAction;
 import adf.component.algorithm.path.PathPlanner;
 import rescuecore2.standard.entities.StandardEntity;

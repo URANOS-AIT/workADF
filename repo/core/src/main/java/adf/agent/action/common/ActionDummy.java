@@ -1,13 +1,13 @@
-package adf.component.action.action.common;
+package adf.agent.action.common;
 
-import adf.component.action.action.Action;
+import adf.agent.action.Action;
 import rescuecore2.messages.Message;
 import rescuecore2.standard.messages.AKRest;
 import rescuecore2.worldmodel.EntityID;
 
-public class ActionRest extends Action
+public class ActionDummy extends Action
 {
-	public ActionRest()
+	public ActionDummy()
 	{
 		super();
 	}

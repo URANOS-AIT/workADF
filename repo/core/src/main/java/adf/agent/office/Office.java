@@ -22,7 +22,7 @@ public abstract class Office<E extends StandardEntity> extends Agent<E> {
 		//distance = config.getIntValue(DISTANCE_KEY);
 
 		MessageManager messageManager = new MessageManager(config, this.getID());
-		this.agentInfo = new AgentInfo(this, model, config, messageManager);
+		this.agentInfo = new AgentInfo(this, model, config);
 
 		rootControl.initialize(agentInfo, worldInfo, scenarioInfo);
 

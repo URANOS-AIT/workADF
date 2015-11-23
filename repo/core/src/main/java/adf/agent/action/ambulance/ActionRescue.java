@@ -1,6 +1,6 @@
-package adf.component.action.action.ambulance;
+package adf.agent.action.ambulance;
 
-import adf.component.action.action.Action;
+import adf.agent.action.Action;
 import rescuecore2.messages.Message;
 import rescuecore2.standard.entities.Human;
 import rescuecore2.standard.messages.AKRescue;
