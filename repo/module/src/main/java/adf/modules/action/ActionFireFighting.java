@@ -1,12 +1,13 @@
 package adf.modules.action;
 
 import adf.agent.info.AgentInfo;
+import adf.agent.info.ScenarioInfo;
 import adf.agent.info.WorldInfo;
 import adf.agent.action.common.ActionMove;
 import adf.agent.action.common.ActionRest;
 import adf.agent.action.fire.ActionExtinguish;
-import adf.component.action.extaction.ExtAction;
 import adf.component.algorithm.path.PathPlanner;
+import adf.component.extaction.ExtAction;
 import rescuecore2.standard.entities.StandardEntity;
 import rescuecore2.worldmodel.EntityID;
 
@@ -16,9 +17,6 @@ import java.util.stream.Collectors;
 
 public class ActionFireFighting extends ExtAction {
 
-    private static final String MAX_DISTANCE_KEY = "fire.extinguish.max-distance";
-    private static final String MAX_POWER_KEY = "fire.extinguish.max-sum";
-
     private WorldInfo worldInfo;
     private AgentInfo agentInfo;
     private PathPlanner pathPlanner;
@@ -26,20 +24,20 @@ public class ActionFireFighting extends ExtAction {
     private int maxPower;
     private EntityID target;
 
-    public ActionFireFighting(WorldInfo worldInfo, AgentInfo agentInfo, PathPlanner pathPlanner, EntityID target) {
+    public ActionFireFighting(WorldInfo worldInfo, AgentInfo agentInfo, ScenarioInfo scenarioInfo, PathPlanner pathPlanner, EntityID target) {
         super();
         this.worldInfo = worldInfo;
         this.agentInfo = agentInfo;
         this.pathPlanner = pathPlanner;
         this.target = target;
-        this.maxDistance = this.agentInfo.config.getIntValue(MAX_DISTANCE_KEY);
-        this.maxPower = this.agentInfo.config.getIntValue(MAX_POWER_KEY);
+        this.maxDistance = scenarioInfo.getFireExtinguishMaxDistance();
+        this.maxPower = scenarioInfo.getFireExtinguishMaxSum();
     }
 
     @Override
     public ExtAction calc() {
         this.result = new ActionRest();
-        if (worldInfo.world.getDistance(agentInfo.getID(), this.target) <= maxDistance) {
+        if (worldInfo.getDistance(agentInfo.getID(), this.target) <= maxDistance) {
             this.result = new ActionExtinguish(this.target, maxPower);
         }
         else {
@@ -53,7 +51,7 @@ public class ActionFireFighting extends ExtAction {
 
     private List<EntityID> planPathToFire(EntityID target) {
         // Try to get to anything within maxDistance of the target
-        Collection<StandardEntity> targets = this.worldInfo.world.getObjectsInRange(target, maxDistance);
+        Collection<StandardEntity> targets = this.worldInfo.getObjectsInRange(target, maxDistance);
         if (targets.isEmpty()) {
             return null;
         }

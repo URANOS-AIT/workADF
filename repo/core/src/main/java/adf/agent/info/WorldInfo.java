@@ -1,17 +1,11 @@
 package adf.agent.info;
 
-import com.infomatiq.jsi.Rectangle;
 import rescuecore2.misc.Pair;
-import rescuecore2.standard.entities.StandardEntity;
-import rescuecore2.standard.entities.StandardEntityURN;
-import rescuecore2.standard.entities.StandardWorldModel;
-import rescuecore2.worldmodel.ChangeSet;
-import rescuecore2.worldmodel.EntityID;
+import rescuecore2.standard.entities.*;
+import rescuecore2.worldmodel.*;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
+import java.awt.geom.Rectangle2D;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class WorldInfo {
@@ -27,7 +21,7 @@ public class WorldInfo {
 		this.world = world;
 	}
 
-	public StandardWorldModel getWorld() {
+	public StandardWorldModel getRawWorld() {
 		return this.world;
 	}
 
@@ -39,27 +33,85 @@ public class WorldInfo {
         return entities.stream().map(StandardEntity::getID).collect(Collectors.toList());
 	}
 
-	public Collection<EntityID> getObjectsInRange(EntityID entity, int range) {
+	public Collection<EntityID> getObjectIDsInRange(EntityID entity, int range) {
 		return this.convert(this.world.getObjectsInRange(entity, range));
 	}
 
-	public Collection<EntityID> getObjectsInRange(StandardEntity entity, int range) {
+	public Collection<EntityID> getObjectIDsInRange(StandardEntity entity, int range) {
 		return this.convert(this.world.getObjectsInRange(entity, range));
 	}
 
-	public Collection<EntityID> getObjectsInRange(int x, int y, int range) {
+	public Collection<EntityID> getObjectIDsInRange(int x, int y, int range) {
 		return this.convert(this.world.getObjectsInRange(x,y,range));
 	}
 
-	public Collection<EntityID> getObjectsInRectangle(int x1, int y1, int x2, int y2) {
+	public Collection<EntityID> getObjectIDsInRectangle(int x1, int y1, int x2, int y2) {
 		return this.convert(this.world.getObjectsInRectangle(x1, y1, x2, y2));
 	}
 
-	public Collection<EntityID> getEntitiesOfType(StandardEntityURN urn) {
+	public Collection<EntityID> getEntityIDsOfType(StandardEntityURN urn) {
 		return this.convert(this.world.getEntitiesOfType(urn));
 	}
 
-	public Collection<EntityID> getEntitiesOfType(StandardEntityURN... urns) {
+	public Collection<EntityID> getEntityIDsOfType(StandardEntityURN... urns) {
 		return this.convert(this.world.getEntitiesOfType(urns));
+	}
+
+	//org
+
+	public void merge(ChangeSet changeSet) {
+		this.world.merge(changeSet);
+	}
+
+	public void indexClass(StandardEntityURN... urns) {
+		this.world.indexClass(urns);
+	}
+
+	public void index() {
+		this.world.index();
+	}
+
+	public Collection<StandardEntity> getObjectsInRange(EntityID entity, int range) {
+		return this.world.getObjectsInRange(entity, range);
+	}
+
+	public Collection<StandardEntity> getObjectsInRange(StandardEntity entity, int range) {
+		return this.world.getObjectsInRange(entity, range);
+	}
+
+	public Collection<StandardEntity> getObjectsInRange(int x, int y, int range) {
+		return this.world.getObjectsInRange(x, y, range);
+	}
+
+	public Collection<StandardEntity> getObjectsInRectangle(int x1, int y1, int x2, int y2) {
+		return this.world.getObjectsInRectangle(x1, y1, x2, y2);
+	}
+
+	public Collection<StandardEntity> getEntitiesOfType(StandardEntityURN urn) {
+		return this.world.getEntitiesOfType(urn);
+	}
+
+	public Collection<StandardEntity> getEntitiesOfType(StandardEntityURN... urns) {
+		return this.world.getEntitiesOfType(urns);
+	}
+
+	public int getDistance(EntityID first, EntityID second) {
+		return this.world.getDistance(first, second);
+	}
+
+	public int getDistance(StandardEntity first, StandardEntity second) {
+		return this.world.getDistance(first, second);
+	}
+
+	public Rectangle2D getBounds() {
+		return this.world.getBounds();
+	}
+
+	public Pair<Pair<Integer, Integer>, Pair<Integer, Integer>> getWorldBounds() {
+		return this.world.getWorldBounds();
+	}
+
+	public static StandardWorldModel createStandardWorldModel(WorldModel<? extends Entity> existing) {
+		return StandardWorldModel.createStandardWorldModel(existing);
 	}
 }

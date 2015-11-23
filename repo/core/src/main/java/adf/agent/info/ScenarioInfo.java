@@ -41,7 +41,7 @@ public class ScenarioInfo
 		return this.config;
 	}
 
-	public int getFireExtinguishMax_Sum()
+	public int getFireExtinguishMaxSum()
 	{
 		return config.getIntValue("fire.exthinguish.max-sum");
 	}
@@ -51,7 +51,7 @@ public class ScenarioInfo
 		return config.getIntValue("comms.channels.max.platoon");
 	}
 
-	public int getKernelAgentsThink_Time()
+	public int getKernelAgentsThinkTime()
 	{
 		return config.getIntValue("kernel.agents.think-time ");
 	}
@@ -66,7 +66,7 @@ public class ScenarioInfo
 		return config.getIntValue("clear.repair.rate");
 	}
 
-	public int getKernelStartupConnect_Time()
+	public int getKernelStartupConnectTime()
 	{
 		return config.getIntValue("kernel.startup.connect-time");
 	}
@@ -81,7 +81,7 @@ public class ScenarioInfo
 		return config.getIntValue("scenario.agents.at");
 	}
 
-	public int getPerceptionLosMax_Distance()
+	public int getPerceptionLosMaxDistance()
 	{
 		return config.getIntValue("perception.los.max-distance");
 	}
@@ -96,7 +96,7 @@ public class ScenarioInfo
 		return config.getIntValue("scenario.agents.po");
 	}
 
-	public String getKernelCommunication_Model()
+	public String getKernelCommunicationModel()
 	{
 		return config.getValue("kernel.communication-model");
 	}
@@ -116,7 +116,7 @@ public class ScenarioInfo
 		return config.getIntValue("comms.channels.max.centre");
 	}
 
-	public int getFireExtinguishMax_Distance()
+	public int getFireExtinguishMaxDistance()
 	{
 		return config.getIntValue("fire.extinguish.max-distance");
 	}
@@ -151,7 +151,7 @@ public class ScenarioInfo
 		return config.getIntValue("clear.repair.rad");
 	}
 
-	public int getFireTankRefill_Hydrant_Rate()
+	public int getFireTankRefillHydrantRate()
 	{
 		return config.getIntValue("fire.tank.refill_hydrant_rate");
 	}
