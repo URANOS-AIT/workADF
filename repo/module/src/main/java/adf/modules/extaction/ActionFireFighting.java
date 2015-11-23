@@ -1,4 +1,4 @@
-package adf.modules.action;
+package adf.modules.extaction;
 
 import adf.agent.info.AgentInfo;
 import adf.agent.info.ScenarioInfo;

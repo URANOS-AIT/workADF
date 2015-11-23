@@ -78,4 +78,8 @@ public class AgentInfo
 	{
 		this.changed = changed;
 	}
+
+    public ChangeSet getChanged() {
+        return this.changed;
+    }
 }

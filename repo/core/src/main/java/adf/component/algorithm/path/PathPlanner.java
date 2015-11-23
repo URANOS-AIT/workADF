@@ -28,9 +28,9 @@ public abstract class PathPlanner {
 
     public abstract void setFrom(EntityID id);
 
-    public abstract void setDist(Collection<EntityID> target);
+    public abstract void setDist(Collection<EntityID> targets);
 
-    public void setDist(EntityID... target) {
-        this.setDist(Arrays.asList(target));
+    public void setDist(EntityID... targets) {
+        this.setDist(Arrays.asList(targets));
     }
 }
