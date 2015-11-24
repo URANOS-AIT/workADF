@@ -4,7 +4,7 @@ import adf.agent.communication.MessageManager;
 import adf.agent.communication.standard.StandardCommunicationModule;
 import adf.agent.communication.standard.bundle.StandardMessageBundle;
 import adf.agent.info.AgentInfo;
-import adf.agent.info.PrecomputeData;
+import adf.agent.precompute.PrecomputeData;
 import adf.agent.info.ScenarioInfo;
 import adf.agent.info.WorldInfo;
 import adf.component.communication.CommunicationModule;

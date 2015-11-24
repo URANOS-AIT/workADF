@@ -1,7 +1,7 @@
 package adf.component.control;
 
 import adf.agent.info.AgentInfo;
-import adf.agent.info.PrecomputeData;
+import adf.agent.precompute.PrecomputeData;
 import adf.agent.info.ScenarioInfo;
 import adf.agent.info.WorldInfo;
 

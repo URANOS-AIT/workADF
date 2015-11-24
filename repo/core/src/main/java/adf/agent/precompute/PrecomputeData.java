@@ -1,4 +1,4 @@
-package adf.agent.info;
+package adf.agent.precompute;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.msgpack.jackson.dataformat.MessagePackFactory;
