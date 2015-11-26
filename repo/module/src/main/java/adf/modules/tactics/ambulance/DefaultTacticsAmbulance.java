@@ -5,13 +5,13 @@ import adf.agent.action.Action;
 import adf.agent.action.ambulance.ActionUnload;
 import adf.agent.action.common.ActionMove;
 import adf.agent.info.AgentInfo;
-import adf.agent.precompute.PrecomputeData;
 import adf.agent.info.ScenarioInfo;
 import adf.agent.info.WorldInfo;
+import adf.agent.precompute.PrecomputeData;
 import adf.component.algorithm.path.PathPlanner;
 import adf.component.tactics.TacticsAmbulance;
 import adf.modules.extaction.ActionTransport;
-import adf.modules.path.DefaultPathPlanner;
+import adf.modules.algorithm.path.DefaultPathPlanner;
 import rescuecore2.log.Logger;
 import rescuecore2.misc.collections.LazyMap;
 import rescuecore2.standard.entities.*;
@@ -75,7 +75,6 @@ public class DefaultTacticsAmbulance extends TacticsAmbulance {
         this.init(worldInfo);
         unexploredBuildings = new HashSet<>(buildingIDs);
         this.pathPlanner = new DefaultPathPlanner(worldInfo, agentInfo, scenarioInfo);
-
     }
 
     private void init(WorldInfo worldInfo) {
@@ -187,7 +186,7 @@ public class DefaultTacticsAmbulance extends TacticsAmbulance {
                 StandardEntityURN.AMBULANCE_TEAM)
                 ) {
             Human h = (Human)next;
-            if ((Human) worldInfo.world.getEntity(agentInfo.getID()) == h) {
+            if (agentInfo.getID() == h.getID()) {
                 continue;
             }
             if (h.isHPDefined()

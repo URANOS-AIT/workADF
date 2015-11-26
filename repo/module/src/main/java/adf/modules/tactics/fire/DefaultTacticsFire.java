@@ -11,7 +11,7 @@ import adf.agent.info.WorldInfo;
 import adf.component.algorithm.path.PathPlanner;
 import adf.component.tactics.TacticsFire;
 import adf.modules.extaction.ActionFireFighting;
-import adf.modules.path.DefaultPathPlanner;
+import adf.modules.algorithm.path.DefaultPathPlanner;
 import rescuecore2.misc.collections.LazyMap;
 import rescuecore2.standard.entities.*;
 import rescuecore2.worldmodel.Entity;
