@@ -11,7 +11,7 @@ import adf.agent.info.WorldInfo;
 import adf.component.algorithm.path.PathPlanner;
 import adf.component.tactics.TacticsFire;
 import adf.modules.extaction.ActionFireFighting;
-import adf.modules.path.SamplePathPlanner;
+import adf.modules.path.DefaultPathPlanner;
 import rescuecore2.misc.collections.LazyMap;
 import rescuecore2.standard.entities.*;
 import rescuecore2.worldmodel.Entity;
@@ -73,7 +73,7 @@ public class DefaultTacticsFire extends TacticsFire{
         //pathplanner
         //neighbours = search.getGraph();
         this.init(worldInfo);
-        this.pathPlanner = new SamplePathPlanner(worldInfo, agentInfo, scenarioInfo);
+        this.pathPlanner = new DefaultPathPlanner(worldInfo, agentInfo, scenarioInfo);
         maxWater = scenarioInfo.getFireTankMaximum();
         maxDistance = scenarioInfo.getFireExtinguishMaxDistance();
         maxPower = scenarioInfo.getFireExtinguishMaxSum();

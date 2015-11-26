@@ -6,21 +6,21 @@ import adf.agent.info.WorldInfo;
 import adf.component.algorithm.path.PathPlanner;
 import rescuecore2.misc.collections.LazyMap;
 import rescuecore2.standard.entities.Area;
-import rescuecore2.standard.entities.Building;
+//import rescuecore2.standard.entities.Building;
 import rescuecore2.worldmodel.Entity;
 import rescuecore2.worldmodel.EntityID;
 
 import java.util.*;
 
-public class SamplePathPlanner extends PathPlanner {
+public class DefaultPathPlanner extends PathPlanner {
 
     private Map<EntityID, Set<EntityID>> graph;
-    private Set<EntityID> buildingSet;
+    //private Set<EntityID> buildingSet;
 
-    EntityID from;
+    private EntityID from;
     private List<EntityID> result;
 
-    public SamplePathPlanner(WorldInfo wi, AgentInfo ai, ScenarioInfo si) {
+    public DefaultPathPlanner(WorldInfo wi, AgentInfo ai, ScenarioInfo si) {
         super(wi, ai, si);
         Map<EntityID, Set<EntityID>> neighbours = new LazyMap<EntityID, Set<EntityID>>() {
             @Override
@@ -28,13 +28,13 @@ public class SamplePathPlanner extends PathPlanner {
                 return new HashSet<>();
             }
         };
-        buildingSet= new HashSet<>();
+        //buildingSet= new HashSet<>();
         for (Entity next : wi.world) {
             if (next instanceof Area) {
                 Collection<EntityID> areaNeighbours = ((Area) next).getNeighbours();
                 neighbours.get(next.getID()).addAll(areaNeighbours);
-                if(next instanceof Building)
-                    buildingSet.add(next.getID());
+                //if(next instanceof Building)
+                //    buildingSet.add(next.getID());
             }
         }
         this.setGraph(neighbours);
@@ -57,7 +57,7 @@ public class SamplePathPlanner extends PathPlanner {
 
     @Override
     public void setFrom(EntityID id) {
-        this.from = from;
+        this.from = id;
     }
 
     @Override

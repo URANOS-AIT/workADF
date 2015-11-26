@@ -11,7 +11,7 @@ import adf.agent.info.WorldInfo;
 import adf.component.algorithm.path.PathPlanner;
 import adf.component.tactics.TacticsAmbulance;
 import adf.modules.extaction.ActionTransport;
-import adf.modules.path.SamplePathPlanner;
+import adf.modules.path.DefaultPathPlanner;
 import rescuecore2.log.Logger;
 import rescuecore2.misc.collections.LazyMap;
 import rescuecore2.standard.entities.*;
@@ -74,7 +74,7 @@ public class DefaultTacticsAmbulance extends TacticsAmbulance {
         }
         this.init(worldInfo);
         unexploredBuildings = new HashSet<>(buildingIDs);
-        this.pathPlanner = new SamplePathPlanner(worldInfo, agentInfo, scenarioInfo);
+        this.pathPlanner = new DefaultPathPlanner(worldInfo, agentInfo, scenarioInfo);
 
     }
 
@@ -157,7 +157,7 @@ public class DefaultTacticsAmbulance extends TacticsAmbulance {
         // Nothing to do
         //List<EntityID> path = search.breadthFirstSearch(me().getPosition(), unexploredBuildings);
         this.pathPlanner.setFrom(agentInfo.getPosition());
-        ((SamplePathPlanner)this.pathPlanner).setDist(unexploredBuildings);
+        ((DefaultPathPlanner)this.pathPlanner).setDist(unexploredBuildings);
         List<EntityID> path = this.pathPlanner.getResult();
         if (path != null) {
             //Logger.info("Searching buildings");
