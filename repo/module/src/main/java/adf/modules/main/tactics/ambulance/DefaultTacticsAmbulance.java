@@ -1,4 +1,4 @@
-package adf.modules.tactics.ambulance;
+package adf.modules.main.tactics.ambulance;
 
 import adf.agent.action.Action;
 import adf.agent.action.common.ActionMove;
@@ -10,10 +10,9 @@ import adf.agent.precompute.PrecomputeData;
 import adf.component.algorithm.path.PathPlanner;
 import adf.component.algorithm.target.TargetSelector;
 import adf.component.tactics.TacticsAmbulance;
-import adf.modules.algorithm.path.DefaultPathPlanner;
-import adf.modules.algorithm.target.SearchBuildingSelector;
-import adf.modules.algorithm.target.VictimSelector;
-import adf.modules.extaction.ActionTransport;
+import adf.modules.main.algorithm.path.DefaultPathPlanner;
+import adf.modules.main.algorithm.target.SearchBuildingSelector;
+import adf.modules.main.algorithm.target.VictimSelector;
 import rescuecore2.standard.entities.Building;
 import rescuecore2.standard.entities.Human;
 import rescuecore2.standard.entities.StandardEntity;

@@ -1,4 +1,4 @@
-package adf.modules.extaction;
+package adf.modules.main.extaction;
 
 import adf.agent.action.ambulance.ActionUnload;
 import adf.agent.info.AgentInfo;

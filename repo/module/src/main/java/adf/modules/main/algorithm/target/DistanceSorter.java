@@ -1,8 +1,7 @@
-package adf.modules.algorithm.target;
+package adf.modules.main.algorithm.target;
 
 import adf.agent.info.WorldInfo;
 import rescuecore2.standard.entities.StandardEntity;
-import rescuecore2.standard.entities.StandardWorldModel;
 
 import java.util.Comparator;
 

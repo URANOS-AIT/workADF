@@ -1,4 +1,4 @@
-package adf.modules.algorithm.path;
+package adf.modules.main.algorithm.path;
 
 import adf.agent.info.AgentInfo;
 import adf.agent.info.ScenarioInfo;

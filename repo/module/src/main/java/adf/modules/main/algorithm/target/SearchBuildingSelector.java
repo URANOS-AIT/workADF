@@ -1,4 +1,4 @@
-package adf.modules.algorithm.target;
+package adf.modules.main.algorithm.target;
 
 
 import adf.agent.info.AgentInfo;
@@ -6,9 +6,7 @@ import adf.agent.info.ScenarioInfo;
 import adf.agent.info.WorldInfo;
 import adf.component.algorithm.path.PathPlanner;
 import adf.component.algorithm.target.TargetSelector;
-import rescuecore2.log.Logger;
 import rescuecore2.standard.entities.*;
-import rescuecore2.worldmodel.ChangeSet;
 import rescuecore2.worldmodel.EntityID;
 
 import java.util.Collection;

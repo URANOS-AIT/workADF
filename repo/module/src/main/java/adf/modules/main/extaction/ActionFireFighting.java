@@ -1,4 +1,4 @@
-package adf.modules.extaction;
+package adf.modules.main.extaction;
 
 import adf.agent.info.AgentInfo;
 import adf.agent.info.ScenarioInfo;
@@ -51,14 +51,12 @@ public class ActionFireFighting extends ExtAction {
 
     private List<EntityID> planPathToFire(EntityID target) {
         // Try to get to anything within maxDistance of the target
-        Collection<StandardEntity> targets = this.worldInfo.getObjectsInRange(target, maxDistance);
+        Collection<EntityID> targets = this.worldInfo.getObjectIDsInRange(target, maxDistance);
         if (targets.isEmpty()) {
             return null;
         }
-
-        List<EntityID> cvtList = targets.stream().map(StandardEntity::getID).collect(Collectors.toList());
         this.pathPlanner.setFrom(this.agentInfo.getPosition());
-        this.pathPlanner.setDist(cvtList);
+        this.pathPlanner.setDist(targets);
         return this.pathPlanner.getResult();
     }
 }
