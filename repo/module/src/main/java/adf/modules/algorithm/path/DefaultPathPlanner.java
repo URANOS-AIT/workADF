@@ -4,9 +4,10 @@ import adf.agent.info.AgentInfo;
 import adf.agent.info.ScenarioInfo;
 import adf.agent.info.WorldInfo;
 import adf.component.algorithm.path.PathPlanner;
+import com.google.common.collect.HashBasedTable;
+import com.google.common.collect.Table;
 import rescuecore2.misc.collections.LazyMap;
 import rescuecore2.standard.entities.Area;
-//import rescuecore2.standard.entities.Building;
 import rescuecore2.worldmodel.Entity;
 import rescuecore2.worldmodel.EntityID;
 
@@ -15,39 +16,39 @@ import java.util.*;
 public class DefaultPathPlanner extends PathPlanner {
 
     private Map<EntityID, Set<EntityID>> graph;
-    //private Set<EntityID> buildingSet;
+
+    private Table<EntityID, EntityID, List<EntityID>> cache;
 
     private EntityID from;
     private List<EntityID> result;
 
     public DefaultPathPlanner(WorldInfo wi, AgentInfo ai, ScenarioInfo si) {
         super(wi, ai, si);
+        this.init();
+    }
+
+    private void init() {
         Map<EntityID, Set<EntityID>> neighbours = new LazyMap<EntityID, Set<EntityID>>() {
             @Override
             public Set<EntityID> createValue() {
                 return new HashSet<>();
             }
         };
-        //buildingSet= new HashSet<>();
-        for (Entity next : wi.world) {
+        for (Entity next : this.worldInfo) {
             if (next instanceof Area) {
                 Collection<EntityID> areaNeighbours = ((Area) next).getNeighbours();
                 neighbours.get(next.getID()).addAll(areaNeighbours);
-                //if(next instanceof Building)
-                //    buildingSet.add(next.getID());
             }
         }
-        this.setGraph(neighbours);
-    }
-
-    public void setGraph(Map<EntityID, Set<EntityID>> newGraph) {
-        this.graph = newGraph;
+        this.graph = neighbours;
+        this.cache = HashBasedTable.create();
     }
 
     @Override
     public void clear() {
         this.from = null;
         this.result = null;
+        this.cache.clear();
     }
 
     @Override
@@ -61,7 +62,12 @@ public class DefaultPathPlanner extends PathPlanner {
     }
 
     @Override
-    public void setDist(Collection<EntityID> targets) {
+    public PathPlanner setDist(Collection<EntityID> targets) {
+        //check cache
+        if(this.hasCache(targets)) {
+            return this;
+        }
+        //calc
         List<EntityID> open = new LinkedList<>();
         Map<EntityID, EntityID> ancestors = new HashMap<>();
         open.add(this.from);
@@ -99,7 +105,7 @@ public class DefaultPathPlanner extends PathPlanner {
         }
         // Walk back from goal to this.from
         EntityID current = next;
-        List<EntityID> path = new LinkedList<>();
+        LinkedList<EntityID> path = new LinkedList<>();
         do {
             path.add(0, current);
             current = ancestors.get(current);
@@ -108,6 +114,19 @@ public class DefaultPathPlanner extends PathPlanner {
             }
         } while (current != this.from);
         this.result = path;
+        this.cache.put(path.getFirst(), path.getLast(), path);
+        this.cache.put(path.getLast(), path.getFirst(), path);
+        return this;
+    }
+
+    private boolean hasCache(Collection<EntityID> targets) {
+        for(EntityID next : targets) {
+            this.result = this.cache.get(this.from, next);
+            if(this.result != null) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private boolean isGoal(EntityID e, Collection<EntityID> test) {

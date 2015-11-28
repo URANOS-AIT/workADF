@@ -8,20 +8,21 @@ import rescuecore2.standard.entities.Human;
 import rescuecore2.standard.entities.StandardEntity;
 import rescuecore2.standard.entities.StandardEntityURN;
 import rescuecore2.worldmodel.EntityID;
-import sample.DistanceSorter;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class VictimSelector extends TargetSelector<Human>{
+public class AmbulanceVictimSelector extends TargetSelector<Human>{
 
-    public VictimSelector(WorldInfo wi, AgentInfo ai, ScenarioInfo si) {
+    private EntityID result;
+
+    public AmbulanceVictimSelector(WorldInfo wi, AgentInfo ai, ScenarioInfo si) {
         super(wi, ai, si);
     }
 
     @Override
-    public EntityID getTarget() {
+    public TargetSelector calc() {
         List<Human> targets = new ArrayList<>();
         for (StandardEntity next : worldInfo.getEntitiesOfType(
                 StandardEntityURN.CIVILIAN,
@@ -42,7 +43,13 @@ public class VictimSelector extends TargetSelector<Human>{
                 targets.add(h);
             }
         }
-        Collections.sort(targets, new DistanceSorter(worldInfo.getEntity(agentInfo.getPosition()), worldInfo.getRawWorld()));
-        return targets.get(0).getID();
+        targets.sort(new DistanceSorter(this.worldInfo, this.agentInfo.getLocation()));
+        result = targets.get(0).getID();
+        return this;
+    }
+
+    @Override
+    public EntityID getTarget() {
+        return this.result;
     }
 }

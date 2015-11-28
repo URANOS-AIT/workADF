@@ -3,12 +3,13 @@ package adf.agent.info;
 import rescuecore2.misc.Pair;
 import rescuecore2.standard.entities.*;
 import rescuecore2.worldmodel.*;
+import sample.DistanceSorter;
 
 import java.awt.geom.Rectangle2D;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class WorldInfo {
+public class WorldInfo implements Iterable<StandardEntity> {
 	public StandardWorldModel world;
 	public ChangeSet changed;
 
@@ -27,6 +28,10 @@ public class WorldInfo {
 
 	public void setChanged(ChangeSet changed) {
 		this.changed = changed;
+	}
+
+	public ChangeSet getChanged() {
+		return this.changed;
 	}
 
 	public Collection<EntityID> convert(Collection<StandardEntity> entities) {
@@ -143,7 +148,13 @@ public class WorldInfo {
         this.world.removeAllEntities();
     }
 
+	@Override
     public Iterator<StandardEntity> iterator() {
         return this.world.iterator();
     }
+
+    /*public <E extends StandardEntity> List<E> sortByDistance(StandardEntity from, List<E> list) {
+        list.sort(new DistanceSorter(from, this.getRawWorld()));
+        return list;
+    }*/
 }

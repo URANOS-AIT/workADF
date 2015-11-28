@@ -6,6 +6,7 @@ import adf.agent.info.ScenarioInfo;
 import adf.agent.info.WorldInfo;
 import rescuecore2.worldmodel.EntityID;
 
+import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
@@ -28,9 +29,9 @@ public abstract class PathPlanner {
 
     public abstract void setFrom(EntityID id);
 
-    public abstract void setDist(Collection<EntityID> targets);
+    public abstract PathPlanner setDist(Collection<EntityID> targets);
 
-    public void setDist(EntityID... targets) {
-        this.setDist(Arrays.asList(targets));
+    public PathPlanner setDist(EntityID... targets) {
+        return this.setDist(Arrays.asList(targets));
     }
 }
