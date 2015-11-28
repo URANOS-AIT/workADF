@@ -54,6 +54,10 @@ public class AgentInfo
 		return agent.getID();
 	}
 
+	public <A extends Human>  A me() {
+		return (A)this.world.getEntity(this.agent.getID());
+	}
+
 	public double getX()
 	{
 		return agent.getX();
