@@ -17,13 +17,13 @@ public abstract class Clustering{
 
     protected int clusterSize;
 
-    protected Collection<EntityID> entityIDs;
+    protected Collection<StandardEntity> entityIDs;
 
-    public Clustering(WorldInfo wi, AgentInfo ai, ScenarioInfo si, Collection<EntityID> elements) {
+    public Clustering(WorldInfo wi, AgentInfo ai, ScenarioInfo si, Collection<StandardEntity> elements) {
         this(wi, ai, si, elements, -1);
     }
 
-    public Clustering(WorldInfo wi, AgentInfo ai, ScenarioInfo si, Collection<EntityID> elements, int size) {
+    public Clustering(WorldInfo wi, AgentInfo ai, ScenarioInfo si, Collection<StandardEntity> elements, int size) {
         this.worldInfo = wi;
         this.agentInfo = ai;
         this.scenarioInfo = si;
@@ -39,7 +39,5 @@ public abstract class Clustering{
 
     public abstract int getClusterIndex(EntityID id);
 
-    public abstract Collection<EntityID> getClusterEntities(int index);
-
-    //public abstract Collection<ClusterData> getClusters();
+    public abstract Collection<StandardEntity> getClusterEntities(int index);
 }
