@@ -21,7 +21,11 @@ public class VictimSelector extends TargetSelector<Human>{
     }
 
     @Override
-    public TargetSelector calc() {
+    public void update() {
+    }
+
+    @Override
+    public TargetSelector<Human> calc() {
         List<Human> targets = new ArrayList<>();
         for (StandardEntity next : worldInfo.getEntitiesOfType(
                 StandardEntityURN.CIVILIAN,

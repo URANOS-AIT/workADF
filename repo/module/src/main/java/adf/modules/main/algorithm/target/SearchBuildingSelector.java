@@ -43,7 +43,7 @@ public class SearchBuildingSelector extends TargetSelector<Building> {
     }
 
     @Override
-    public TargetSelector calc() {
+    public TargetSelector<Building> calc() {
         this.pathPlanner.setFrom(this.agentInfo.getPosition());
         List<EntityID> path = this.pathPlanner.setDist(this.unexploredBuildings).getResult();
         if (path != null) {

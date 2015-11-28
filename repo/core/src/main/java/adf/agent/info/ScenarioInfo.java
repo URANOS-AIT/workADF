@@ -126,9 +126,9 @@ public class ScenarioInfo
 		return config.getIntValue("kernel.agents.ignoreuntil");
 	}
 
-	public int getClearRepairDistance()
-	{
-		return config.getIntValue("update.repair.distance");
+	public int getClearRepairDistance() {
+		//return config.getIntValue("update.repair.distance");
+		return this.config.getIntValue("clear.repair.distance");
 	}
 
 	public int getCommsChannelsCount()

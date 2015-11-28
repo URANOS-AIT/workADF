@@ -22,11 +22,10 @@ public class BurningBuildingSelector extends TargetSelector<Building> {
 
     @Override
     public void update() {
-
     }
 
     @Override
-    public TargetSelector calc() {
+    public TargetSelector<Building> calc() {
         List<Building> buildingList = new ArrayList<>();
         for (StandardEntity next : this.worldInfo.getEntitiesOfType(StandardEntityURN.BUILDING)) {
             if (next.getStandardURN().equals(StandardEntityURN.BUILDING)) {

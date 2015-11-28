@@ -61,6 +61,7 @@ public class DefaultTacticsAmbulance extends TacticsAmbulance {
 
     @Override
     public Action think(AgentInfo agentInfo, WorldInfo worldInfo, ScenarioInfo scenarioInfo) {
+        this.victimSelector.update();
         this.buildingSelector.update();
 
         Human injured = this.someoneOnBoard(worldInfo, agentInfo);
@@ -71,7 +72,10 @@ public class DefaultTacticsAmbulance extends TacticsAmbulance {
         // Go through targets (sorted by distance) and check for things we can do
         EntityID target = this.victimSelector.calc().getTarget();
         if(target != null) {
-            return new ActionTransport(worldInfo, agentInfo, this.pathPlanner, (Human)worldInfo.getEntity(target)).calc().getAction();
+            Action action = new ActionTransport(worldInfo, agentInfo, this.pathPlanner, (Human)worldInfo.getEntity(target)).calc().getAction();
+            if(action != null) {
+                return action;
+            }
         }
 
         // Nothing to do

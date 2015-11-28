@@ -55,9 +55,10 @@ public class DefaultTacticsFire extends TacticsFire{
 
     @Override
     public Action think(AgentInfo agentInfo, WorldInfo worldInfo, ScenarioInfo scenarioInfo) {
+        this.burningBuildingSelector.update();
         this.searchBuildingSelector.update();
 
-        FireBrigade me = agentInfo.me();
+        FireBrigade me = (FireBrigade) agentInfo.me();
         // Are we currently filling with water?
         if (me.isWaterDefined() && me.getWater() < maxWater && agentInfo.getLocation() instanceof Refuge) {
             return new ActionRest();
