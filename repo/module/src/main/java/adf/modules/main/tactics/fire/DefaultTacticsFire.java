@@ -13,6 +13,7 @@ import adf.component.tactics.TacticsFire;
 import adf.modules.main.algorithm.path.DefaultPathPlanner;
 import adf.modules.main.algorithm.target.BurningBuildingSelector;
 import adf.modules.main.algorithm.target.SearchBuildingSelector;
+import adf.modules.main.extaction.ActionFireFighting;
 import rescuecore2.standard.entities.Building;
 import rescuecore2.standard.entities.FireBrigade;
 import rescuecore2.standard.entities.Refuge;
