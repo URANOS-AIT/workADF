@@ -45,7 +45,7 @@ public class DefaultPathPlanner extends PathPlanner {
     }
 
     @Override
-    public void clear() {
+    public void update() {
         this.from = null;
         this.result = null;
         this.cache.clear();

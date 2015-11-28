@@ -13,11 +13,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class AmbulanceVictimSelector extends TargetSelector<Human>{
+public class VictimSelector extends TargetSelector<Human>{
 
     private EntityID result;
 
-    public AmbulanceVictimSelector(WorldInfo wi, AgentInfo ai, ScenarioInfo si) {
+    public VictimSelector(WorldInfo wi, AgentInfo ai, ScenarioInfo si) {
         super(wi, ai, si);
     }
 

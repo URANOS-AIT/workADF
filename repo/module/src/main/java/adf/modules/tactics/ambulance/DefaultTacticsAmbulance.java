@@ -11,8 +11,8 @@ import adf.component.algorithm.path.PathPlanner;
 import adf.component.algorithm.target.TargetSelector;
 import adf.component.tactics.TacticsAmbulance;
 import adf.modules.algorithm.path.DefaultPathPlanner;
-import adf.modules.algorithm.target.AmbulanceBuildingSelector;
-import adf.modules.algorithm.target.AmbulanceVictimSelector;
+import adf.modules.algorithm.target.SearchBuildingSelector;
+import adf.modules.algorithm.target.VictimSelector;
 import adf.modules.extaction.ActionTransport;
 import rescuecore2.standard.entities.Building;
 import rescuecore2.standard.entities.Human;
@@ -55,22 +55,25 @@ public class DefaultTacticsAmbulance extends TacticsAmbulance {
                 StandardEntityURN.BUILDING
         );
         this.pathPlanner = new DefaultPathPlanner(worldInfo, agentInfo, scenarioInfo);
-        this.victimSelector = new AmbulanceVictimSelector(worldInfo, agentInfo, scenarioInfo);
-        this.buildingSelector = new AmbulanceBuildingSelector(worldInfo, agentInfo, scenarioInfo, this.pathPlanner);
+        this.victimSelector = new VictimSelector(worldInfo, agentInfo, scenarioInfo);
+        this.buildingSelector = new SearchBuildingSelector(worldInfo, agentInfo, scenarioInfo, this.pathPlanner);
     }
 
     @Override
     public Action think(AgentInfo agentInfo, WorldInfo worldInfo, ScenarioInfo scenarioInfo) {
-        //this.buildingSelector.calc();
+        this.buildingSelector.update();
+
         Human injured = this.someoneOnBoard(worldInfo, agentInfo);
         if (injured != null) {
             return new ActionTransport(worldInfo, agentInfo, this.pathPlanner, injured).calc().getAction();
         }
+
         // Go through targets (sorted by distance) and check for things we can do
         EntityID target = this.victimSelector.calc().getTarget();
         if(target != null) {
             return new ActionTransport(worldInfo, agentInfo, this.pathPlanner, (Human)worldInfo.getEntity(target)).calc().getAction();
         }
+
         // Nothing to do
         EntityID searchBuildingID = this.buildingSelector.calc().getTarget();
         if(searchBuildingID != null) {

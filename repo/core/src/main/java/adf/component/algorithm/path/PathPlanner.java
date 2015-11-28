@@ -23,7 +23,7 @@ public abstract class PathPlanner {
         this.scenarioInfo = si;
     }
 
-    public abstract void clear();
+    public abstract void update();
 
     public abstract List<EntityID> getResult();
 

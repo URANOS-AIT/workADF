@@ -19,6 +19,9 @@ public abstract class TargetSelector<E extends StandardEntity> {
         this.scenarioInfo = si;
     }
 
+    public void update() {
+    }
+
     public TargetSelector calc() {
         return this;
     }

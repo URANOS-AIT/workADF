@@ -15,14 +15,14 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 
-public class AmbulanceBuildingSelector extends TargetSelector<Building> {
+public class SearchBuildingSelector extends TargetSelector<Building> {
 
     private PathPlanner pathPlanner;
 
     private Collection<EntityID> unexploredBuildings;
     private EntityID result;
 
-    public AmbulanceBuildingSelector(WorldInfo wi, AgentInfo ai, ScenarioInfo si, PathPlanner pp) {
+    public SearchBuildingSelector(WorldInfo wi, AgentInfo ai, ScenarioInfo si, PathPlanner pp) {
         super(wi, ai, si);
         this.pathPlanner = pp;
         this.init();
@@ -38,8 +38,14 @@ public class AmbulanceBuildingSelector extends TargetSelector<Building> {
     }
 
     @Override
+    public void update() {
+        for (EntityID next : this.worldInfo.getChanged().getChangedEntities()) {
+            unexploredBuildings.remove(next);
+        }
+    }
+
+    @Override
     public TargetSelector calc() {
-        this.updateUnexploredBuildings(this.worldInfo.getChanged());
         this.pathPlanner.setFrom(this.agentInfo.getPosition());
         List<EntityID> path = this.pathPlanner.setDist(this.unexploredBuildings).getResult();
         if (path != null) {
@@ -51,11 +57,5 @@ public class AmbulanceBuildingSelector extends TargetSelector<Building> {
     @Override
     public EntityID getTarget() {
         return this.result;
-    }
-
-    private void updateUnexploredBuildings(ChangeSet changed) {
-        for (EntityID next : changed.getChangedEntities()) {
-            unexploredBuildings.remove(next);
-        }
     }
 }
