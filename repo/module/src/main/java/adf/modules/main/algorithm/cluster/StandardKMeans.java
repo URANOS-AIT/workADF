@@ -5,14 +5,11 @@ import adf.agent.info.AgentInfo;
 import adf.agent.info.ScenarioInfo;
 import adf.agent.info.WorldInfo;
 import adf.component.algorithm.cluster.Clustering;
-import rescuecore2.config.Config;
-import rescuecore2.config.ConfigException;
 import rescuecore2.misc.Pair;
 import rescuecore2.standard.entities.StandardEntity;
 import rescuecore2.standard.entities.StandardWorldModel;
 import rescuecore2.worldmodel.EntityID;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -60,14 +57,6 @@ public class StandardKMeans extends Clustering {
 
     @Override
     public Clustering calc() {
-        Config config = new Config();
-        try {
-            config.read(new File("naito15.cfg"));
-        } catch (ConfigException e) {
-            e.printStackTrace();
-        }
-        repeat = config.getIntValue("naito15.clustering.standardkmeans.repeat", 50);
-
         Random random = new Random();
 
         List<StandardEntity> entityList = new ArrayList<>(this.entities);
@@ -76,8 +65,8 @@ public class StandardKMeans extends Clustering {
 
         //init list
         for (int index = 0; index < this.clusterSize; index++) {
-            clusterList.add(index, new ArrayList<>());
-            centerEntityList.add(index, entityList.get(0));
+            this.clusterList.add(index, new ArrayList<>());
+            this.centerEntityList.add(index, entityList.get(0));
         }
         System.out.println("Cluster : " + this.clusterSize);
         //init center
@@ -85,41 +74,41 @@ public class StandardKMeans extends Clustering {
             StandardEntity centerEntity;
             do {
                 centerEntity = entityList.get(Math.abs(random.nextInt()) % entityList.size());
-            } while (centerEntityList.contains(centerEntity));
-            centerEntityList.set(index, centerEntity);
+            } while (this.centerEntityList.contains(centerEntity));
+            this.centerEntityList.set(index, centerEntity);
         }
         //calc center
-        for (int i = 0; i < repeat; i++) {
-            clusterList.clear();
+        for (int i = 0; i < this.repeat; i++) {
+            this.clusterList.clear();
             for (int index = 0; index < this.clusterSize; index++) {
-                clusterList.add(index, new ArrayList<>());
+                this.clusterList.add(index, new ArrayList<>());
             }
             for (StandardEntity entity : entityList) {
-                StandardEntity tmp = this.getNearEntityByLine(this.worldInfo.getRawWorld(), centerEntityList, entity);
-                clusterList.get(centerEntityList.indexOf(tmp)).add(entity);
+                StandardEntity tmp = this.getNearEntityByLine(this.worldInfo.getRawWorld(), this.centerEntityList, entity);
+                this.clusterList.get(this.centerEntityList.indexOf(tmp)).add(entity);
             }
             for (int index = 0; index < this.clusterSize; index++) {
                 int sumX = 0, sumY = 0;
-                for (StandardEntity entity : clusterList.get(index)) {
+                for (StandardEntity entity : this.clusterList.get(index)) {
                     Pair<Integer, Integer> location = entity.getLocation(this.worldInfo.getRawWorld());
                     sumX += location.first();
                     sumY += location.second();
                 }
-                int centerX = sumX / clusterList.get(index).size();
-                int centerY = sumY / clusterList.get(index).size();
-                centerEntityList.set(index, getNearEntityByLine(this.worldInfo.getRawWorld(), clusterList.get(index), centerX, centerY));
+                int centerX = sumX / this.clusterList.get(index).size();
+                int centerY = sumY / this.clusterList.get(index).size();
+                this.centerEntityList.set(index, getNearEntityByLine(this.worldInfo.getRawWorld(), this.clusterList.get(index), centerX, centerY));
             }
             System.out.printf("*");
         }
         System.out.println();
         //set entity
-        clusterList.clear();
+        this.clusterList.clear();
         for (int index = 0; index < this.clusterSize; index++) {
-            clusterList.add(index, new ArrayList<>());
+            this.clusterList.add(index, new ArrayList<>());
         }
         for (StandardEntity entity : entityList) {
-            StandardEntity tmp = this.getNearEntityByLine(worldInfo.getRawWorld(), centerEntityList, entity);
-            clusterList.get(centerEntityList.indexOf(tmp)).add(entity);
+            StandardEntity tmp = this.getNearEntityByLine(this.worldInfo.getRawWorld(), this.centerEntityList, entity);
+            this.clusterList.get(this.centerEntityList.indexOf(tmp)).add(entity);
         }
 
         //kMeansClusterList.sort(comparing(x -> x.getAreaIDList().size(), reverseOrder()));
@@ -139,8 +128,7 @@ public class StandardKMeans extends Clustering {
         return result;
     }
 
-    private StandardEntity compareLineDistance(StandardWorldModel world, int targetX, int targetY, StandardEntity first, StandardEntity second)
-    {
+    private StandardEntity compareLineDistance(StandardWorldModel world, int targetX, int targetY, StandardEntity first, StandardEntity second) {
         double firstDistance = getDistance(first.getLocation(world).first(), first.getLocation(world).second(), targetX, targetY);
         double secondDistance = getDistance(second.getLocation(world).first(), second.getLocation(world).second(), targetX, targetY);
         return (firstDistance < secondDistance ? first : second);
