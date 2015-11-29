@@ -4,12 +4,13 @@ import adf.agent.info.AgentInfo;
 import adf.agent.info.ScenarioInfo;
 import adf.agent.info.WorldInfo;
 import rescuecore2.standard.entities.StandardEntity;
-import rescuecore2.standard.entities.StandardEntityURN;
 import rescuecore2.worldmodel.EntityID;
 
 import java.util.Collection;
 
 public abstract class Clustering{
+
+    public static final int DEFAULT_SIZE = 10;
 
     protected WorldInfo worldInfo;
     protected AgentInfo agentInfo;
@@ -17,10 +18,10 @@ public abstract class Clustering{
 
     protected int clusterSize;
 
-    protected Collection<StandardEntity> entityIDs;
+    protected Collection<StandardEntity> entities;
 
     public Clustering(WorldInfo wi, AgentInfo ai, ScenarioInfo si, Collection<StandardEntity> elements) {
-        this(wi, ai, si, elements, -1);
+        this(wi, ai, si, elements, DEFAULT_SIZE);
     }
 
     public Clustering(WorldInfo wi, AgentInfo ai, ScenarioInfo si, Collection<StandardEntity> elements, int size) {
@@ -28,16 +29,22 @@ public abstract class Clustering{
         this.agentInfo = ai;
         this.scenarioInfo = si;
         this.clusterSize = size;
-        this.entityIDs = elements;
+        this.entities = elements;
     }
 
     public Clustering calc() {
         return this;
     }
 
-    public abstract int getClusterNumber();
+    public int getClusterNumber() {
+        return this.clusterSize;
+    }
+
+    public abstract int getClusterIndex(StandardEntity entity);
 
     public abstract int getClusterIndex(EntityID id);
 
     public abstract Collection<StandardEntity> getClusterEntities(int index);
+
+    public abstract Collection<EntityID> getClusterEntityIDs(int index);
 }

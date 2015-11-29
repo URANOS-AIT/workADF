@@ -3,7 +3,6 @@ package adf.agent.info;
 import rescuecore2.misc.Pair;
 import rescuecore2.standard.entities.*;
 import rescuecore2.worldmodel.*;
-import sample.DistanceSorter;
 
 import java.awt.geom.Rectangle2D;
 import java.util.*;
@@ -34,32 +33,36 @@ public class WorldInfo implements Iterable<StandardEntity> {
 		return this.changed;
 	}
 
-	public Collection<EntityID> convert(Collection<StandardEntity> entities) {
+	public Collection<EntityID> convertToID(Collection<StandardEntity> entities) {
         return entities.stream().map(StandardEntity::getID).collect(Collectors.toList());
 	}
 
+    public Collection<StandardEntity> convertToEntity(Collection<EntityID> entityIDs) {
+        return entityIDs.stream().map(id -> this.world.getEntity(id)).collect(Collectors.toList());
+    }
+
 	public Collection<EntityID> getObjectIDsInRange(EntityID entity, int range) {
-		return this.convert(this.world.getObjectsInRange(entity, range));
+		return this.convertToID(this.world.getObjectsInRange(entity, range));
 	}
 
 	public Collection<EntityID> getObjectIDsInRange(StandardEntity entity, int range) {
-		return this.convert(this.world.getObjectsInRange(entity, range));
+		return this.convertToID(this.world.getObjectsInRange(entity, range));
 	}
 
 	public Collection<EntityID> getObjectIDsInRange(int x, int y, int range) {
-		return this.convert(this.world.getObjectsInRange(x,y,range));
+		return this.convertToID(this.world.getObjectsInRange(x,y,range));
 	}
 
 	public Collection<EntityID> getObjectIDsInRectangle(int x1, int y1, int x2, int y2) {
-		return this.convert(this.world.getObjectsInRectangle(x1, y1, x2, y2));
+		return this.convertToID(this.world.getObjectsInRectangle(x1, y1, x2, y2));
 	}
 
 	public Collection<EntityID> getEntityIDsOfType(StandardEntityURN urn) {
-		return this.convert(this.world.getEntitiesOfType(urn));
+		return this.convertToID(this.world.getEntitiesOfType(urn));
 	}
 
 	public Collection<EntityID> getEntityIDsOfType(StandardEntityURN... urns) {
-		return this.convert(this.world.getEntitiesOfType(urns));
+		return this.convertToID(this.world.getEntitiesOfType(urns));
 	}
 
 	//org
