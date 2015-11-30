@@ -45,6 +45,15 @@ artifacts {
 
 build.mustRunAfter 'clean'
 
+task start (type: JavaExec) {
+    classpath = sourceSets.main.runtimeClasspath
+    main = "adf.Main"
+    if (project.hasProperty('args')) {
+        args project.args.split('\\s+')
+    }
+    jvmArgs '-Xms512m', '-Xmx8g'
+}
+
 task wrapper(type: Wrapper) {
     gradleVersion = '2.8'
 }

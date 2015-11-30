@@ -38,7 +38,7 @@ public class SearchBuildingSelector extends TargetSelector<Building> {
     @Override
     public void update() {
         for (EntityID next : this.worldInfo.getChanged().getChangedEntities()) {
-            unexploredBuildings.remove(next);
+            this.unexploredBuildings.remove(next);
         }
     }
 

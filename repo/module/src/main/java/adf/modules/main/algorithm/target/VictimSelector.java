@@ -47,7 +47,7 @@ public class VictimSelector extends TargetSelector<Human>{
             }
         }
         targets.sort(new DistanceSorter(this.worldInfo, this.agentInfo.getLocation()));
-        result = targets.get(0).getID();
+        result = targets.isEmpty() ? null : targets.get(0).getID();
         return this;
     }
 

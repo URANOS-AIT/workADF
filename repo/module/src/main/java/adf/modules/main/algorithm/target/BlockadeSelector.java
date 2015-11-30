@@ -94,6 +94,9 @@ public class BlockadeSelector extends TargetSelector<Blockade> {
                 result.add(r);
             }
         }
+        if(result.isEmpty()) {
+            return null;
+        }
         result.sort(new DistanceSorter(this.worldInfo, this.agentInfo.getLocation()));
         return result.get(0).getBlockades().get(0);
     }

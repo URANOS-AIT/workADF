@@ -1,6 +1,5 @@
 package adf.agent.info;
 
-import rescuecore2.Constants;
 import rescuecore2.config.Config;
 
 public class ScenarioInfo
@@ -41,9 +40,9 @@ public class ScenarioInfo
 		return this.config;
 	}
 
-	public int getFireExtinguishMaxSum()
-	{
-		return config.getIntValue("fire.exthinguish.max-sum");
+	public int getFireExtinguishMaxSum() {
+		//return config.getIntValue("fire.exthinguish.max-sum");
+		return this.config.getIntValue("fire.extinguish.max-sum");
 	}
 
 	public int getCommsChannelsMaxPlatoon()
@@ -53,12 +52,12 @@ public class ScenarioInfo
 
 	public int getKernelAgentsThinkTime()
 	{
-		return config.getIntValue("kernel.agents.think-time ");
+		return config.getIntValue("kernel.agents.think-time");
 	}
 
 	public int getFireTankMaximum()
 	{
-		return config.getIntValue("fire.tank.maximum ");
+		return config.getIntValue("fire.tank.maximum");
 	}
 
 	public int getClearRepairRate()

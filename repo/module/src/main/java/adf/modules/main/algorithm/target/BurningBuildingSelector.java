@@ -37,7 +37,7 @@ public class BurningBuildingSelector extends TargetSelector<Building> {
         }
         // Sort by distance
         buildingList.sort(new DistanceSorter(this.worldInfo, this.agentInfo.getLocation()));
-        this.result = buildingList.get(0).getID();
+        this.result = buildingList.isEmpty() ? null : buildingList.get(0).getID();
         return this;
     }
 
