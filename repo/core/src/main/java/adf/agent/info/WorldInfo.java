@@ -15,8 +15,8 @@ import java.util.Collection;
 import java.util.Iterator;
 
 public class WorldInfo implements Iterable<StandardEntity> {
-	public StandardWorldModel world;
-	public ChangeSet changed;
+	private StandardWorldModel world;
+	private ChangeSet changed;
 
 	public WorldInfo(StandardWorldModel world) {
 		this.setWorld(world);
@@ -153,9 +153,4 @@ public class WorldInfo implements Iterable<StandardEntity> {
     public Iterator<StandardEntity> iterator() {
         return this.world.iterator();
     }
-
-    /*public <E extends StandardEntity> List<E> sortByDistance(StandardEntity from, List<E> list) {
-        list.sort(new DistanceSorter(from, this.getRawWorld()));
-        return list;
-    }*/
 }

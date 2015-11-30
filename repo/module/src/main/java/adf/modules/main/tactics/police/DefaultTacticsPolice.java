@@ -31,6 +31,7 @@ public class DefaultTacticsPolice extends TacticsPolice {
 
     @Override
     public void precompute(AgentInfo agentInfo, WorldInfo worldInfo, ScenarioInfo scenarioInfo, PrecomputeData precomputeData) {
+
     }
 
     @Override

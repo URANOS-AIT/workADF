@@ -4,6 +4,7 @@ package adf.component.algorithm.path;
 import adf.agent.info.AgentInfo;
 import adf.agent.info.ScenarioInfo;
 import adf.agent.info.WorldInfo;
+import adf.agent.precompute.PrecomputeData;
 import rescuecore2.worldmodel.EntityID;
 
 import java.util.Arrays;
@@ -12,14 +13,17 @@ import java.util.List;
 
 public abstract class PathPlanner {
 
-    public ScenarioInfo scenarioInfo;
-    public AgentInfo agentInfo;
-    public WorldInfo worldInfo;
+    protected ScenarioInfo scenarioInfo;
+    protected AgentInfo agentInfo;
+    protected WorldInfo worldInfo;
 
     public PathPlanner(WorldInfo wi, AgentInfo ai, ScenarioInfo si) {
         this.worldInfo = wi;
         this.agentInfo = ai;
         this.scenarioInfo = si;
+    }
+
+    public void precompute(PrecomputeData precomputeData) {
     }
 
     public void updateInfo(){

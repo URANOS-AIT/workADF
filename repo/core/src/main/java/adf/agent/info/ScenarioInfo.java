@@ -11,8 +11,8 @@ public class ScenarioInfo
 		PRECOMPUTATION_PHASE
 	}
 
-	public Config config;
-	public Mode mode;
+	private Config config;
+	private Mode mode;
 
 	public ScenarioInfo(Config config, Mode mode)
 	{
@@ -41,7 +41,6 @@ public class ScenarioInfo
 	}
 
 	public int getFireExtinguishMaxSum() {
-		//return config.getIntValue("fire.exthinguish.max-sum");
 		return this.config.getIntValue("fire.extinguish.max-sum");
 	}
 
@@ -110,8 +109,7 @@ public class ScenarioInfo
 		return config.getIntValue("scenario.agents.ac");
 	}
 
-	public int getCommsChannelsMaxOffice() //public int getCommsChannelsMaxCentre()
-	{
+	public int getCommsChannelsMaxOffice() {
 		return config.getIntValue("comms.channels.max.centre");
 	}
 
@@ -126,7 +124,6 @@ public class ScenarioInfo
 	}
 
 	public int getClearRepairDistance() {
-		//return config.getIntValue("updateInfo.repair.distance");
 		return this.config.getIntValue("clear.repair.distance");
 	}
 

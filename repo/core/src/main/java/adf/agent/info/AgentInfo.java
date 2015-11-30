@@ -1,27 +1,25 @@
 package adf.agent.info;
 
 import adf.agent.Agent;
-import adf.agent.platoon.PlatoonAmbulance;
 import rescuecore2.config.Config;
 import rescuecore2.messages.Command;
-import rescuecore2.standard.entities.*;
+import rescuecore2.standard.entities.Area;
+import rescuecore2.standard.entities.Human;
+import rescuecore2.standard.entities.StandardWorldModel;
 import rescuecore2.worldmodel.ChangeSet;
 import rescuecore2.worldmodel.EntityID;
 
 import java.util.Collection;
-import java.util.List;
 
-public class AgentInfo
-{
-	public Agent agent;
-	public StandardWorldModel world;
-	public Config config;
-	public int time;
+public class AgentInfo {
+	private Agent agent;
+	private StandardWorldModel world;
+	private Config config;
+	private int time;
 	private ChangeSet changed;
 	private Collection<Command> heard;
 
-	public AgentInfo(Agent agent, StandardWorldModel world, Config config)
-	{
+	public AgentInfo(Agent agent, StandardWorldModel world, Config config) {
 		this.agent = agent;
 		this.world = world;
 		this.config = config;

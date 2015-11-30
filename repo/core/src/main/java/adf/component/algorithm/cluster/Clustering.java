@@ -3,6 +3,7 @@ package adf.component.algorithm.cluster;
 import adf.agent.info.AgentInfo;
 import adf.agent.info.ScenarioInfo;
 import adf.agent.info.WorldInfo;
+import adf.agent.precompute.PrecomputeData;
 import rescuecore2.standard.entities.StandardEntity;
 import rescuecore2.worldmodel.EntityID;
 
@@ -30,6 +31,9 @@ public abstract class Clustering{
         this.scenarioInfo = si;
         this.clusterSize = size;
         this.entities = elements;
+    }
+
+    public void precompute(PrecomputeData precomputeData) {
     }
 
     public void updateInfo() {
