@@ -15,6 +15,9 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Random;
 
+import static java.util.Comparator.comparing;
+import static java.util.Comparator.reverseOrder;
+
 public class StandardKMeans extends Clustering {
 
     List<StandardEntity> centerEntityList;
@@ -111,7 +114,7 @@ public class StandardKMeans extends Clustering {
             this.clusterList.get(this.centerEntityList.indexOf(tmp)).add(entity);
         }
 
-        //kMeansClusterList.sort(comparing(x -> x.getAreaIDList().size(), reverseOrder()));
+        this.clusterList.sort(comparing(List::size, reverseOrder()));
         return this;
     }
 

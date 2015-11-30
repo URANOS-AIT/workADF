@@ -15,6 +15,9 @@ import rescuecore2.worldmodel.EntityID;
 
 import java.util.*;
 
+import static java.util.Comparator.comparing;
+import static java.util.Comparator.reverseOrder;
+
 public class PathBasedKMeans extends Clustering{
 
     List<StandardEntity> centerEntityList;
@@ -114,7 +117,7 @@ public class PathBasedKMeans extends Clustering{
             this.clusterList.get(this.centerEntityList.indexOf(tmp)).add(entity);
         }
 
-        //kMeansClusterList.sort(comparing(x -> x.getAreaIDList().size(), reverseOrder()));
+        this.clusterList.sort(comparing(List::size, reverseOrder()));
         return this;
     }
 
