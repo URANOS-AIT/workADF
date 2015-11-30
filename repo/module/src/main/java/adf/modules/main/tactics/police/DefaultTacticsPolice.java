@@ -31,7 +31,13 @@ public class DefaultTacticsPolice extends TacticsPolice {
 
     @Override
     public void precompute(AgentInfo agentInfo, WorldInfo worldInfo, ScenarioInfo scenarioInfo, PrecomputeData precomputeData) {
-
+        worldInfo.indexClass(StandardEntityURN.ROAD, StandardEntityURN.HYDRANT, StandardEntityURN.REFUGE, StandardEntityURN.BLOCKADE);
+        this.pathPlanner = new DefaultPathPlanner(worldInfo, agentInfo, scenarioInfo);
+        this.blockadeSelector = new BlockadeSelector(worldInfo, agentInfo, scenarioInfo);
+        this.buildingSelector = new SearchBuildingSelector(worldInfo, agentInfo, scenarioInfo, this.pathPlanner);
+        this.pathPlanner.precompute(precomputeData);
+        this.blockadeSelector.precompute(precomputeData);
+        this.buildingSelector.precompute(precomputeData);
     }
 
     @Override

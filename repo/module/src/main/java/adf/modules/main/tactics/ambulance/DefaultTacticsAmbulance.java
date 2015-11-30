@@ -35,6 +35,22 @@ public class DefaultTacticsAmbulance extends TacticsAmbulance {
 
     @Override
     public void precompute(AgentInfo agentInfo, WorldInfo worldInfo, ScenarioInfo scenarioInfo, PrecomputeData precomputeData) {
+        worldInfo.indexClass(
+                StandardEntityURN.CIVILIAN,
+                StandardEntityURN.FIRE_BRIGADE,
+                StandardEntityURN.POLICE_FORCE,
+                StandardEntityURN.AMBULANCE_TEAM,
+                StandardEntityURN.REFUGE,
+                StandardEntityURN.HYDRANT,
+                StandardEntityURN.GAS_STATION,
+                StandardEntityURN.BUILDING
+        );
+        this.pathPlanner = new DefaultPathPlanner(worldInfo, agentInfo, scenarioInfo);
+        this.victimSelector = new VictimSelector(worldInfo, agentInfo, scenarioInfo);
+        this.buildingSelector = new SearchBuildingSelector(worldInfo, agentInfo, scenarioInfo, this.pathPlanner);
+        this.pathPlanner.precompute(precomputeData);
+        this.victimSelector.precompute(precomputeData);
+        this.buildingSelector.precompute(precomputeData);
     }
 
     @Override
