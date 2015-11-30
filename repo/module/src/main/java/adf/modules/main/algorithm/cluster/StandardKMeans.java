@@ -19,8 +19,8 @@ import static java.util.Comparator.reverseOrder;
 
 public class StandardKMeans extends Clustering {
 
-    List<StandardEntity> centerEntityList;
-    List<List<StandardEntity>> clusterList;
+    List<StandardEntity> centerList;
+    List<List<StandardEntity>> clusterEntityList;
 
     private int repeat = 50;
 
@@ -35,7 +35,7 @@ public class StandardKMeans extends Clustering {
     @Override
     public int getClusterIndex(StandardEntity entity) {
         for(int i = 0; i < this.clusterSize; i++) {
-            if(this.clusterList.get(i).contains(entity)) {
+            if(this.clusterEntityList.get(i).contains(entity)) {
                 return i;
             }
         }
@@ -49,7 +49,7 @@ public class StandardKMeans extends Clustering {
 
     @Override
     public Collection<StandardEntity> getClusterEntities(int index) {
-        return this.clusterList.get(index);
+        return this.clusterEntityList.get(index);
     }
 
     @Override
@@ -62,13 +62,13 @@ public class StandardKMeans extends Clustering {
         Random random = new Random();
 
         List<StandardEntity> entityList = new ArrayList<>(this.entities);
-        this.centerEntityList = new ArrayList<>(this.clusterSize);
-        this.clusterList = new ArrayList<>(this.clusterSize);
+        this.centerList = new ArrayList<>(this.clusterSize);
+        this.clusterEntityList = new ArrayList<>(this.clusterSize);
 
         //init list
         for (int index = 0; index < this.clusterSize; index++) {
-            this.clusterList.add(index, new ArrayList<>());
-            this.centerEntityList.add(index, entityList.get(0));
+            this.clusterEntityList.add(index, new ArrayList<>());
+            this.centerList.add(index, entityList.get(0));
         }
         System.out.println("Cluster : " + this.clusterSize);
         //init center
@@ -76,53 +76,53 @@ public class StandardKMeans extends Clustering {
             StandardEntity centerEntity;
             do {
                 centerEntity = entityList.get(Math.abs(random.nextInt()) % entityList.size());
-            } while (this.centerEntityList.contains(centerEntity));
-            this.centerEntityList.set(index, centerEntity);
+            } while (this.centerList.contains(centerEntity));
+            this.centerList.set(index, centerEntity);
         }
         //calc center
         for (int i = 0; i < this.repeat; i++) {
-            this.clusterList.clear();
+            this.clusterEntityList.clear();
             for (int index = 0; index < this.clusterSize; index++) {
-                this.clusterList.add(index, new ArrayList<>());
+                this.clusterEntityList.add(index, new ArrayList<>());
             }
             for (StandardEntity entity : entityList) {
-                StandardEntity tmp = this.getNearEntityByLine(this.worldInfo.getRawWorld(), this.centerEntityList, entity);
-                this.clusterList.get(this.centerEntityList.indexOf(tmp)).add(entity);
+                StandardEntity tmp = this.getNearEntityByLine(this.worldInfo.getRawWorld(), this.centerList, entity);
+                this.clusterEntityList.get(this.centerList.indexOf(tmp)).add(entity);
             }
             for (int index = 0; index < this.clusterSize; index++) {
                 int sumX = 0, sumY = 0;
-                for (StandardEntity entity : this.clusterList.get(index)) {
+                for (StandardEntity entity : this.clusterEntityList.get(index)) {
                     Pair<Integer, Integer> location = entity.getLocation(this.worldInfo.getRawWorld());
                     sumX += location.first();
                     sumY += location.second();
                 }
-                int centerX = sumX / this.clusterList.get(index).size();
-                int centerY = sumY / this.clusterList.get(index).size();
-                StandardEntity center = this.getNearEntityByLine(this.worldInfo.getRawWorld(), this.clusterList.get(index), centerX, centerY);
+                int centerX = sumX / this.clusterEntityList.get(index).size();
+                int centerY = sumY / this.clusterEntityList.get(index).size();
+                StandardEntity center = this.getNearEntityByLine(this.worldInfo.getRawWorld(), this.clusterEntityList.get(index), centerX, centerY);
                 if(center instanceof Area) {
-                    this.centerEntityList.set(index, center);
+                    this.centerList.set(index, center);
                 }
                 else if(center instanceof Human) {
-                    this.centerEntityList.set(index, this.worldInfo.getEntity(((Human) center).getPosition()));
+                    this.centerList.set(index, this.worldInfo.getEntity(((Human) center).getPosition()));
                 }
                 else if(center instanceof Blockade) {
-                    this.centerEntityList.set(index, this.worldInfo.getEntity(((Blockade) center).getPosition()));
+                    this.centerList.set(index, this.worldInfo.getEntity(((Blockade) center).getPosition()));
                 }
             }
             System.out.printf("*");
         }
         System.out.println();
         //set entity
-        this.clusterList.clear();
+        this.clusterEntityList.clear();
         for (int index = 0; index < this.clusterSize; index++) {
-            this.clusterList.add(index, new ArrayList<>());
+            this.clusterEntityList.add(index, new ArrayList<>());
         }
         for (StandardEntity entity : entityList) {
-            StandardEntity tmp = this.getNearEntityByLine(this.worldInfo.getRawWorld(), this.centerEntityList, entity);
-            this.clusterList.get(this.centerEntityList.indexOf(tmp)).add(entity);
+            StandardEntity tmp = this.getNearEntityByLine(this.worldInfo.getRawWorld(), this.centerList, entity);
+            this.clusterEntityList.get(this.centerList.indexOf(tmp)).add(entity);
         }
 
-        this.clusterList.sort(comparing(List::size, reverseOrder()));
+        this.clusterEntityList.sort(comparing(List::size, reverseOrder()));
         return this;
     }
 

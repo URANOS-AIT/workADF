@@ -18,8 +18,8 @@ import static java.util.Comparator.reverseOrder;
 
 public class PathBasedKMeans extends Clustering{
 
-    List<StandardEntity> centerEntityList;
-    List<List<StandardEntity>> clusterList;
+    List<StandardEntity> centerList;
+    List<List<StandardEntity>> clusterEntityList;
 
     private int repeat = 10;
 
@@ -36,7 +36,7 @@ public class PathBasedKMeans extends Clustering{
     @Override
     public int getClusterIndex(StandardEntity entity) {
         for(int i = 0; i < this.clusterSize; i++) {
-            if(this.clusterList.get(i).contains(entity)) {
+            if(this.clusterEntityList.get(i).contains(entity)) {
                 return i;
             }
         }
@@ -50,7 +50,7 @@ public class PathBasedKMeans extends Clustering{
 
     @Override
     public Collection<StandardEntity> getClusterEntities(int index) {
-        return this.clusterList.get(index);
+        return this.clusterEntityList.get(index);
     }
 
     @Override
@@ -64,68 +64,68 @@ public class PathBasedKMeans extends Clustering{
         Random random = new Random();
 
         List<StandardEntity> entityList = new ArrayList<>(this.entities);
-        this.centerEntityList = new ArrayList<>(this.clusterSize);
-        this.clusterList = new ArrayList<>(this.clusterSize);
+        this.centerList = new ArrayList<>(this.clusterSize);
+        this.clusterEntityList = new ArrayList<>(this.clusterSize);
 
         for (int index = 0; index < this.clusterSize; index++) {
-            this.clusterList.add(index, new ArrayList<>());
-            this.centerEntityList.add(index, entityList.get(0));
+            this.clusterEntityList.add(index, new ArrayList<>());
+            this.centerList.add(index, entityList.get(0));
         }
 
         for (int index = 0; index < this.clusterSize; index++) {
             StandardEntity centerEntity;
             do {
                 centerEntity = entityList.get(Math.abs(random.nextInt()) % entityList.size());
-            } while (this.centerEntityList.contains(centerEntity));
-            this.centerEntityList.set(index, centerEntity);
+            } while (this.centerList.contains(centerEntity));
+            this.centerList.set(index, centerEntity);
         }
 
         for (int i = 0; i < this.repeat; i++) {
-            this.clusterList.clear();
+            this.clusterEntityList.clear();
             for (int index = 0; index < this.clusterSize; index++) {
-                this.clusterList.add(index, new ArrayList<>());
+                this.clusterEntityList.add(index, new ArrayList<>());
             }
             for (StandardEntity entity : entityList) {
-                StandardEntity tmp = this.getNearEntity(this.worldInfo, this.centerEntityList, entity);
-                this.clusterList.get(this.centerEntityList.indexOf(tmp)).add(entity);
+                StandardEntity tmp = this.getNearEntity(this.worldInfo, this.centerList, entity);
+                this.clusterEntityList.get(this.centerList.indexOf(tmp)).add(entity);
             }
 
             for (int index = 0; index < this.clusterSize; index++) {
                 int sumX = 0, sumY = 0;
-                for (StandardEntity entity : this.clusterList.get(index)) {
+                for (StandardEntity entity : this.clusterEntityList.get(index)) {
                     Pair<Integer, Integer> location = entity.getLocation(this.worldInfo.getRawWorld());
                     sumX += location.first();
                     sumY += location.second();
                 }
-                int centerX = sumX / clusterList.get(index).size();
-                int centerY = sumY / clusterList.get(index).size();
+                int centerX = sumX / clusterEntityList.get(index).size();
+                int centerY = sumY / clusterEntityList.get(index).size();
 
-                //this.centerEntityList.set(index, getNearEntity(this.worldInfo, this.clusterList.get(index), centerX, centerY));
-                StandardEntity center = this.getNearEntity(this.worldInfo, this.clusterList.get(index), centerX, centerY);
+                //this.centerList.set(index, getNearEntity(this.worldInfo, this.clusterEntityList.get(index), centerX, centerY));
+                StandardEntity center = this.getNearEntity(this.worldInfo, this.clusterEntityList.get(index), centerX, centerY);
                 if(center instanceof Area) {
-                    this.centerEntityList.set(index, center);
+                    this.centerList.set(index, center);
                 }
                 else if(center instanceof Human) {
-                    this.centerEntityList.set(index, this.worldInfo.getEntity(((Human) center).getPosition()));
+                    this.centerList.set(index, this.worldInfo.getEntity(((Human) center).getPosition()));
                 }
                 else if(center instanceof Blockade) {
-                    this.centerEntityList.set(index, this.worldInfo.getEntity(((Blockade) center).getPosition()));
+                    this.centerList.set(index, this.worldInfo.getEntity(((Blockade) center).getPosition()));
                 }
             }
             System.out.print("*");
         }
         System.out.println();
 
-        this.clusterList.clear();
+        this.clusterEntityList.clear();
         for (int index = 0; index < this.clusterSize; index++) {
-            this.clusterList.add(index, new ArrayList<>());
+            this.clusterEntityList.add(index, new ArrayList<>());
         }
         for (StandardEntity entity : entityList) {
-            StandardEntity tmp = this.getNearEntity(this.worldInfo, this.centerEntityList, entity);
-            this.clusterList.get(this.centerEntityList.indexOf(tmp)).add(entity);
+            StandardEntity tmp = this.getNearEntity(this.worldInfo, this.centerList, entity);
+            this.clusterEntityList.get(this.centerList.indexOf(tmp)).add(entity);
         }
 
-        this.clusterList.sort(comparing(List::size, reverseOrder()));
+        this.clusterEntityList.sort(comparing(List::size, reverseOrder()));
         return this;
     }
 
