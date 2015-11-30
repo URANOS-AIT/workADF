@@ -7,9 +7,7 @@ import adf.component.algorithm.cluster.Clustering;
 import rescuecore2.misc.Pair;
 import rescuecore2.misc.collections.LazyMap;
 import rescuecore2.misc.geometry.Point2D;
-import rescuecore2.standard.entities.Area;
-import rescuecore2.standard.entities.Edge;
-import rescuecore2.standard.entities.StandardEntity;
+import rescuecore2.standard.entities.*;
 import rescuecore2.worldmodel.Entity;
 import rescuecore2.worldmodel.EntityID;
 
@@ -102,7 +100,17 @@ public class PathBasedKMeans extends Clustering{
                 int centerX = sumX / clusterList.get(index).size();
                 int centerY = sumY / clusterList.get(index).size();
 
-                this.centerEntityList.set(index, getNearEntity(this.worldInfo, this.clusterList.get(index), centerX, centerY));
+                //this.centerEntityList.set(index, getNearEntity(this.worldInfo, this.clusterList.get(index), centerX, centerY));
+                StandardEntity center = this.getNearEntity(this.worldInfo, this.clusterList.get(index), centerX, centerY);
+                if(center instanceof Area) {
+                    this.centerEntityList.set(index, center);
+                }
+                else if(center instanceof Human) {
+                    this.centerEntityList.set(index, this.worldInfo.getEntity(((Human) center).getPosition()));
+                }
+                else if(center instanceof Blockade) {
+                    this.centerEntityList.set(index, this.worldInfo.getEntity(((Blockade) center).getPosition()));
+                }
             }
             System.out.print("*");
         }

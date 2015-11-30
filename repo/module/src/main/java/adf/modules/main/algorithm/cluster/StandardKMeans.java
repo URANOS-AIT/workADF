@@ -6,8 +6,7 @@ import adf.agent.info.ScenarioInfo;
 import adf.agent.info.WorldInfo;
 import adf.component.algorithm.cluster.Clustering;
 import rescuecore2.misc.Pair;
-import rescuecore2.standard.entities.StandardEntity;
-import rescuecore2.standard.entities.StandardWorldModel;
+import rescuecore2.standard.entities.*;
 import rescuecore2.worldmodel.EntityID;
 
 import java.util.ArrayList;
@@ -99,7 +98,16 @@ public class StandardKMeans extends Clustering {
                 }
                 int centerX = sumX / this.clusterList.get(index).size();
                 int centerY = sumY / this.clusterList.get(index).size();
-                this.centerEntityList.set(index, getNearEntityByLine(this.worldInfo.getRawWorld(), this.clusterList.get(index), centerX, centerY));
+                StandardEntity center = this.getNearEntityByLine(this.worldInfo.getRawWorld(), this.clusterList.get(index), centerX, centerY);
+                if(center instanceof Area) {
+                    this.centerEntityList.set(index, center);
+                }
+                else if(center instanceof Human) {
+                    this.centerEntityList.set(index, this.worldInfo.getEntity(((Human) center).getPosition()));
+                }
+                else if(center instanceof Blockade) {
+                    this.centerEntityList.set(index, this.worldInfo.getEntity(((Blockade) center).getPosition()));
+                }
             }
             System.out.printf("*");
         }
