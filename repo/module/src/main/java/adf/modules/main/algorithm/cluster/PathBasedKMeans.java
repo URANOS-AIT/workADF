@@ -3,6 +3,7 @@ package adf.modules.main.algorithm.cluster;
 import adf.agent.info.AgentInfo;
 import adf.agent.info.ScenarioInfo;
 import adf.agent.info.WorldInfo;
+import adf.agent.precompute.PrecomputeData;
 import adf.component.algorithm.cluster.Clustering;
 import adf.util.WorldUtil;
 import rescuecore2.misc.Pair;
@@ -19,8 +20,13 @@ import static java.util.Comparator.reverseOrder;
 
 public class PathBasedKMeans extends Clustering{
 
-    List<StandardEntity> centerList;
-    List<List<StandardEntity>> clusterEntityList;
+    public static final String KEY_ALL_ELEMENTS = "default.clustering.elements";
+    public static final String KEY_CLUSTER_SIZE = "default.clustering.size";
+    public static final String KEY_CLUSTER_CENTER = "default.clustering.centers";
+    public static final String KEY_CLUSTER_ENTITY = "default.clustering.entities.";
+
+    protected List<StandardEntity> centerList;
+    protected List<List<StandardEntity>> clusterEntityList;
 
     private int repeat = 10;
 
@@ -32,6 +38,30 @@ public class PathBasedKMeans extends Clustering{
 
     public PathBasedKMeans(WorldInfo wi, AgentInfo ai, ScenarioInfo si, Collection<StandardEntity> elements, int size) {
         super(wi, ai, si, elements, size);
+    }
+
+    @Override
+    public void precompute(PrecomputeData precomputeData) {
+        this.calc();
+        precomputeData.setEntityIDList(KEY_ALL_ELEMENTS, (List<EntityID>)WorldUtil.convertToID(this.entities));
+        precomputeData.setInteger(KEY_CLUSTER_SIZE, this.clusterSize);
+        precomputeData.setEntityIDList(KEY_CLUSTER_CENTER, (List<EntityID>)WorldUtil.convertToID(this.centerList));
+        for(int i = 0; i < this.clusterSize; i++) {
+            precomputeData.setEntityIDList(KEY_CLUSTER_ENTITY + i, (List<EntityID>)WorldUtil.convertToID(this.clusterEntityList.get(i)));
+        }
+    }
+
+    @Override
+    public void resume(PrecomputeData precomputeData) {
+        this.entities = WorldUtil.convertToEntity(precomputeData.getEntityIDList(KEY_ALL_ELEMENTS), this.worldInfo);
+        this.clusterSize = precomputeData.getInteger(KEY_CLUSTER_SIZE);
+        this.centerList = new ArrayList<>(WorldUtil.convertToEntity(precomputeData.getEntityIDList(KEY_CLUSTER_CENTER), this.worldInfo));
+        this.clusterEntityList = new ArrayList<>(this.clusterSize);
+        for(int i = 0; i < this.clusterSize; i++) {
+            List<StandardEntity> list = new ArrayList<>(WorldUtil.convertToEntity(precomputeData.getEntityIDList(KEY_CLUSTER_ENTITY + i), this.worldInfo));
+            this.clusterEntityList.add(i, list);
+        }
+        this.clusterEntityList.sort(comparing(List::size, reverseOrder()));
     }
 
     @Override
