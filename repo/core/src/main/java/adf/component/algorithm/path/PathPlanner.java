@@ -26,6 +26,9 @@ public abstract class PathPlanner {
     public void precompute(PrecomputeData precomputeData) {
     }
 
+    public void resume(PrecomputeData precomputeData) {
+    }
+
     public void updateInfo(){
     }
 

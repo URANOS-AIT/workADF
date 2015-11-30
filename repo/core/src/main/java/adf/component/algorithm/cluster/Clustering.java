@@ -36,6 +36,9 @@ public abstract class Clustering{
     public void precompute(PrecomputeData precomputeData) {
     }
 
+    public void resume(PrecomputeData precomputeData) {
+    }
+
     public void updateInfo() {
     }
 

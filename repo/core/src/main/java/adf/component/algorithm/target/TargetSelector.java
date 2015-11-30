@@ -23,6 +23,9 @@ public abstract class TargetSelector<E extends StandardEntity> {
     public void precompute(PrecomputeData precomputeData) {
     }
 
+    public void resume(PrecomputeData precomputeData) {
+    }
+
     public void updateInfo() {
     }
 

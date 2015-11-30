@@ -56,6 +56,9 @@ public class DefaultTacticsAmbulance extends TacticsAmbulance {
     @Override
     public void resume(AgentInfo agentInfo, WorldInfo worldInfo, ScenarioInfo scenarioInfo, PrecomputeData precomputeData) {
         this.preparate(agentInfo, worldInfo, scenarioInfo);
+        this.pathPlanner.resume(precomputeData);
+        this.victimSelector.resume(precomputeData);
+        this.buildingSelector.resume(precomputeData);
     }
 
     @Override
