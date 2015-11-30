@@ -32,6 +32,9 @@ public abstract class Clustering{
         this.entities = elements;
     }
 
+    public void updateInfo() {
+    }
+
     public Clustering calc() {
         return this;
     }

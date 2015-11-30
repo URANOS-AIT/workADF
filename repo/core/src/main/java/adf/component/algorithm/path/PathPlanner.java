@@ -6,7 +6,6 @@ import adf.agent.info.ScenarioInfo;
 import adf.agent.info.WorldInfo;
 import rescuecore2.worldmodel.EntityID;
 
-import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
@@ -23,7 +22,8 @@ public abstract class PathPlanner {
         this.scenarioInfo = si;
     }
 
-    public abstract void update();
+    public void updateInfo(){
+    }
 
     public abstract List<EntityID> getResult();
 

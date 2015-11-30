@@ -48,8 +48,9 @@ public class DefaultTacticsPolice extends TacticsPolice {
 
     @Override
     public Action think(AgentInfo agentInfo, WorldInfo worldInfo, ScenarioInfo scenarioInfo) {
-        this.blockadeSelector.update();
-        this.buildingSelector.update();
+        this.blockadeSelector.updateInfo();
+        this.buildingSelector.updateInfo();
+        this.pathPlanner.updateInfo();
 
         EntityID target = this.blockadeSelector.calc().getTarget();
         if(target != null) {

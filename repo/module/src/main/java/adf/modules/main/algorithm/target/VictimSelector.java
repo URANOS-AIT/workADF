@@ -21,7 +21,7 @@ public class VictimSelector extends TargetSelector<Human>{
     }
 
     @Override
-    public void update() {
+    public void updateInfo() {
     }
 
     @Override

@@ -61,8 +61,9 @@ public class DefaultTacticsAmbulance extends TacticsAmbulance {
 
     @Override
     public Action think(AgentInfo agentInfo, WorldInfo worldInfo, ScenarioInfo scenarioInfo) {
-        this.victimSelector.update();
-        this.buildingSelector.update();
+        this.victimSelector.updateInfo();
+        this.buildingSelector.updateInfo();
+        this.pathPlanner.updateInfo();
 
         Human injured = this.someoneOnBoard(worldInfo, agentInfo);
         if (injured != null) {

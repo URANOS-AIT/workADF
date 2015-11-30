@@ -55,8 +55,9 @@ public class DefaultTacticsFire extends TacticsFire{
 
     @Override
     public Action think(AgentInfo agentInfo, WorldInfo worldInfo, ScenarioInfo scenarioInfo) {
-        this.burningBuildingSelector.update();
-        this.searchBuildingSelector.update();
+        this.burningBuildingSelector.updateInfo();
+        this.searchBuildingSelector.updateInfo();
+        this.pathPlanner.updateInfo();
 
         FireBrigade me = (FireBrigade) agentInfo.me();
         // Are we currently filling with water?

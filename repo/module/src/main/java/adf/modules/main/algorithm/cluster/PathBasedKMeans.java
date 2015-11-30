@@ -4,6 +4,7 @@ import adf.agent.info.AgentInfo;
 import adf.agent.info.ScenarioInfo;
 import adf.agent.info.WorldInfo;
 import adf.component.algorithm.cluster.Clustering;
+import adf.util.WorldUtil;
 import rescuecore2.misc.Pair;
 import rescuecore2.misc.collections.LazyMap;
 import rescuecore2.misc.geometry.Point2D;
@@ -55,7 +56,7 @@ public class PathBasedKMeans extends Clustering{
 
     @Override
     public Collection<EntityID> getClusterEntityIDs(int index) {
-        return this.worldInfo.convertToID(this.getClusterEntities(index));
+        return WorldUtil.convertToID(this.getClusterEntities(index));
     }
 
     @Override
@@ -150,9 +151,6 @@ public class PathBasedKMeans extends Clustering{
         return Math.hypot(dx, dy);
     }
     public double getDistance(Pair<Integer, Integer> from, Point2D to) {
-			/*double dx = from.first() - to.getX();
-			double dy = from.second() - to.getY();
-			return Math.hypot(dx, dy);*/
         return getDistance(from.first(), from.second(), to.getX(), to.getY());
     }
     public double getDistance(Pair<Integer, Integer> from, Edge to) {

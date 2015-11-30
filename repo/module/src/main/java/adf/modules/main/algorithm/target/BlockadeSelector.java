@@ -26,7 +26,7 @@ public class BlockadeSelector extends TargetSelector<Blockade> {
     }
 
     @Override
-    public void update() {
+    public void updateInfo() {
     }
 
     @Override

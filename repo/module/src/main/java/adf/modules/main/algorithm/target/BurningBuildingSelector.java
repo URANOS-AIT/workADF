@@ -21,7 +21,7 @@ public class BurningBuildingSelector extends TargetSelector<Building> {
     }
 
     @Override
-    public void update() {
+    public void updateInfo() {
     }
 
     @Override

@@ -5,6 +5,7 @@ import adf.agent.info.AgentInfo;
 import adf.agent.info.ScenarioInfo;
 import adf.agent.info.WorldInfo;
 import adf.component.algorithm.cluster.Clustering;
+import adf.util.WorldUtil;
 import rescuecore2.misc.Pair;
 import rescuecore2.standard.entities.*;
 import rescuecore2.worldmodel.EntityID;
@@ -54,7 +55,7 @@ public class StandardKMeans extends Clustering {
 
     @Override
     public Collection<EntityID> getClusterEntityIDs(int index) {
-        return this.worldInfo.convertToID(this.getClusterEntities(index));
+        return WorldUtil.convertToID(this.getClusterEntities(index));
     }
 
     @Override
