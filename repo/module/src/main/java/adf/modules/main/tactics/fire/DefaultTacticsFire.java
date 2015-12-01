@@ -16,7 +16,6 @@ import adf.modules.main.algorithm.target.BurningBuildingSelector;
 import adf.modules.main.algorithm.target.SearchBuildingSelector;
 import adf.modules.main.extaction.ActionFireFighting;
 import rescuecore2.standard.entities.Building;
-import rescuecore2.standard.entities.Refuge;
 import rescuecore2.standard.entities.StandardEntityURN;
 import rescuecore2.worldmodel.EntityID;
 
@@ -33,6 +32,7 @@ public class DefaultTacticsFire extends TacticsFire{
     @Override
     public void initialize(AgentInfo agentInfo, WorldInfo worldInfo, ScenarioInfo scenarioInfo, MessageManager messageManager) {
         worldInfo.indexClass(
+                StandardEntityURN.ROAD,
                 StandardEntityURN.BUILDING,
                 StandardEntityURN.REFUGE,
                 StandardEntityURN.HYDRANT,
@@ -63,8 +63,14 @@ public class DefaultTacticsFire extends TacticsFire{
         this.pathPlanner.updateInfo();
 
         // Are we currently filling with water?
-        if (agentInfo.isWaterDefined() && agentInfo.getWater() < this.maxWater && agentInfo.getLocation() instanceof Refuge) {
+        if (agentInfo.isWaterDefined() && agentInfo.getWater() < this.maxWater && agentInfo.getLocation().getStandardURN().equals(StandardEntityURN.REFUGE)) {
             return new ActionRest();
+        }
+        if(agentInfo.isWaterDefined() && agentInfo.getWater() < (this.maxWater / 5) && agentInfo.getLocation().getStandardURN().equals(StandardEntityURN.HYDRANT)) {
+            this.pathPlanner.setFrom(agentInfo.getPosition());
+            this.pathPlanner.setDist(worldInfo.getEntityIDsOfType(StandardEntityURN.REFUGE));
+            List<EntityID> path = this.pathPlanner.getResult();
+            return path != null ? new ActionMove(path) : new ActionRest();
         }
         // Are we out of water?
         if (agentInfo.isWaterDefined() && agentInfo.getWater() == 0) {
@@ -72,18 +78,19 @@ public class DefaultTacticsFire extends TacticsFire{
             this.pathPlanner.setFrom(agentInfo.getPosition());
             this.pathPlanner.setDist(worldInfo.getEntityIDsOfType(StandardEntityURN.REFUGE));
             List<EntityID> path = this.pathPlanner.getResult();
-            if (path != null) {
-                return new ActionMove(path);
-            }
-            EntityID searchBuildingID = this.searchBuildingSelector.calc().getTarget();
-            if(searchBuildingID != null) {
+            if (path == null) {
                 this.pathPlanner.setFrom(agentInfo.getPosition());
-                path = this.pathPlanner.setDist(searchBuildingID).getResult();
-                if (path != null) {
-                    return new ActionMove(path);
+                this.pathPlanner.setDist(worldInfo.getEntityIDsOfType(StandardEntityURN.HYDRANT));
+                path = this.pathPlanner.getResult();
+            }
+            if(path == null) {
+                EntityID searchBuildingID = this.searchBuildingSelector.calc().getTarget();
+                if (searchBuildingID != null) {
+                    this.pathPlanner.setFrom(agentInfo.getPosition());
+                    path = this.pathPlanner.setDist(searchBuildingID).getResult();
                 }
             }
-            return new ActionRest();
+            return path != null ? new ActionMove(path) : new ActionRest();
         }
 
         // Find all buildings that are on fire
