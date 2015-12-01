@@ -45,10 +45,6 @@ public class DefaultPathPlanner extends PathPlanner {
     }
 
     @Override
-    public void updateInfo() {
-    }
-
-    @Override
     public List<EntityID> getResult() {
         return this.result;
     }

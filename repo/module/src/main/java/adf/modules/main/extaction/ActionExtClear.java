@@ -12,10 +12,7 @@ import rescuecore2.misc.geometry.GeometryTools2D;
 import rescuecore2.misc.geometry.Line2D;
 import rescuecore2.misc.geometry.Point2D;
 import rescuecore2.misc.geometry.Vector2D;
-import rescuecore2.standard.entities.Blockade;
-import rescuecore2.standard.entities.Road;
-import rescuecore2.standard.entities.StandardEntity;
-import rescuecore2.standard.entities.StandardEntityURN;
+import rescuecore2.standard.entities.*;
 import rescuecore2.worldmodel.EntityID;
 
 import java.util.List;
@@ -38,8 +35,8 @@ public class ActionExtClear extends ExtAction {
     @Override
     public ExtAction calc() {
         this.result = new ActionRest();
-        int agentX = this.agentInfo.me().getX();
-        int agentY = this.agentInfo.me().getY();
+        int agentX = ((Human)this.agentInfo.me()).getX();
+        int agentY = ((Human)this.agentInfo.me()).getY();
         Blockade blockade = null;
         Road road = null;
         StandardEntity entity = this.worldInfo.getEntity(this.target);

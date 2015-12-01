@@ -23,13 +23,16 @@ public abstract class PathPlanner {
         this.scenarioInfo = si;
     }
 
-    public void precompute(PrecomputeData precomputeData) {
+    public PathPlanner precompute(PrecomputeData precomputeData) {
+        return this;
     }
 
-    public void resume(PrecomputeData precomputeData) {
+    public PathPlanner resume(PrecomputeData precomputeData) {
+        return this;
     }
 
-    public void updateInfo(){
+    public PathPlanner updateInfo(){
+        return this;
     }
 
     public abstract List<EntityID> getResult();

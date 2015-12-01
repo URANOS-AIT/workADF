@@ -33,13 +33,16 @@ public abstract class Clustering{
         this.entities = elements;
     }
 
-    public void precompute(PrecomputeData precomputeData) {
+    public Clustering precompute(PrecomputeData precomputeData) {
+        return this;
     }
 
-    public void resume(PrecomputeData precomputeData) {
+    public Clustering resume(PrecomputeData precomputeData) {
+        return this;
     }
 
-    public void updateInfo() {
+    public Clustering updateInfo() {
+        return this;
     }
 
     public Clustering calc() {

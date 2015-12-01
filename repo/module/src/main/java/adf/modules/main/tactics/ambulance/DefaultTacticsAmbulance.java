@@ -31,10 +31,6 @@ public class DefaultTacticsAmbulance extends TacticsAmbulance {
 
     @Override
     public void initialize(AgentInfo agentInfo, WorldInfo worldInfo, ScenarioInfo scenarioInfo) {
-    }
-
-    @Override
-    public void precompute(AgentInfo agentInfo, WorldInfo worldInfo, ScenarioInfo scenarioInfo, PrecomputeData precomputeData) {
         worldInfo.indexClass(
                 StandardEntityURN.CIVILIAN,
                 StandardEntityURN.FIRE_BRIGADE,
@@ -48,6 +44,10 @@ public class DefaultTacticsAmbulance extends TacticsAmbulance {
         this.pathPlanner = new DefaultPathPlanner(agentInfo, worldInfo, scenarioInfo);
         this.victimSelector = new VictimSelector(agentInfo, worldInfo, scenarioInfo);
         this.buildingSelector = new SearchBuildingSelector(agentInfo, worldInfo, scenarioInfo, this.pathPlanner);
+    }
+
+    @Override
+    public void precompute(AgentInfo agentInfo, WorldInfo worldInfo, ScenarioInfo scenarioInfo, PrecomputeData precomputeData) {
         this.pathPlanner.precompute(precomputeData);
         this.victimSelector.precompute(precomputeData);
         this.buildingSelector.precompute(precomputeData);
@@ -55,7 +55,6 @@ public class DefaultTacticsAmbulance extends TacticsAmbulance {
 
     @Override
     public void resume(AgentInfo agentInfo, WorldInfo worldInfo, ScenarioInfo scenarioInfo, PrecomputeData precomputeData) {
-        this.preparate(agentInfo, worldInfo, scenarioInfo);
         this.pathPlanner.resume(precomputeData);
         this.victimSelector.resume(precomputeData);
         this.buildingSelector.resume(precomputeData);
@@ -63,19 +62,6 @@ public class DefaultTacticsAmbulance extends TacticsAmbulance {
 
     @Override
     public void preparate(AgentInfo agentInfo, WorldInfo worldInfo, ScenarioInfo scenarioInfo) {
-        worldInfo.indexClass(
-                StandardEntityURN.CIVILIAN,
-                StandardEntityURN.FIRE_BRIGADE,
-                StandardEntityURN.POLICE_FORCE,
-                StandardEntityURN.AMBULANCE_TEAM,
-                StandardEntityURN.REFUGE,
-                StandardEntityURN.HYDRANT,
-                StandardEntityURN.GAS_STATION,
-                StandardEntityURN.BUILDING
-        );
-        this.pathPlanner = new DefaultPathPlanner(agentInfo, worldInfo, scenarioInfo);
-        this.victimSelector = new VictimSelector(agentInfo, worldInfo, scenarioInfo);
-        this.buildingSelector = new SearchBuildingSelector(agentInfo, worldInfo, scenarioInfo, this.pathPlanner);
     }
 
     @Override

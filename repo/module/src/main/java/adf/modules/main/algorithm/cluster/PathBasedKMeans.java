@@ -53,7 +53,7 @@ public class PathBasedKMeans extends Clustering{
     }
 
     @Override
-    public void precompute(PrecomputeData precomputeData) {
+    public Clustering precompute(PrecomputeData precomputeData) {
         this.calc();
         precomputeData.setEntityIDList(KEY_ALL_ELEMENTS, (List<EntityID>)WorldUtil.convertToID(this.entities));
         precomputeData.setInteger(KEY_CLUSTER_SIZE, this.clusterSize);
@@ -61,10 +61,11 @@ public class PathBasedKMeans extends Clustering{
         for(int i = 0; i < this.clusterSize; i++) {
             precomputeData.setEntityIDList(KEY_CLUSTER_ENTITY + i, (List<EntityID>)WorldUtil.convertToID(this.clusterEntityList.get(i)));
         }
+        return this;
     }
 
     @Override
-    public void resume(PrecomputeData precomputeData) {
+    public Clustering resume(PrecomputeData precomputeData) {
         this.entities = WorldUtil.convertToEntity(precomputeData.getEntityIDList(KEY_ALL_ELEMENTS), this.worldInfo);
         this.clusterSize = precomputeData.getInteger(KEY_CLUSTER_SIZE);
         this.centerList = new ArrayList<>(WorldUtil.convertToEntity(precomputeData.getEntityIDList(KEY_CLUSTER_CENTER), this.worldInfo));
@@ -74,6 +75,7 @@ public class PathBasedKMeans extends Clustering{
             this.clusterEntityList.add(i, list);
         }
         this.clusterEntityList.sort(comparing(List::size, reverseOrder()));
+        return this;
     }
 
     @Override

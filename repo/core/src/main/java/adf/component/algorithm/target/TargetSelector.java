@@ -20,16 +20,19 @@ public abstract class TargetSelector<E extends StandardEntity> {
         this.scenarioInfo = si;
     }
 
-    public void precompute(PrecomputeData precomputeData) {
+    public TargetSelector<E> precompute(PrecomputeData precomputeData) {
+        return this;
     }
 
-    public void resume(PrecomputeData precomputeData) {
+    public TargetSelector<E> resume(PrecomputeData precomputeData) {
+        return this;
     }
 
-    public void updateInfo() {
+    public TargetSelector<E> updateInfo() {
+        return this;
     }
 
-    public TargetSelector calc() {
+    public TargetSelector<E> calc() {
         return this;
     }
 

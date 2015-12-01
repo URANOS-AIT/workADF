@@ -22,7 +22,7 @@ import rescuecore2.worldmodel.EntityID;
 
 import java.util.List;
 
-public class DefaultTacticsFire extends TacticsFire{
+public class ClusterTacticsFire extends TacticsFire {
 
     private int maxWater;
 
@@ -36,7 +36,7 @@ public class DefaultTacticsFire extends TacticsFire{
 
     @Override
     public void precompute(AgentInfo agentInfo, WorldInfo worldInfo, ScenarioInfo scenarioInfo, PrecomputeData precomputeData) {
-        worldInfo.indexClass(StandardEntityURN.BUILDING, StandardEntityURN.REFUGE,StandardEntityURN.HYDRANT,StandardEntityURN.GAS_STATION);
+        worldInfo.indexClass(StandardEntityURN.BUILDING, StandardEntityURN.REFUGE, StandardEntityURN.HYDRANT, StandardEntityURN.GAS_STATION);
         this.pathPlanner = new DefaultPathPlanner(agentInfo, worldInfo, scenarioInfo).precompute(precomputeData);
         this.burningBuildingSelector = new BurningBuildingSelector(agentInfo, worldInfo, scenarioInfo).precompute(precomputeData);
         this.searchBuildingSelector = new SearchBuildingSelector(agentInfo, worldInfo, scenarioInfo, this.pathPlanner).precompute(precomputeData);
@@ -52,7 +52,7 @@ public class DefaultTacticsFire extends TacticsFire{
 
     @Override
     public void preparate(AgentInfo agentInfo, WorldInfo worldInfo, ScenarioInfo scenarioInfo) {
-        worldInfo.indexClass(StandardEntityURN.BUILDING, StandardEntityURN.REFUGE,StandardEntityURN.HYDRANT,StandardEntityURN.GAS_STATION);
+        worldInfo.indexClass(StandardEntityURN.BUILDING, StandardEntityURN.REFUGE, StandardEntityURN.HYDRANT, StandardEntityURN.GAS_STATION);
         this.pathPlanner = new DefaultPathPlanner(agentInfo, worldInfo, scenarioInfo);
         this.burningBuildingSelector = new BurningBuildingSelector(agentInfo, worldInfo, scenarioInfo);
         this.searchBuildingSelector = new SearchBuildingSelector(agentInfo, worldInfo, scenarioInfo, this.pathPlanner);
@@ -80,7 +80,7 @@ public class DefaultTacticsFire extends TacticsFire{
                 return new ActionMove(path);
             }
             EntityID searchBuildingID = this.searchBuildingSelector.calc().getTarget();
-            if(searchBuildingID != null) {
+            if (searchBuildingID != null) {
                 this.pathPlanner.setFrom(agentInfo.getPosition());
                 path = this.pathPlanner.setDist(searchBuildingID).getResult();
                 if (path != null) {
@@ -92,16 +92,16 @@ public class DefaultTacticsFire extends TacticsFire{
 
         // Find all buildings that are on fire
         EntityID target = this.burningBuildingSelector.calc().getTarget();
-        if(target != null) {
+        if (target != null) {
             Action action = new ActionFireFighting(worldInfo, agentInfo, scenarioInfo, this.pathPlanner, target).calc().getAction();
-            if(action != null) {
+            if (action != null) {
                 return action;
             }
         }
 
         /////////////////////////////////////////////////////
         EntityID searchBuildingID = this.searchBuildingSelector.calc().getTarget();
-        if(searchBuildingID != null) {
+        if (searchBuildingID != null) {
             this.pathPlanner.setFrom(agentInfo.getPosition());
             List<EntityID> path = this.pathPlanner.setDist(searchBuildingID).getResult();
             if (path != null) {

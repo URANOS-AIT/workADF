@@ -26,10 +26,6 @@ public class BlockadeSelector extends TargetSelector<Blockade> {
     }
 
     @Override
-    public void updateInfo() {
-    }
-
-    @Override
     public TargetSelector<Blockade> calc() {
         Area location = this.agentInfo.getLocation();
         Blockade result = getTargetBlockade(location, distance);
@@ -59,8 +55,8 @@ public class BlockadeSelector extends TargetSelector<Blockade> {
             return null;
         }
         List<EntityID> ids = area.getBlockades();
-        int x = this.agentInfo.me().getX();
-        int y = this.agentInfo.me().getY();
+        int x = ((Human)this.agentInfo.me()).getX();
+        int y = ((Human)this.agentInfo.me()).getY();
         for (EntityID next : ids) {
             Blockade b = (Blockade)this.worldInfo.getEntity(next);
             double d = findDistanceTo(b, x, y);

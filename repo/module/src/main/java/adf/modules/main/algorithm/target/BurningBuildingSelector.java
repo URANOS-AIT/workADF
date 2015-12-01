@@ -21,10 +21,6 @@ public class BurningBuildingSelector extends TargetSelector<Building> {
     }
 
     @Override
-    public void updateInfo() {
-    }
-
-    @Override
     public TargetSelector<Building> calc() {
         List<Building> buildingList = new ArrayList<>();
         for (StandardEntity next : this.worldInfo.getEntitiesOfType(StandardEntityURN.BUILDING)) {

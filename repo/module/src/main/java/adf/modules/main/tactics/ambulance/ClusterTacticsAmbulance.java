@@ -17,15 +17,17 @@ import adf.modules.main.algorithm.path.DefaultPathPlanner;
 import adf.modules.main.algorithm.target.SearchBuildingSelector;
 import adf.modules.main.algorithm.target.VictimSelector;
 import adf.modules.main.extaction.ActionTransport;
+import adf.util.WorldUtil;
 import rescuecore2.standard.entities.Building;
 import rescuecore2.standard.entities.Human;
 import rescuecore2.standard.entities.StandardEntity;
 import rescuecore2.standard.entities.StandardEntityURN;
 import rescuecore2.worldmodel.EntityID;
 
+import java.util.Collection;
 import java.util.List;
 
-public class DefaultClusterTacticsAmbulance extends TacticsAmbulance {
+public class ClusterTacticsAmbulance extends TacticsAmbulance {
 
     private PathPlanner pathPlanner;
 
@@ -33,13 +35,10 @@ public class DefaultClusterTacticsAmbulance extends TacticsAmbulance {
     private TargetSelector<Building> buildingSelector;
 
     private Clustering clustering;
+    private int clusterIndex;
 
     @Override
     public void initialize(AgentInfo agentInfo, WorldInfo worldInfo, ScenarioInfo scenarioInfo) {
-    }
-
-    @Override
-    public void precompute(AgentInfo agentInfo, WorldInfo worldInfo, ScenarioInfo scenarioInfo, PrecomputeData precomputeData) {
         worldInfo.indexClass(
                 StandardEntityURN.CIVILIAN,
                 StandardEntityURN.FIRE_BRIGADE,
@@ -61,6 +60,11 @@ public class DefaultClusterTacticsAmbulance extends TacticsAmbulance {
                 StandardEntityURN.GAS_STATION
             )
         );
+        this.clusterIndex = -1;
+    }
+
+    @Override
+    public void precompute(AgentInfo agentInfo, WorldInfo worldInfo, ScenarioInfo scenarioInfo, PrecomputeData precomputeData) {
         this.pathPlanner.precompute(precomputeData);
         this.victimSelector.precompute(precomputeData);
         this.buildingSelector.precompute(precomputeData);
@@ -69,49 +73,14 @@ public class DefaultClusterTacticsAmbulance extends TacticsAmbulance {
 
     @Override
     public void resume(AgentInfo agentInfo, WorldInfo worldInfo, ScenarioInfo scenarioInfo, PrecomputeData precomputeData) {
-        worldInfo.indexClass(
-                StandardEntityURN.CIVILIAN,
-                StandardEntityURN.FIRE_BRIGADE,
-                StandardEntityURN.POLICE_FORCE,
-                StandardEntityURN.AMBULANCE_TEAM,
-                StandardEntityURN.REFUGE,
-                StandardEntityURN.HYDRANT,
-                StandardEntityURN.GAS_STATION,
-                StandardEntityURN.BUILDING
-        );
-        this.pathPlanner = new DefaultPathPlanner(agentInfo, worldInfo, scenarioInfo);
-        this.victimSelector = new VictimSelector(agentInfo, worldInfo, scenarioInfo);
-        this.buildingSelector = new SearchBuildingSelector(agentInfo, worldInfo, scenarioInfo, this.pathPlanner);
         this.pathPlanner.resume(precomputeData);
         this.victimSelector.resume(precomputeData);
         this.buildingSelector.resume(precomputeData);
-        this.clustering = new PathBasedKMeans(agentInfo, worldInfo, scenarioInfo, null);
         this.clustering.resume(precomputeData);
     }
 
     @Override
     public void preparate(AgentInfo agentInfo, WorldInfo worldInfo, ScenarioInfo scenarioInfo) {
-        worldInfo.indexClass(
-                StandardEntityURN.CIVILIAN,
-                StandardEntityURN.FIRE_BRIGADE,
-                StandardEntityURN.POLICE_FORCE,
-                StandardEntityURN.AMBULANCE_TEAM,
-                StandardEntityURN.REFUGE,
-                StandardEntityURN.HYDRANT,
-                StandardEntityURN.GAS_STATION,
-                StandardEntityURN.BUILDING
-        );
-        this.pathPlanner = new DefaultPathPlanner(agentInfo, worldInfo, scenarioInfo);
-        this.victimSelector = new VictimSelector(agentInfo, worldInfo, scenarioInfo);
-        this.buildingSelector = new SearchBuildingSelector(agentInfo, worldInfo, scenarioInfo, this.pathPlanner);
-        this.clustering = new PathBasedKMeans(agentInfo, worldInfo, scenarioInfo, worldInfo.getEntitiesOfType(
-                StandardEntityURN.ROAD,
-                StandardEntityURN.HYDRANT,
-                StandardEntityURN.REFUGE,
-                StandardEntityURN.BLOCKADE,
-                StandardEntityURN.GAS_STATION
-            )
-        );
         this.clustering.calc();
     }
 
@@ -126,7 +95,17 @@ public class DefaultClusterTacticsAmbulance extends TacticsAmbulance {
             return new ActionTransport(worldInfo, agentInfo, this.pathPlanner, injured).calc().getAction();
         }
 
-
+        if(this.clusterIndex == -1) {
+            this.clusterIndex = this.clustering.getClusterIndex(agentInfo.getID());
+        }
+        Collection<StandardEntity> list = this.clustering.getClusterEntities(this.clusterIndex);
+        if(!list.contains(agentInfo.me())) {
+            this.pathPlanner.setFrom(agentInfo.getPosition());
+            List<EntityID> path = this.pathPlanner.setDist(WorldUtil.convertToID(list)).getResult();
+            if (path != null) {
+                return new ActionMove(path);
+            }
+        }
 
         // Go through targets (sorted by distance) and check for things we can do
         EntityID target = this.victimSelector.calc().getTarget();
