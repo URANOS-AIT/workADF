@@ -14,6 +14,7 @@ import adf.component.algorithm.path.PathPlanner;
 import adf.component.algorithm.target.TargetSelector;
 import adf.component.tactics.TacticsAmbulance;
 import adf.modules.main.algorithm.cluster.PathBasedKMeans;
+import adf.modules.main.algorithm.cluster.StandardKMeans;
 import adf.modules.main.algorithm.path.DefaultPathPlanner;
 import adf.modules.main.algorithm.target.cluster.ClusterSearchBuildingSelector;
 import adf.modules.main.algorithm.target.cluster.ClusterVictimSelector;
@@ -83,6 +84,14 @@ public class ClusterTacticsAmbulance extends TacticsAmbulance {
 
     @Override
     public void preparate(AgentInfo agentInfo, WorldInfo worldInfo, ScenarioInfo scenarioInfo) {
+        this.clustering = new StandardKMeans(agentInfo, worldInfo, scenarioInfo, worldInfo.getEntitiesOfType(
+                StandardEntityURN.ROAD,
+                StandardEntityURN.HYDRANT,
+                StandardEntityURN.REFUGE,
+                StandardEntityURN.BLOCKADE,
+                StandardEntityURN.GAS_STATION
+        )
+        );
         this.clustering.calc();
         this.buildingSelector = new ClusterSearchBuildingSelector(agentInfo, worldInfo, scenarioInfo, this.pathPlanner, this.clustering);
     }

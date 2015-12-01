@@ -93,6 +93,11 @@ public class AgentInfo {
 		return null;
 	}
 
+    public boolean isWaterDefined() {
+        StandardEntity entity = this.world.getEntity(this.agent.getID());
+        return entity.getStandardURN().equals(StandardEntityURN.FIRE_BRIGADE) && ((FireBrigade) entity).isWaterDefined();
+    }
+
 	public int getWater() {
         StandardEntity entity = this.world.getEntity(this.agent.getID());
         if(entity.getStandardURN().equals(StandardEntityURN.FIRE_BRIGADE)) {

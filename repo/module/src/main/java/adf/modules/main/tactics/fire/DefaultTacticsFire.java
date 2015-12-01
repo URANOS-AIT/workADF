@@ -16,7 +16,6 @@ import adf.modules.main.algorithm.target.BurningBuildingSelector;
 import adf.modules.main.algorithm.target.SearchBuildingSelector;
 import adf.modules.main.extaction.ActionFireFighting;
 import rescuecore2.standard.entities.Building;
-import rescuecore2.standard.entities.FireBrigade;
 import rescuecore2.standard.entities.Refuge;
 import rescuecore2.standard.entities.StandardEntityURN;
 import rescuecore2.worldmodel.EntityID;
@@ -33,31 +32,28 @@ public class DefaultTacticsFire extends TacticsFire{
 
     @Override
     public void initialize(AgentInfo agentInfo, WorldInfo worldInfo, ScenarioInfo scenarioInfo, MessageManager messageManager) {
+        worldInfo.indexClass(
+                StandardEntityURN.BUILDING,
+                StandardEntityURN.REFUGE,
+                StandardEntityURN.HYDRANT,
+                StandardEntityURN.GAS_STATION
+        );
+        this.pathPlanner = new DefaultPathPlanner(agentInfo, worldInfo, scenarioInfo);
+        this.burningBuildingSelector = new BurningBuildingSelector(agentInfo, worldInfo, scenarioInfo);
+        this.searchBuildingSelector = new SearchBuildingSelector(agentInfo, worldInfo, scenarioInfo, this.pathPlanner);
+        this.maxWater = scenarioInfo.getFireTankMaximum();
     }
 
     @Override
     public void precompute(AgentInfo agentInfo, WorldInfo worldInfo, ScenarioInfo scenarioInfo, PrecomputeData precomputeData) {
-        worldInfo.indexClass(StandardEntityURN.BUILDING, StandardEntityURN.REFUGE,StandardEntityURN.HYDRANT,StandardEntityURN.GAS_STATION);
-        this.pathPlanner = new DefaultPathPlanner(agentInfo, worldInfo, scenarioInfo).precompute(precomputeData);
-        this.burningBuildingSelector = new BurningBuildingSelector(agentInfo, worldInfo, scenarioInfo).precompute(precomputeData);
-        this.searchBuildingSelector = new SearchBuildingSelector(agentInfo, worldInfo, scenarioInfo, this.pathPlanner).precompute(precomputeData);
     }
 
     @Override
     public void resume(AgentInfo agentInfo, WorldInfo worldInfo, ScenarioInfo scenarioInfo, PrecomputeData precomputeData) {
-        this.preparate(agentInfo, worldInfo, scenarioInfo);
-        this.pathPlanner.resume(precomputeData);
-        this.burningBuildingSelector.resume(precomputeData);
-        this.searchBuildingSelector.resume(precomputeData);
     }
 
     @Override
     public void preparate(AgentInfo agentInfo, WorldInfo worldInfo, ScenarioInfo scenarioInfo) {
-        worldInfo.indexClass(StandardEntityURN.BUILDING, StandardEntityURN.REFUGE,StandardEntityURN.HYDRANT,StandardEntityURN.GAS_STATION);
-        this.pathPlanner = new DefaultPathPlanner(agentInfo, worldInfo, scenarioInfo);
-        this.burningBuildingSelector = new BurningBuildingSelector(agentInfo, worldInfo, scenarioInfo);
-        this.searchBuildingSelector = new SearchBuildingSelector(agentInfo, worldInfo, scenarioInfo, this.pathPlanner);
-        maxWater = scenarioInfo.getFireTankMaximum();
     }
 
     @Override
@@ -66,13 +62,12 @@ public class DefaultTacticsFire extends TacticsFire{
         this.searchBuildingSelector.updateInfo();
         this.pathPlanner.updateInfo();
 
-        FireBrigade me = (FireBrigade) agentInfo.me();
         // Are we currently filling with water?
-        if (me.isWaterDefined() && me.getWater() < maxWater && agentInfo.getLocation() instanceof Refuge) {
+        if (agentInfo.isWaterDefined() && agentInfo.getWater() < this.maxWater && agentInfo.getLocation() instanceof Refuge) {
             return new ActionRest();
         }
         // Are we out of water?
-        if (me.isWaterDefined() && me.getWater() == 0) {
+        if (agentInfo.isWaterDefined() && agentInfo.getWater() == 0) {
             // Head for a refuge
             this.pathPlanner.setFrom(agentInfo.getPosition());
             this.pathPlanner.setDist(worldInfo.getEntityIDsOfType(StandardEntityURN.REFUGE));
