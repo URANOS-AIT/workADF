@@ -12,6 +12,7 @@ import rescuecore2.standard.entities.StandardEntityURN;
 import rescuecore2.worldmodel.EntityID;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 public class ClusterVictimSelector extends TargetSelector<Human> {
@@ -31,7 +32,7 @@ public class ClusterVictimSelector extends TargetSelector<Human> {
         if(this.clusterIndex == -1) {
             this.clusterIndex = this.clustering.getClusterIndex(this.agentInfo.getID());
         }
-        List<StandardEntity> elements;
+        Collection<StandardEntity> elements = this.clustering.getClusterEntities(this.clusterIndex);
 
         List<Human> targets = new ArrayList<>();
         for (StandardEntity next : worldInfo.getEntitiesOfType(
@@ -40,17 +41,19 @@ public class ClusterVictimSelector extends TargetSelector<Human> {
                 StandardEntityURN.POLICE_FORCE,
                 StandardEntityURN.AMBULANCE_TEAM)
                 ) {
-            Human h = (Human)next;
-            if (agentInfo.getID() == h.getID()) {
+            if (agentInfo.getID() == next.getID()) {
                 continue;
             }
-            if (h.isHPDefined()
-                    && h.isBuriednessDefined()
-                    && h.isDamageDefined()
-                    && h.isPositionDefined()
-                    && h.getHP() > 0
-                    && (h.getBuriedness() > 0 || h.getDamage() > 0)) {
-                targets.add(h);
+            Human h = (Human) next;
+            if(elements.contains(this.worldInfo.getPosition(h)) || elements.contains(h)) {
+                if (h.isHPDefined()
+                        && h.isBuriednessDefined()
+                        && h.isDamageDefined()
+                        && h.isPositionDefined()
+                        && h.getHP() > 0
+                        && (h.getBuriedness() > 0 || h.getDamage() > 0)) {
+                    targets.add(h);
+                }
             }
         }
         targets.sort(new DistanceSorter(this.worldInfo, this.agentInfo.getLocation()));

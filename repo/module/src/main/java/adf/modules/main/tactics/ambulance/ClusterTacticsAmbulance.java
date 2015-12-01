@@ -15,8 +15,8 @@ import adf.component.algorithm.target.TargetSelector;
 import adf.component.tactics.TacticsAmbulance;
 import adf.modules.main.algorithm.cluster.PathBasedKMeans;
 import adf.modules.main.algorithm.path.DefaultPathPlanner;
-import adf.modules.main.algorithm.target.SearchBuildingSelector;
-import adf.modules.main.algorithm.target.VictimSelector;
+import adf.modules.main.algorithm.target.cluster.ClusterSearchBuildingSelector;
+import adf.modules.main.algorithm.target.cluster.ClusterVictimSelector;
 import adf.modules.main.extaction.ActionTransport;
 import adf.util.WorldUtil;
 import rescuecore2.standard.entities.Building;
@@ -50,39 +50,41 @@ public class ClusterTacticsAmbulance extends TacticsAmbulance {
                 StandardEntityURN.GAS_STATION,
                 StandardEntityURN.BUILDING
         );
-        this.pathPlanner = new DefaultPathPlanner(agentInfo, worldInfo, scenarioInfo);
-        this.victimSelector = new VictimSelector(agentInfo, worldInfo, scenarioInfo);
-        this.buildingSelector = new SearchBuildingSelector(agentInfo, worldInfo, scenarioInfo, this.pathPlanner);
         this.clustering = new PathBasedKMeans(agentInfo, worldInfo, scenarioInfo, worldInfo.getEntitiesOfType(
                 StandardEntityURN.ROAD,
                 StandardEntityURN.HYDRANT,
                 StandardEntityURN.REFUGE,
                 StandardEntityURN.BLOCKADE,
                 StandardEntityURN.GAS_STATION
-            )
+        )
         );
+        this.pathPlanner = new DefaultPathPlanner(agentInfo, worldInfo, scenarioInfo);
+        this.victimSelector = new ClusterVictimSelector(agentInfo, worldInfo, scenarioInfo, this.clustering);
         this.clusterIndex = -1;
     }
 
     @Override
     public void precompute(AgentInfo agentInfo, WorldInfo worldInfo, ScenarioInfo scenarioInfo, PrecomputeData precomputeData) {
         this.pathPlanner.precompute(precomputeData);
-        this.victimSelector.precompute(precomputeData);
-        this.buildingSelector.precompute(precomputeData);
         this.clustering.precompute(precomputeData);
+        this.victimSelector.precompute(precomputeData);
+        this.buildingSelector = new ClusterSearchBuildingSelector(agentInfo, worldInfo, scenarioInfo, this.pathPlanner, this.clustering);
+        this.buildingSelector.precompute(precomputeData);
     }
 
     @Override
     public void resume(AgentInfo agentInfo, WorldInfo worldInfo, ScenarioInfo scenarioInfo, PrecomputeData precomputeData) {
         this.pathPlanner.resume(precomputeData);
-        this.victimSelector.resume(precomputeData);
-        this.buildingSelector.resume(precomputeData);
         this.clustering.resume(precomputeData);
+        this.victimSelector.resume(precomputeData);
+        this.buildingSelector = new ClusterSearchBuildingSelector(agentInfo, worldInfo, scenarioInfo, this.pathPlanner, this.clustering);
+        this.buildingSelector.resume(precomputeData);
     }
 
     @Override
     public void preparate(AgentInfo agentInfo, WorldInfo worldInfo, ScenarioInfo scenarioInfo) {
         this.clustering.calc();
+        this.buildingSelector = new ClusterSearchBuildingSelector(agentInfo, worldInfo, scenarioInfo, this.pathPlanner, this.clustering);
     }
 
     @Override
