@@ -143,6 +143,11 @@ public final class PrecomputeData
 		return this.datas.doubleValues.put(name, value);
 	}
 
+	public Boolean setBoolean(String name, boolean value) {
+		int f = this.datas.intValues.put(name, value ? 1 : 0);
+		return (f > 0);
+	}
+
 	public String setString(String name, String value)
 	{
 		return this.datas.stringValues.put(name, value);

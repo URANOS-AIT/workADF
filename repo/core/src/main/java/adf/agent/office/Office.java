@@ -22,7 +22,7 @@ public abstract class Office<E extends StandardEntity> extends Agent<E> {
 
 		this.agentInfo = new AgentInfo(this, model, config);
 
-		rootControl.initialize(agentInfo, worldInfo, scenarioInfo);
+		rootControl.initialize(agentInfo, worldInfo, scenarioInfo, this.messageManager);
 
 		switch (scenarioInfo.getMode())
 		{
@@ -38,6 +38,6 @@ public abstract class Office<E extends StandardEntity> extends Agent<E> {
 
 	protected void think()
 	{
-		rootControl.think(agentInfo, worldInfo, scenarioInfo);
+		rootControl.think(agentInfo, worldInfo, scenarioInfo, this.messageManager);
 	}
 }

@@ -3,6 +3,7 @@ package adf.modules.main.tactics.fire;
 import adf.agent.action.Action;
 import adf.agent.action.common.ActionMove;
 import adf.agent.action.common.ActionRest;
+import adf.agent.communication.MessageManager;
 import adf.agent.info.AgentInfo;
 import adf.agent.info.ScenarioInfo;
 import adf.agent.info.WorldInfo;
@@ -31,7 +32,7 @@ public class DefaultTacticsFire extends TacticsFire{
     private TargetSelector<Building> searchBuildingSelector;
 
     @Override
-    public void initialize(AgentInfo agentInfo, WorldInfo worldInfo, ScenarioInfo scenarioInfo) {
+    public void initialize(AgentInfo agentInfo, WorldInfo worldInfo, ScenarioInfo scenarioInfo, MessageManager messageManager) {
     }
 
     @Override
@@ -60,7 +61,7 @@ public class DefaultTacticsFire extends TacticsFire{
     }
 
     @Override
-    public Action think(AgentInfo agentInfo, WorldInfo worldInfo, ScenarioInfo scenarioInfo) {
+    public Action think(AgentInfo agentInfo, WorldInfo worldInfo, ScenarioInfo scenarioInfo, MessageManager messageManager) {
         this.burningBuildingSelector.updateInfo();
         this.searchBuildingSelector.updateInfo();
         this.pathPlanner.updateInfo();

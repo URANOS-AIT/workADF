@@ -25,7 +25,7 @@ public abstract class Platoon<E extends StandardEntity> extends Agent<E>
 
 		this.agentInfo = new AgentInfo(this, model, config);
 
-		rootTactics.initialize(agentInfo, worldInfo, scenarioInfo);
+		rootTactics.initialize(agentInfo, worldInfo, scenarioInfo, this.messageManager);
 
 		switch (scenarioInfo.getMode())
 		{
@@ -46,7 +46,7 @@ public abstract class Platoon<E extends StandardEntity> extends Agent<E>
 
 	protected void think()
 	{
-		Action action = rootTactics.think(agentInfo, worldInfo, scenarioInfo);
+		Action action = rootTactics.think(agentInfo, worldInfo, scenarioInfo, this.messageManager);
 		if(action != null) {
 			send(action.getCommand(this.getID(), this.agentInfo.getTime()));
 		}

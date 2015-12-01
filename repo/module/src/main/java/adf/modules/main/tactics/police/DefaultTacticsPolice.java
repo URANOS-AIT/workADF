@@ -3,6 +3,7 @@ package adf.modules.main.tactics.police;
 import adf.agent.action.Action;
 import adf.agent.action.common.ActionMove;
 import adf.agent.action.common.ActionRest;
+import adf.agent.communication.MessageManager;
 import adf.agent.info.AgentInfo;
 import adf.agent.info.ScenarioInfo;
 import adf.agent.info.WorldInfo;
@@ -26,7 +27,7 @@ public class DefaultTacticsPolice extends TacticsPolice {
     private TargetSelector<Building> buildingSelector;
 
     @Override
-    public void initialize(AgentInfo agentInfo, WorldInfo worldInfo, ScenarioInfo scenarioInfo) {
+    public void initialize(AgentInfo agentInfo, WorldInfo worldInfo, ScenarioInfo scenarioInfo, MessageManager messageManager) {
     }
 
     @Override
@@ -57,7 +58,7 @@ public class DefaultTacticsPolice extends TacticsPolice {
     }
 
     @Override
-    public Action think(AgentInfo agentInfo, WorldInfo worldInfo, ScenarioInfo scenarioInfo) {
+    public Action think(AgentInfo agentInfo, WorldInfo worldInfo, ScenarioInfo scenarioInfo, MessageManager messageManager) {
         this.blockadeSelector.updateInfo();
         this.buildingSelector.updateInfo();
         this.pathPlanner.updateInfo();
