@@ -55,7 +55,7 @@ public class ClusterTacticsAmbulance extends TacticsAmbulance {
                 StandardEntityURN.ROAD,
                 StandardEntityURN.HYDRANT,
                 StandardEntityURN.REFUGE,
-                StandardEntityURN.BLOCKADE,
+                StandardEntityURN.BUILDING,
                 StandardEntityURN.GAS_STATION
         )
         );
@@ -88,7 +88,7 @@ public class ClusterTacticsAmbulance extends TacticsAmbulance {
                 StandardEntityURN.ROAD,
                 StandardEntityURN.HYDRANT,
                 StandardEntityURN.REFUGE,
-                StandardEntityURN.BLOCKADE,
+                StandardEntityURN.BUILDING,
                 StandardEntityURN.GAS_STATION
         )
         );
