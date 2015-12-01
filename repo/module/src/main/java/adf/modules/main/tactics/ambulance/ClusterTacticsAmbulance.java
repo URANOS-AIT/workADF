@@ -90,8 +90,9 @@ public class ClusterTacticsAmbulance extends TacticsAmbulance {
         this.victimSelector.updateInfo();
         this.buildingSelector.updateInfo();
         this.pathPlanner.updateInfo();
+        this.clustering.updateInfo();
 
-        Human injured = this.someoneOnBoard(worldInfo, agentInfo);
+        Human injured = agentInfo.someoneOnBoard();
         if (injured != null) {
             return new ActionTransport(worldInfo, agentInfo, this.pathPlanner, injured).calc().getAction();
         }
@@ -127,15 +128,5 @@ public class ClusterTacticsAmbulance extends TacticsAmbulance {
             }
         }
         return new ActionRest();
-    }
-
-    private Human someoneOnBoard(WorldInfo worldInfo, AgentInfo agentInfo) {
-        for (StandardEntity next : worldInfo.getEntitiesOfType(StandardEntityURN.CIVILIAN)) {
-            Human human = (Human)next;
-            if (human.getPosition().equals(agentInfo.getID())) {
-                return human;
-            }
-        }
-        return null;
     }
 }

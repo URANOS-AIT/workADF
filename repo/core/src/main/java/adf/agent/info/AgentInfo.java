@@ -3,10 +3,7 @@ package adf.agent.info;
 import adf.agent.Agent;
 import rescuecore2.config.Config;
 import rescuecore2.messages.Command;
-import rescuecore2.standard.entities.Area;
-import rescuecore2.standard.entities.Human;
-import rescuecore2.standard.entities.StandardEntity;
-import rescuecore2.standard.entities.StandardWorldModel;
+import rescuecore2.standard.entities.*;
 import rescuecore2.worldmodel.ChangeSet;
 import rescuecore2.worldmodel.EntityID;
 
@@ -84,4 +81,23 @@ public class AgentInfo {
     public ChangeSet getChanged() {
         return this.changed;
     }
+
+	public Human someoneOnBoard() {
+		EntityID id = agent.getID();
+		for (StandardEntity next : world.getEntitiesOfType(StandardEntityURN.CIVILIAN)) {
+			Human human = (Human)next;
+			if (human.getPosition().equals(id)) {
+				return human;
+			}
+		}
+		return null;
+	}
+
+	public int getWater() {
+        StandardEntity entity = this.world.getEntity(this.agent.getID());
+        if(entity.getStandardURN().equals(StandardEntityURN.FIRE_BRIGADE)) {
+            return ((FireBrigade)entity).getWater();
+        }
+		return 0;
+	}
 }

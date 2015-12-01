@@ -17,7 +17,6 @@ import adf.modules.main.algorithm.target.VictimSelector;
 import adf.modules.main.extaction.ActionTransport;
 import rescuecore2.standard.entities.Building;
 import rescuecore2.standard.entities.Human;
-import rescuecore2.standard.entities.StandardEntity;
 import rescuecore2.standard.entities.StandardEntityURN;
 import rescuecore2.worldmodel.EntityID;
 
@@ -71,7 +70,7 @@ public class DefaultTacticsAmbulance extends TacticsAmbulance {
         this.buildingSelector.updateInfo();
         this.pathPlanner.updateInfo();
 
-        Human injured = this.someoneOnBoard(worldInfo, agentInfo);
+        Human injured = agentInfo.someoneOnBoard();
         if (injured != null) {
             return new ActionTransport(worldInfo, agentInfo, this.pathPlanner, injured).calc().getAction();
         }
@@ -95,15 +94,5 @@ public class DefaultTacticsAmbulance extends TacticsAmbulance {
             }
         }
         return new ActionRest();
-    }
-
-    private Human someoneOnBoard(WorldInfo worldInfo, AgentInfo agentInfo) {
-        for (StandardEntity next : worldInfo.getEntitiesOfType(StandardEntityURN.CIVILIAN)) {
-            Human human = (Human)next;
-            if (human.getPosition().equals(agentInfo.getID())) {
-                return human;
-            }
-        }
-        return null;
     }
 }
