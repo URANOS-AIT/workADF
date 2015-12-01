@@ -145,7 +145,7 @@ public final class PrecomputeData
 
 	public Boolean setBoolean(String name, boolean value) {
 		int f = this.datas.intValues.put(name, value ? 1 : 0);
-		return (f > 0);
+		return f > 0 ? Boolean.TRUE : Boolean.FALSE;
 	}
 
 	public String setString(String name, String value)
@@ -153,8 +153,7 @@ public final class PrecomputeData
 		return this.datas.stringValues.put(name, value);
 	}
 
-	public EntityID setEntityID(String name, EntityID value)
-	{
+	public EntityID setEntityID(String name, EntityID value) {
 		Integer id = this.datas.idValues.put(name, value.getValue());
 		return id == null ? null : new EntityID(id);
 	}
@@ -199,6 +198,11 @@ public final class PrecomputeData
 	{
 		return this.datas.doubleValues.get(name);
 	}
+
+    public Boolean getBoolean(String name) {
+        int f = this.datas.intValues.get(name);
+        return f > 0 ? Boolean.TRUE : Boolean.FALSE;
+    }
 
 	public String getString(String name)
 	{

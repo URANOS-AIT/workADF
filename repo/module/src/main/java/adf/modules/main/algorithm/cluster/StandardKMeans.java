@@ -75,6 +75,7 @@ public class StandardKMeans extends Clustering {
             this.clusterEntityList.add(i, list);
         }
         this.clusterEntityList.sort(comparing(List::size, reverseOrder()));
+        this.assignAgentsFlag = precomputeData.getBoolean(KEY_ASSIGN_AGENT);
         return this;
     }
 

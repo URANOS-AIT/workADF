@@ -24,6 +24,7 @@ public class PathBasedKMeans extends Clustering{
     public static final String KEY_CLUSTER_SIZE = "default.clustering.size";
     public static final String KEY_CLUSTER_CENTER = "default.clustering.centers";
     public static final String KEY_CLUSTER_ENTITY = "default.clustering.entities.";
+    public static final String KEY_ASSIGN_AGENT = "default.clustering.assign";
 
     protected List<StandardEntity> centerList;
     protected List<List<StandardEntity>> clusterEntityList;
@@ -61,6 +62,7 @@ public class PathBasedKMeans extends Clustering{
         for(int i = 0; i < this.clusterSize; i++) {
             precomputeData.setEntityIDList(KEY_CLUSTER_ENTITY + i, (List<EntityID>)WorldUtil.convertToID(this.clusterEntityList.get(i)));
         }
+        precomputeData.setBoolean(KEY_ASSIGN_AGENT, this.assignAgentsFlag);
         return this;
     }
 
@@ -75,6 +77,7 @@ public class PathBasedKMeans extends Clustering{
             this.clusterEntityList.add(i, list);
         }
         this.clusterEntityList.sort(comparing(List::size, reverseOrder()));
+        this.assignAgentsFlag = precomputeData.getBoolean(KEY_ASSIGN_AGENT);
         return this;
     }
 
