@@ -21,11 +21,11 @@ public abstract class Clustering{
 
     protected Collection<StandardEntity> entities;
 
-    public Clustering(WorldInfo wi, AgentInfo ai, ScenarioInfo si, Collection<StandardEntity> elements) {
-        this(wi, ai, si, elements, DEFAULT_SIZE);
+    public Clustering(AgentInfo ai, WorldInfo wi, ScenarioInfo si, Collection<StandardEntity> elements) {
+        this(ai, wi, si, elements, DEFAULT_SIZE);
     }
 
-    public Clustering(WorldInfo wi, AgentInfo ai, ScenarioInfo si, Collection<StandardEntity> elements, int size) {
+    public Clustering(AgentInfo ai, WorldInfo wi, ScenarioInfo si, Collection<StandardEntity> elements, int size) {
         this.worldInfo = wi;
         this.agentInfo = ai;
         this.scenarioInfo = si;

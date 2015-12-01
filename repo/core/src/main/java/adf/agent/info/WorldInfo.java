@@ -2,6 +2,7 @@ package adf.agent.info;
 
 import adf.util.WorldUtil;
 import rescuecore2.misc.Pair;
+import rescuecore2.standard.entities.Human;
 import rescuecore2.standard.entities.StandardEntity;
 import rescuecore2.standard.entities.StandardEntityURN;
 import rescuecore2.standard.entities.StandardWorldModel;
@@ -63,7 +64,16 @@ public class WorldInfo implements Iterable<StandardEntity> {
 		return WorldUtil.convertToID(this.world.getEntitiesOfType(urns));
 	}
 
-	//org
+    public StandardEntity getPosition(Human entity) {
+        return entity.getPosition(this.world);
+    }
+
+    public Pair<Integer, Integer> getLocation(StandardEntity entity) {
+        return entity.getLocation(this.world);
+    }
+
+
+    //org
 
 	public void merge(ChangeSet changeSet) {
 		this.world.merge(changeSet);

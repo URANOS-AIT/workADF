@@ -17,7 +17,7 @@ public abstract class PathPlanner {
     protected AgentInfo agentInfo;
     protected WorldInfo worldInfo;
 
-    public PathPlanner(WorldInfo wi, AgentInfo ai, ScenarioInfo si) {
+    public PathPlanner(AgentInfo ai, WorldInfo wi, ScenarioInfo si) {
         this.worldInfo = wi;
         this.agentInfo = ai;
         this.scenarioInfo = si;

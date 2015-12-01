@@ -20,8 +20,8 @@ public class SearchBuildingSelector extends TargetSelector<Building> {
     private Collection<EntityID> unexploredBuildings;
     private EntityID result;
 
-    public SearchBuildingSelector(WorldInfo wi, AgentInfo ai, ScenarioInfo si, PathPlanner pp) {
-        super(wi, ai, si);
+    public SearchBuildingSelector(AgentInfo ai, WorldInfo wi, ScenarioInfo si, PathPlanner pp) {
+        super(ai, wi, si);
         this.pathPlanner = pp;
         this.init();
     }

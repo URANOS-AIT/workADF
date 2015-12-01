@@ -37,9 +37,9 @@ public class DefaultTacticsFire extends TacticsFire{
     @Override
     public void precompute(AgentInfo agentInfo, WorldInfo worldInfo, ScenarioInfo scenarioInfo, PrecomputeData precomputeData) {
         worldInfo.indexClass(StandardEntityURN.BUILDING, StandardEntityURN.REFUGE,StandardEntityURN.HYDRANT,StandardEntityURN.GAS_STATION);
-        this.pathPlanner = new DefaultPathPlanner(worldInfo, agentInfo, scenarioInfo);
-        this.burningBuildingSelector = new BurningBuildingSelector(worldInfo, agentInfo, scenarioInfo);
-        this.searchBuildingSelector = new SearchBuildingSelector(worldInfo, agentInfo, scenarioInfo, this.pathPlanner);
+        this.pathPlanner = new DefaultPathPlanner(agentInfo, worldInfo, scenarioInfo);
+        this.burningBuildingSelector = new BurningBuildingSelector(agentInfo, worldInfo, scenarioInfo);
+        this.searchBuildingSelector = new SearchBuildingSelector(agentInfo, worldInfo, scenarioInfo, this.pathPlanner);
         this.pathPlanner.precompute(precomputeData);
         this.burningBuildingSelector.precompute(precomputeData);
         this.searchBuildingSelector.precompute(precomputeData);
@@ -56,9 +56,9 @@ public class DefaultTacticsFire extends TacticsFire{
     @Override
     public void preparate(AgentInfo agentInfo, WorldInfo worldInfo, ScenarioInfo scenarioInfo) {
         worldInfo.indexClass(StandardEntityURN.BUILDING, StandardEntityURN.REFUGE,StandardEntityURN.HYDRANT,StandardEntityURN.GAS_STATION);
-        this.pathPlanner = new DefaultPathPlanner(worldInfo, agentInfo, scenarioInfo);
-        this.burningBuildingSelector = new BurningBuildingSelector(worldInfo, agentInfo, scenarioInfo);
-        this.searchBuildingSelector = new SearchBuildingSelector(worldInfo, agentInfo, scenarioInfo, this.pathPlanner);
+        this.pathPlanner = new DefaultPathPlanner(agentInfo, worldInfo, scenarioInfo);
+        this.burningBuildingSelector = new BurningBuildingSelector(agentInfo, worldInfo, scenarioInfo);
+        this.searchBuildingSelector = new SearchBuildingSelector(agentInfo, worldInfo, scenarioInfo, this.pathPlanner);
         maxWater = scenarioInfo.getFireTankMaximum();
     }
 

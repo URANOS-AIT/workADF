@@ -22,8 +22,8 @@ public class DefaultPathPlanner extends PathPlanner {
     private EntityID from;
     private List<EntityID> result;
 
-    public DefaultPathPlanner(WorldInfo wi, AgentInfo ai, ScenarioInfo si) {
-        super(wi, ai, si);
+    public DefaultPathPlanner(AgentInfo ai, WorldInfo wi, ScenarioInfo si) {
+        super(ai, wi, si);
         this.init();
     }
 

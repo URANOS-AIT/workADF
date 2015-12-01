@@ -20,8 +20,8 @@ public class BlockadeSelector extends TargetSelector<Blockade> {
     private int distance;
     EntityID result;
 
-    public BlockadeSelector(WorldInfo wi, AgentInfo ai, ScenarioInfo si) {
-        super(wi, ai, si);
+    public BlockadeSelector(AgentInfo ai, WorldInfo wi, ScenarioInfo si) {
+        super(ai, wi, si);
         this.distance = si.getClearRepairDistance();
     }
 

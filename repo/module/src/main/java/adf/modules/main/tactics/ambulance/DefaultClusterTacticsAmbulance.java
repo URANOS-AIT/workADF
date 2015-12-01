@@ -13,7 +13,6 @@ import adf.component.algorithm.path.PathPlanner;
 import adf.component.algorithm.target.TargetSelector;
 import adf.component.tactics.TacticsAmbulance;
 import adf.modules.main.algorithm.cluster.PathBasedKMeans;
-import adf.modules.main.algorithm.cluster.StandardKMeans;
 import adf.modules.main.algorithm.path.DefaultPathPlanner;
 import adf.modules.main.algorithm.target.SearchBuildingSelector;
 import adf.modules.main.algorithm.target.VictimSelector;
@@ -51,10 +50,10 @@ public class DefaultClusterTacticsAmbulance extends TacticsAmbulance {
                 StandardEntityURN.GAS_STATION,
                 StandardEntityURN.BUILDING
         );
-        this.pathPlanner = new DefaultPathPlanner(worldInfo, agentInfo, scenarioInfo);
-        this.victimSelector = new VictimSelector(worldInfo, agentInfo, scenarioInfo);
-        this.buildingSelector = new SearchBuildingSelector(worldInfo, agentInfo, scenarioInfo, this.pathPlanner);
-        this.clustering = new PathBasedKMeans(worldInfo, agentInfo, scenarioInfo, worldInfo.getEntitiesOfType(
+        this.pathPlanner = new DefaultPathPlanner(agentInfo, worldInfo, scenarioInfo);
+        this.victimSelector = new VictimSelector(agentInfo, worldInfo, scenarioInfo);
+        this.buildingSelector = new SearchBuildingSelector(agentInfo, worldInfo, scenarioInfo, this.pathPlanner);
+        this.clustering = new PathBasedKMeans(agentInfo, worldInfo, scenarioInfo, worldInfo.getEntitiesOfType(
                 StandardEntityURN.ROAD,
                 StandardEntityURN.HYDRANT,
                 StandardEntityURN.REFUGE,
@@ -80,13 +79,13 @@ public class DefaultClusterTacticsAmbulance extends TacticsAmbulance {
                 StandardEntityURN.GAS_STATION,
                 StandardEntityURN.BUILDING
         );
-        this.pathPlanner = new DefaultPathPlanner(worldInfo, agentInfo, scenarioInfo);
-        this.victimSelector = new VictimSelector(worldInfo, agentInfo, scenarioInfo);
-        this.buildingSelector = new SearchBuildingSelector(worldInfo, agentInfo, scenarioInfo, this.pathPlanner);
+        this.pathPlanner = new DefaultPathPlanner(agentInfo, worldInfo, scenarioInfo);
+        this.victimSelector = new VictimSelector(agentInfo, worldInfo, scenarioInfo);
+        this.buildingSelector = new SearchBuildingSelector(agentInfo, worldInfo, scenarioInfo, this.pathPlanner);
         this.pathPlanner.resume(precomputeData);
         this.victimSelector.resume(precomputeData);
         this.buildingSelector.resume(precomputeData);
-        this.clustering = new PathBasedKMeans(worldInfo, agentInfo, scenarioInfo, null);
+        this.clustering = new PathBasedKMeans(agentInfo, worldInfo, scenarioInfo, null);
         this.clustering.resume(precomputeData);
     }
 
@@ -102,10 +101,10 @@ public class DefaultClusterTacticsAmbulance extends TacticsAmbulance {
                 StandardEntityURN.GAS_STATION,
                 StandardEntityURN.BUILDING
         );
-        this.pathPlanner = new DefaultPathPlanner(worldInfo, agentInfo, scenarioInfo);
-        this.victimSelector = new VictimSelector(worldInfo, agentInfo, scenarioInfo);
-        this.buildingSelector = new SearchBuildingSelector(worldInfo, agentInfo, scenarioInfo, this.pathPlanner);
-        this.clustering = new StandardKMeans(worldInfo, agentInfo, scenarioInfo, worldInfo.getEntitiesOfType(
+        this.pathPlanner = new DefaultPathPlanner(agentInfo, worldInfo, scenarioInfo);
+        this.victimSelector = new VictimSelector(agentInfo, worldInfo, scenarioInfo);
+        this.buildingSelector = new SearchBuildingSelector(agentInfo, worldInfo, scenarioInfo, this.pathPlanner);
+        this.clustering = new PathBasedKMeans(agentInfo, worldInfo, scenarioInfo, worldInfo.getEntitiesOfType(
                 StandardEntityURN.ROAD,
                 StandardEntityURN.HYDRANT,
                 StandardEntityURN.REFUGE,
@@ -126,6 +125,8 @@ public class DefaultClusterTacticsAmbulance extends TacticsAmbulance {
         if (injured != null) {
             return new ActionTransport(worldInfo, agentInfo, this.pathPlanner, injured).calc().getAction();
         }
+
+
 
         // Go through targets (sorted by distance) and check for things we can do
         EntityID target = this.victimSelector.calc().getTarget();

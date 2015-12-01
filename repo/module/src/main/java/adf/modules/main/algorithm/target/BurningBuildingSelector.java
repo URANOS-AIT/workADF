@@ -16,8 +16,8 @@ public class BurningBuildingSelector extends TargetSelector<Building> {
 
     private EntityID result;
 
-    public BurningBuildingSelector(WorldInfo wi, AgentInfo ai, ScenarioInfo si) {
-        super(wi, ai, si);
+    public BurningBuildingSelector(AgentInfo ai, WorldInfo wi, ScenarioInfo si) {
+        super(ai, wi, si);
     }
 
     @Override

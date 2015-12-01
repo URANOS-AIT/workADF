@@ -14,7 +14,7 @@ public abstract class TargetSelector<E extends StandardEntity> {
     protected AgentInfo agentInfo;
     protected WorldInfo worldInfo;
 
-    public TargetSelector(WorldInfo wi, AgentInfo ai, ScenarioInfo si) {
+    public TargetSelector(AgentInfo ai, WorldInfo wi, ScenarioInfo si) {
         this.worldInfo = wi;
         this.agentInfo = ai;
         this.scenarioInfo = si;

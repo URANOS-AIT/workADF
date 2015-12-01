@@ -45,9 +45,9 @@ public class DefaultTacticsAmbulance extends TacticsAmbulance {
                 StandardEntityURN.GAS_STATION,
                 StandardEntityURN.BUILDING
         );
-        this.pathPlanner = new DefaultPathPlanner(worldInfo, agentInfo, scenarioInfo);
-        this.victimSelector = new VictimSelector(worldInfo, agentInfo, scenarioInfo);
-        this.buildingSelector = new SearchBuildingSelector(worldInfo, agentInfo, scenarioInfo, this.pathPlanner);
+        this.pathPlanner = new DefaultPathPlanner(agentInfo, worldInfo, scenarioInfo);
+        this.victimSelector = new VictimSelector(agentInfo, worldInfo, scenarioInfo);
+        this.buildingSelector = new SearchBuildingSelector(agentInfo, worldInfo, scenarioInfo, this.pathPlanner);
         this.pathPlanner.precompute(precomputeData);
         this.victimSelector.precompute(precomputeData);
         this.buildingSelector.precompute(precomputeData);
@@ -73,9 +73,9 @@ public class DefaultTacticsAmbulance extends TacticsAmbulance {
                 StandardEntityURN.GAS_STATION,
                 StandardEntityURN.BUILDING
         );
-        this.pathPlanner = new DefaultPathPlanner(worldInfo, agentInfo, scenarioInfo);
-        this.victimSelector = new VictimSelector(worldInfo, agentInfo, scenarioInfo);
-        this.buildingSelector = new SearchBuildingSelector(worldInfo, agentInfo, scenarioInfo, this.pathPlanner);
+        this.pathPlanner = new DefaultPathPlanner(agentInfo, worldInfo, scenarioInfo);
+        this.victimSelector = new VictimSelector(agentInfo, worldInfo, scenarioInfo);
+        this.buildingSelector = new SearchBuildingSelector(agentInfo, worldInfo, scenarioInfo, this.pathPlanner);
     }
 
     @Override

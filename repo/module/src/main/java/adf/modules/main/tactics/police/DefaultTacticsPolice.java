@@ -32,9 +32,9 @@ public class DefaultTacticsPolice extends TacticsPolice {
     @Override
     public void precompute(AgentInfo agentInfo, WorldInfo worldInfo, ScenarioInfo scenarioInfo, PrecomputeData precomputeData) {
         worldInfo.indexClass(StandardEntityURN.ROAD, StandardEntityURN.HYDRANT, StandardEntityURN.REFUGE, StandardEntityURN.BLOCKADE);
-        this.pathPlanner = new DefaultPathPlanner(worldInfo, agentInfo, scenarioInfo);
-        this.blockadeSelector = new BlockadeSelector(worldInfo, agentInfo, scenarioInfo);
-        this.buildingSelector = new SearchBuildingSelector(worldInfo, agentInfo, scenarioInfo, this.pathPlanner);
+        this.pathPlanner = new DefaultPathPlanner(agentInfo, worldInfo, scenarioInfo);
+        this.blockadeSelector = new BlockadeSelector(agentInfo, worldInfo, scenarioInfo);
+        this.buildingSelector = new SearchBuildingSelector(agentInfo, worldInfo, scenarioInfo, this.pathPlanner);
         this.pathPlanner.precompute(precomputeData);
         this.blockadeSelector.precompute(precomputeData);
         this.buildingSelector.precompute(precomputeData);
@@ -51,9 +51,9 @@ public class DefaultTacticsPolice extends TacticsPolice {
     @Override
     public void preparate(AgentInfo agentInfo, WorldInfo worldInfo, ScenarioInfo scenarioInfo) {
         worldInfo.indexClass(StandardEntityURN.ROAD, StandardEntityURN.HYDRANT, StandardEntityURN.REFUGE, StandardEntityURN.BLOCKADE);
-        this.pathPlanner = new DefaultPathPlanner(worldInfo, agentInfo, scenarioInfo);
-        this.blockadeSelector = new BlockadeSelector(worldInfo, agentInfo, scenarioInfo);
-        this.buildingSelector = new SearchBuildingSelector(worldInfo, agentInfo, scenarioInfo, this.pathPlanner);
+        this.pathPlanner = new DefaultPathPlanner(agentInfo, worldInfo, scenarioInfo);
+        this.blockadeSelector = new BlockadeSelector(agentInfo, worldInfo, scenarioInfo);
+        this.buildingSelector = new SearchBuildingSelector(agentInfo, worldInfo, scenarioInfo, this.pathPlanner);
     }
 
     @Override

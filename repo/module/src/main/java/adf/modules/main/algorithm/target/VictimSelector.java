@@ -16,8 +16,8 @@ public class VictimSelector extends TargetSelector<Human>{
 
     private EntityID result;
 
-    public VictimSelector(WorldInfo wi, AgentInfo ai, ScenarioInfo si) {
-        super(wi, ai, si);
+    public VictimSelector(AgentInfo ai, WorldInfo wi, ScenarioInfo si) {
+        super(ai, wi, si);
     }
 
     @Override

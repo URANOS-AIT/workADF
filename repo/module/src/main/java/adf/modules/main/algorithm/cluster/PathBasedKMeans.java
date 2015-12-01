@@ -28,16 +28,28 @@ public class PathBasedKMeans extends Clustering{
     protected List<StandardEntity> centerList;
     protected List<List<StandardEntity>> clusterEntityList;
 
+    private boolean assignAgentsFlag;
+
     private int repeat = 10;
 
     private Map<EntityID, Set<EntityID>> shortestPathGraph;
 
-    public PathBasedKMeans(WorldInfo wi, AgentInfo ai, ScenarioInfo si, Collection<StandardEntity> elements) {
-        super(wi, ai, si, elements);
+    public PathBasedKMeans(AgentInfo ai, WorldInfo wi, ScenarioInfo si, Collection<StandardEntity> elements, boolean assignAgentsFlag) {
+        super(ai, wi, si, elements);
+        this.assignAgentsFlag = assignAgentsFlag;
     }
 
-    public PathBasedKMeans(WorldInfo wi, AgentInfo ai, ScenarioInfo si, Collection<StandardEntity> elements, int size) {
-        super(wi, ai, si, elements, size);
+    public PathBasedKMeans(AgentInfo ai, WorldInfo wi, ScenarioInfo si, Collection<StandardEntity> elements, int size, boolean assignAgentsFlag) {
+        super(ai, wi, si, elements, size);
+        this.assignAgentsFlag = assignAgentsFlag;
+    }
+
+    public PathBasedKMeans(AgentInfo ai, WorldInfo wi, ScenarioInfo si, Collection<StandardEntity> elements) {
+        this(ai, wi, si, elements, true);
+    }
+
+    public PathBasedKMeans(AgentInfo ai, WorldInfo wi, ScenarioInfo si, Collection<StandardEntity> elements, int size) {
+        this(ai, wi, si, elements, size, true);
     }
 
     @Override
@@ -157,7 +169,47 @@ public class PathBasedKMeans extends Clustering{
         }
 
         this.clusterEntityList.sort(comparing(List::size, reverseOrder()));
+
+        if(this.assignAgentsFlag) {
+            List<StandardEntity> firebrigadeList = new ArrayList<>(this.worldInfo.getEntitiesOfType(StandardEntityURN.FIRE_BRIGADE));
+            List<StandardEntity> policeforceList = new ArrayList<>(this.worldInfo.getEntitiesOfType(StandardEntityURN.POLICE_FORCE));
+            List<StandardEntity> ambulanceteamList = new ArrayList<>(this.worldInfo.getEntitiesOfType(StandardEntityURN.AMBULANCE_TEAM));
+
+            this.assignAgents(this.worldInfo, firebrigadeList);
+            this.assignAgents(this.worldInfo, policeforceList);
+            this.assignAgents(this.worldInfo, ambulanceteamList);
+        }
         return this;
+    }
+
+    private void assignAgents(WorldInfo world, List<StandardEntity> agentList) {
+        int clusterIndex = 0;
+        while (agentList.size() > 0) {
+            StandardEntity center = this.centerList.get(clusterIndex);
+            StandardEntity agent = this.getNearAgent(world, agentList, center);
+            this.clusterEntityList.get(clusterIndex).add(agent);
+            agentList.remove(agent);
+            clusterIndex++;
+            if (clusterIndex >= this.clusterSize) {
+                clusterIndex = 0;
+            }
+        }
+    }
+
+    private StandardEntity getNearAgent(WorldInfo worldInfo, List<StandardEntity> srcAgentList, StandardEntity targetEntity) {
+        StandardEntity result = null;
+        for (StandardEntity agent : srcAgentList) {
+            Human human = (Human)agent;
+            if (result == null) {
+                result = agent;
+            }
+            else {
+                if (this.comparePathDistance(worldInfo, targetEntity, result, worldInfo.getPosition(human)).equals(worldInfo.getPosition(human))) {
+                    result = agent;
+                }
+            }
+        }
+        return result;
     }
 
     private StandardEntity getNearEntity(WorldInfo worldInfo, List<StandardEntity> srcEntityList, int targetX, int targetY) {
